@@ -1,0 +1,12 @@
+@ngdoc overview
+
+@name Docs Top
+
+@description
+
+<div class="jumbotron">
+	<h1>Angular Dashboard Fluance</h1>
+    <p>Lorem ipsum Sit ea aliqua ad ea sunt et fugiat tempor velit commodo dolor aute incididunt velit exercitation do cupidatat dolor sint nostrud in in sint veniam eiusmod aute aliquip enim eiusmod commodo ea.</p>
+    <p><a class="btn btn-primary btn-lg" href="guide" role="button">Get started</a></p>
+</div>
+
