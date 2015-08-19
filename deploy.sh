@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "DEPLOY"
-github_user=`git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'`
-echo ${github_user}
-echo $github_user
+github_user2=`git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'`
+github_user=${${github_user2##*com/}%/*}
+echo github_user
 git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'
 if [ "$github_user" == "sebastienbarbier" ]; then
     cd build_docs
