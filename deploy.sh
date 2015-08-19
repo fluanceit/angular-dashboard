@@ -1,7 +1,7 @@
 #!/bin/bash
 
 github_user=`git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'`
-if [ "$github_user" == "sebastienbarbier" ]; then
+if [ "$github_user" == "fluanceit" ]; then
     cd build_docs
     git init
     git config user.name "Travis CI"
