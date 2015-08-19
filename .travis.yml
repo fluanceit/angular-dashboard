@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '0.12'
+install:
+- npm install
+- bower install
+before_script:
+- chmod +x ./deploy.sh
+script:
+- gulp doc
+after_success:
+- bash ./deploy.sh
+env:
+  global:
+  - GH_REF: github.com/fluanceit/angular-dashboard.git
+  - secure: BqaDob5vPVB/IKO8HpQQfYzVh5CqoJuz06LrZ3Z2+MC3XCx/iArmPFnpFsNsY25/Lc5d75x8oeXpa1AjrZiPM+n4LKMMHPGJGzyOalu4B4SAHfJ77o4f37U5RcaeninuTqb+j4wDiF9hSdW2gGaEPUWsYcF1a6ZztvV/mIJXU0J00ZQbJGyrkJErggMflzs7XkdOL1pkTs5vKsVU8a1B2suz0Lq0QdP2ACmhOGJyLfD9LSXwIGaEMOCKB9+WVGsuAQgdMvmQGuvgZwIVRHjMF6Vjf3KOFEqHUdgWe0GeyfLUj1f4WZOTE6aG6oX3MePlLv+B2Q1IDHTIUmdrIQkTcpO4pGSGi+pRpUDJ1NOeH+zevBvhS+Hiz89uo8KGoEJvUXz4oztTW5hvHweugbcEZFsrjdyBuBR3urs9qXp2TR84ht5odgbKgkZ7nfjV+rXgonemsseTAMmZ10Ik95R2e5n5OeZdYZX8SpXp0XRj/V+7RXHpF0TYnK74qXVBefdl+28yJ8PkC7531UAIkJ0fg8Wc4Bp1waBYwI7LzFJKsQgGiTl+J6ghO/Wph2v9DlVr4gHJzfVlYTrAjh178ATqT009t0uYK3PvW9TEtH9Q8WMym4UsFnsfV8AVxky0KpWxXs236MtSw28aMArGyXHRawAUPn8aKJOAElbeu4pudK0=
