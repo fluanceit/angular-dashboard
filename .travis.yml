@@ -6,6 +6,7 @@ install:
 - bower install
 before_script:
 - chmod +x ./deploy.sh
+- git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'
 script:
 - gulp doc
 after_success:
