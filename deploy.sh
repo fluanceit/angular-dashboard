@@ -1,7 +1,9 @@
 #!/bin/bash
 echo "DEPLOY"
 github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.*$//g'`
-if [ "$github_user" == "fluanceit" ]; then
+github_branch=`git rev-parse --abbrev-ref HEAD`
+echo $github_user " in " $github_branch
+if [ "$github_user" == "fluanceit" ] && [ "$github_branch" == "master" ]; then
     cd build_docs
     git init
     git config user.name "Travis CI"
