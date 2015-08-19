@@ -15,7 +15,7 @@ script:
 after_success:
  - bash ./deploy.sh
 
- env:
+env:
   global:
   - GH_REF: github.com/fluanceit/angular-dashboard.git
   - secure: "BCU9l1P7F608z8GrorffkGsyxQdRZv6Y5mNBjN6JcrP69Y+sVbQsr1vS2NatOPY68e8DkvmxQP4qB4D/nlD1DjqWRMxRvzJw1Y3qsKAoOuGa+ETORJ89dlzTiZmBVhr7QxkN6LgHXv8iombaF5Zqjq9Y1XUAkWfgoXJck2a0K6q63YUMCnamnjrCR5rFDFaK4DN/abYIwg+tZKS3sc5Xw84b+RsZkilGQgw6/Nb6hLKPHfabHIdUR1abMfoYhR63SKqVu2srSBoAHVQD9EHHr2V4P5w94p12LUg+iNl4g3SqwSpP+0Z0+x7NMcpe1vtylpqY+T9DF/nP4lmN1PU0WiSD0APJ/99CVzEm7IPzC6uvfMWxp35ouxmomuraK3uUwop/+0Y+COxBgFATU+UytwRMrp/dbOFEVxnRgWSYSZk0fdeukG9epyInO4SUnUI5lCrAg0J6kKa+6CZLMmstankb+qioYNTgi73Y0wkJFxRHB+U7wV6RW6Wzn95m34MPCqoaR2APjGjD09kUUmR8GDFmeXFvQkp/uoKSnR17Y8zubTDVumiaxyaU7izHzKNI8IbEdfLBixB/8L1k574ZXA/BxwouQ8hlDE3qs+LeCTg3i7T74weyPlQDis1iDhb2rIvajqIqbETfOa8ScSwS12H+euN+xhF3Nsm1G/1TXPQ="
