@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "DEPLOY"
 github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.*$//g'`
-github_branch=`git rev-parse --abbrev-ref HEAD`
+github_branch=`git symbolic-ref --short HEAD`
 echo $github_user " in " $github_branch
 if [ "$github_user" == "fluanceit" ] && [ "$github_branch" == "master" ]; then
     cd build_docs
