@@ -1,6 +1,6 @@
 #!/bin/bash
-
-github_user=`git remote -v | grep push | sed -e 's/^.*://g' -e 's/\/.*$//g'`
+echo "DEPLOY"
+github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.*$//g'`
 if [ "$github_user" == "fluanceit" ]; then
     cd build_docs
     git init
