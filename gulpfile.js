@@ -69,7 +69,7 @@ function startTests(singleRun, done) {
 /**
  * serve the dev environment
  */
-gulp.task('serve', [], function() {
+gulp.task('serve', ['sass'], function() {
     serve({
         mode: 'dev',
         file: 'simple'
@@ -99,6 +99,7 @@ function serve(args) {
     return plug.nodemon(options)
         .on('start', function() {
             startBrowserSync();
+            gulp.watch('./src/**/*.scss', ['sass']);
         })
         //.on('change', tasks)
         .on('restart', function() {
