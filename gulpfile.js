@@ -2,7 +2,13 @@
 var gulp = require('gulp');
 
 var plug = require('gulp-load-plugins')();
-
+var log = plug.util.log;
+var env = plug.util.env;
+// Our server for dev
+var express = require('express');
+var app = express();
+var browserSync = require('browser-sync');
+var server_port = process.env.PORT || 8001;
 // Load docs tasks
 require('require-dir')('./docs');
 
@@ -47,4 +53,84 @@ function startTests(singleRun, done) {
         }
         done();
     }
+}
+
+/**
+ * serve the dev environment
+ */
+gulp.task('serve', [], function() {
+    serve({
+        mode: 'dev',
+        file: 'simple'
+    });
+});
+
+/**
+ * Start the node server using nodemon.
+ * Optionally start the node debugging.
+ * @param  {Object} args - debugging arguments
+ * @return {Stream}
+ */
+function serve(args) {
+
+    var server = './scripts/';
+
+    var options = {
+        script: server + 'app.js',
+        delayTime: 1,
+        env: {
+            'NODE_ENV': args.mode,
+            'PORT': server_port
+        },
+        watch: [server]
+    };
+
+    return plug.nodemon(options)
+        .on('start', function() {
+            startBrowserSync();
+        })
+        //.on('change', tasks)
+        .on('restart', function() {
+            log('restarted!');
+            setTimeout(function() {
+                browserSync.reload({
+                    stream: false
+                });
+            }, 1000);
+        });
+}
+
+/**
+ * Start BrowserSync
+ */
+function startBrowserSync() {
+    if (!env.sync || browserSync.active) {
+        return;
+    }
+
+    var filestowatch = [
+        './demos/**/*.html',
+        './src/**/*.js',
+        './src/**/*.css',
+        './src/**/*.html',
+        './src/**/*.json',
+        './src/content/images/**/*.*'
+      ];
+
+    log('Starting BrowserSync on port ' + server_port);
+    browserSync({
+        proxy: 'localhost:' + server_port,
+        port: 3000,
+        files: filestowatch,
+        ghostMode: { // these are the defaults t,f,t,t
+            clicks: true,
+            location: false,
+            forms: true,
+            scroll: true
+        },
+        logLevel: 'debug',
+        logPrefix: 'gulp-patterns',
+        notify: false,
+        reloadDelay: 1000
+    });
 }

@@ -5,12 +5,12 @@ install:
 - npm install
 - bower install
 before_script:
-- chmod +x ./deploy.sh
+- chmod +x ./scripts/deploy.sh
 script:
 - gulp test
 - gulp doc
 after_success:
-- bash ./deploy.sh
+- bash ./scripts/deploy.sh
 env:
   global:
   - GH_REF: github.com/fluanceit/angular-dashboard.git
