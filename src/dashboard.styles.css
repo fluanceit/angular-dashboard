@@ -2,6 +2,7 @@
 .dashboard {
     width: 1000px;
     margin: auto;
+    position: relative;
 }
 
 .column {
@@ -16,11 +17,16 @@
 }
 
 .dashboard-component .extended {
-    display: block;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: red;
 }
 
 .dashboard-component .settings {
-    display: block;
+    display: none;
 }
 
 a {
