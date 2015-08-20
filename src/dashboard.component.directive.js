@@ -18,13 +18,19 @@
 
                     scope.data = scope.component;
 
-                    scope.openSettings = function () {
+                    scope.openExtended = function () {
                         scope.dashboard.isExtended = true;
                         scope.component.isExtended = true;
                     };
-                    scope.closeSettings = function () {
+                    scope.closeExtended = function () {
                         scope.dashboard.isExtended = false;
                         scope.component.isExtended = false;
+                    };
+                    scope.openSettings = function () {
+                        scope.component.displaySettings = true;
+                    };
+                    scope.closeSettings = function () {
+                        scope.component.displaySettings = false;
                     };
                 }
             };

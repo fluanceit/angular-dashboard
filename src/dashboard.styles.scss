@@ -14,6 +14,8 @@
     margin: 10px 10px;
     box-sizing: border-box;
     background: red;
+    transition: transform 0.5s linear;
+
 
     .extended {
         position: absolute;
@@ -24,7 +26,7 @@
     }
 
     .settings {
-        display: none;
+
     }
 }
 

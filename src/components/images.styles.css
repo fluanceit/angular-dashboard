@@ -1,0 +1,15 @@
+.image-component {
+    text-align: center;
+}
+
+.image-component img {
+    width: 50%;
+}
+
+.image-component-extended {
+    text-align: center;
+}
+
+.image-component-extended img {
+    min-height: 500px;
+}
