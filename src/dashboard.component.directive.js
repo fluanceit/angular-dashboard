@@ -10,7 +10,8 @@
             return {
                 restrict: 'E',
                 scope: {
-                    'component': '='
+                    'component': '=',
+                    'dashboard': '='
                 },
                 templateUrl: 'src/dashboard.component.directive.html',
                 link: function(scope, element, attrs) {
@@ -18,7 +19,12 @@
                     scope.data = scope.component;
 
                     scope.openSettings = function () {
-                        alert('Open Settings ' + scope.component.id);
+                        scope.dashboard.isExtended = true;
+                        scope.component.isExtended = true;
+                    };
+                    scope.closeSettings = function () {
+                        scope.dashboard.isExtended = false;
+                        scope.component.isExtended = false;
                     };
                 }
             };

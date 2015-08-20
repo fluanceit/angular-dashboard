@@ -30,6 +30,8 @@
                 nbColumns: 2,
                 nbComponent: 0,
 
+                isExtended: false,
+
                 /**
                  * @ngdoc property
                  * @name dashboard#components
