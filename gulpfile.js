@@ -11,12 +11,23 @@ var browserSync = require('browser-sync');
 var server_port = process.env.PORT || 8001;
 // Load docs tasks
 require('require-dir')('./docs');
+// Generate a css file from the scss files
+var sass = require('gulp-sass');
 
 /**
  * Generate documentation‡
  */
 gulp.task('doc', ['docs:clean'], function() {
     gulp.start('docs:build');
+});
+
+/**
+ * Generate a css file from the scss files
+ */
+gulp.task('sass', function () {
+  gulp.src('./src/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./src'));
 });
 
 /**

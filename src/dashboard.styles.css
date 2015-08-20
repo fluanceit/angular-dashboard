@@ -1,40 +1,29 @@
-
 .dashboard {
-    width: 1000px;
-    margin: auto;
-    position: relative;
-}
+  width: 1000px;
+  margin: auto;
+  position: relative; }
 
 .column {
-    width: 50%;
-    float: left;
-}
+  width: 50%;
+  float: left; }
 
 .dashboard-component {
-    margin: 10px 10px;
-    box-sizing: border-box;
-    background: red;
-}
-
-.dashboard-component .extended {
+  margin: 10px 10px;
+  box-sizing: border-box;
+  background: red; }
+  .dashboard-component .extended {
     display: none;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    background: red;
-}
-
-.dashboard-component .settings {
-    display: none;
-}
+    background: red; }
+  .dashboard-component .settings {
+    display: none; }
 
 a {
+  padding: 0;
+  margin: 0; }
+  a img {
     padding: 0;
-    margin: 0;
-}
-
-a img {
-    padding: 0;
-    margin: 0;
-}
+    margin: 0; }
