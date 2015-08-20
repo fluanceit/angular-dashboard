@@ -1,6 +1,13 @@
 
-<div id="component.id" class="dashboard-component">
-    <div class="default" ng-include="component.templates.default"></div>
-    <div class="extended" ng-include="component.templates.extended"></div>
-    <div class="settings" ng-include="component.templates.settings"></div>
+<div class="dashboard">
+
+    <div class="column" ng-repeat="column in columns">
+
+        <div ng-repeat="component in column">
+
+            <display-component component="component"></display-component>
+
+        </div>
+    </div>
+
 </div>
