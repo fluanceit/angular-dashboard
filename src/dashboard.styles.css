@@ -1,0 +1,34 @@
+
+.dashboard {
+    width: 1000px;
+    margin: auto;
+}
+
+.column {
+    width: 50%;
+    float: left;
+}
+
+.dashboard-component {
+    margin: 10px 10px;
+    box-sizing: border-box;
+    background: red;
+}
+
+.dashboard-component .extended {
+    display: block;
+}
+
+.dashboard-component .settings {
+    display: block;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+}
+
+a img {
+    padding: 0;
+    margin: 0;
+}
