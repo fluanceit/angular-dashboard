@@ -27,10 +27,18 @@
 
                 var dashboard = fluanceDashboard.get('simple-demo');
 
-                dashboard.add(new ImageComponent('https://images.unsplash.com/photo-1438368915865-a852ef86fc42?q=80&fm=jpg&w=200&fit=max'), 2);
-                dashboard.add(new ImageComponent('https://images.unsplash.com/photo-1437572848259-df63caa1a552?q=80&fm=jpg&w=200&fit=max'), 1);
-                dashboard.add(new ImageComponent('https://images.unsplash.com/photo-1437422061949-f6efbde0a471?q=80&fm=jpg&w=200&fit=max'));
+                dashboard.add(new ImageComponent({url:'https://images.unsplash.com/photo-1438368915865-a852ef86fc42?q=80&fm=jpg&w=200&fit=max'}), 2);
+                dashboard.add(new ImageComponent({url:'https://images.unsplash.com/photo-1437572848259-df63caa1a552?q=80&fm=jpg&w=200&fit=max'}), 1);
+                dashboard.add(new ImageComponent({url:'https://images.unsplash.com/photo-1437422061949-f6efbde0a471?q=80&fm=jpg&w=200&fit=max'}));
 
+                var savedString = dashboard.saveAsString();
+
+                var dashboard2 = fluanceDashboard.get('asdf');
+                dashboard2.createFromString(savedString);
+
+                var savedString2 = dashboard2.saveAsString();
+
+                console.log(savedString === savedString2);
             }]);
         </script>
     </body>
