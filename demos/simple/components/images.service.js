@@ -1,9 +1,11 @@
 (function() {
     'use strict';
 
+    var componentName = 'imagesComponent';
+
     angular
         .module('dashboard')
-        .service('imagesComponent', ImagesComponent);
+        .service(componentName, ImagesComponent);
 
     ImagesComponent.$inject = [];
 
@@ -17,12 +19,12 @@
      *
      */
     function ImagesComponent() {
-
         // Return a function to be used as new User();
-        return function (url) {
+        return function(params) {
             return {
                 // SOME DATA, NOT REQUIRED
-                url: url,
+                name: componentName,
+                params: params,
                 /**
                  * @ngdoc property
                  * @name imagesComponent#template
@@ -34,7 +36,6 @@
                     'settings': '/demos/simple/components/images.templates.settings.html'
                 }
             };
-
         };
 
     }
