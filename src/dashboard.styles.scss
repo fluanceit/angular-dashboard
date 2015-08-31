@@ -13,7 +13,6 @@
 .dashboard-component {
     margin: 10px 10px;
     box-sizing: border-box;
-    background: red;
     transition: transform 0.5s linear;
     overflow: auto;
 
@@ -22,7 +21,6 @@
         top: 0;
         left: 0;
         right: 0;
-        background: red;
     }
 
     .settings {

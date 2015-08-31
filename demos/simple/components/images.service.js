@@ -29,9 +29,9 @@
                  * @description URL to display
                  */
                 templates: {
-                    'default' : '/src/components/images.templates.html',
-                    'extended': '/src/components/images.templates.extended.html',
-                    'settings': '/src/components/images.templates.settings.html'
+                    'default' : '/demos/simple/components/images.templates.html',
+                    'extended': '/demos/simple/components/images.templates.extended.html',
+                    'settings': '/demos/simple/components/images.templates.settings.html'
                 }
             };
 
