@@ -25,7 +25,6 @@
     "angular": "~1.4.4",
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.5",
-    "modernizr": "~2.8.3",
     "google-code-prettify": "~1.0.4",
     "angular-bootstrap": "~0.13.3"
   }
