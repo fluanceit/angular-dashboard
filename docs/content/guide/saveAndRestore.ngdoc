@@ -1,0 +1,55 @@
+@ngdoc overview
+@name Save and restore
+@priority 110
+@description
+
+# Save and restore
+## Starting point
+    var dashboard = fluanceDashboard.get('simple-demo');
+
+    dashboard.add(new ImageComponent({
+        url: 'http://myimage.com/image1.png'
+    }), 2);
+    dashboard.add(new ImageComponent({
+        url: 'http://myimage.com/image2.png'
+    }), 1);
+    dashboard.add(new ImageComponent({
+        url: 'http://myimage.com/image3.png'
+    }));
+
+## Save the dashboard
+To save the current dashboard you have to use the function "saveAsString" on the dashboard.
+
+    var savedString = dashboard.saveAsString();
+
+You will get a String with "JSON.stringify" with the following structure (for this example):
+
+    [
+        [{
+            "name": "imagesComponent",
+            "params": {
+                "url": "http://myimage.com/image1.png"
+            }
+        }, {
+            "name": "imagesComponent",
+            "params": {
+                "url": "http://myimage.com/image2.png"
+            }
+        }],
+        [{
+            "name": "imagesComponent",
+            "params": {
+                "url": "http://myimage.com/image3.png"
+            }
+        }]
+    ]
+
+## Restore the dashboard
+To restore a dashboard you have to use the function "createFromString" on a dashboard. It will parse your String with "JSON.parse".
+
+You have to pass the String which you want to use for restoring the dashboard.
+
+In the following code we will use the String that we saved in the "Save the dashboard" example.
+
+    var dashboardRestore = fluanceDashboard.get('simple-restore-demo');
+    dashboardRestore.createFromString(savedString);
