@@ -39,10 +39,17 @@
                  */
                 columns: [],
 
+                // Here are stored option to manage our dashboard.
+                options: {
+                    // Full width of entiere dashboard
+                    width: 'auto'
+                },
+
                 /**
                  * List of function to add
                  */
                 add: add,
+                set: set,
                 saveAsString: saveAsString,
                 createFromString: createFromString
             };
@@ -69,6 +76,19 @@
                 }
                 // Add in column
                 dashboardObject.columns[column % dashboardObject.nbColumns].push(component);
+            }
+
+            /**
+             * Set dashboard options.
+             */
+            function set(newOptions) {
+                // For each new option we override current one.
+
+                console.log(newOptions);
+
+                Object.keys(newOptions).forEach(function (key) {
+                    dashboardObject.options[key] = newOptions[key];
+                });
             }
 
             /**

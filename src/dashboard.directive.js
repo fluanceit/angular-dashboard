@@ -10,11 +10,17 @@
             return {
                 restrict: 'E',
                 scope: {
-                    'id': '@'
+                    'id': '@',
+                    'width': '@'
                 },
                 templateUrl: 'src/dashboard.directive.html',
                 link: function(scope, element, attrs) {
                     scope.dashboard = dashboardFactory.get(scope.id);
+
+                    scope.dashboard.set({
+                        'width': scope['width']
+                    });
+
                     scope.columns = dashboardFactory.get(scope.id).columns;
                 }
             };
