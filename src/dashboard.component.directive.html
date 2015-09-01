@@ -6,5 +6,5 @@
         ng-hide="dashboard.isExtended || component.displaySettings">
     </div>
     <div class="extended" ng-include="component.templates.extended" ng-show="component.isExtended"></div>
-    <div class="settings" ng-include="component.templates.settings" ng-show="component.displaySettings"></div>
+    <div class="settings" ng-include="component.templates.settings" ng-show="component.displaySettings && !dashboard.isExtended"></div>
 </div>
