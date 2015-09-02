@@ -11,17 +11,23 @@
                 restrict: 'E',
                 scope: {
                     'id': '@',
-                    'width': '@'
+                    'width': '@',
+                    'columns': '@',
+                    'columnsMinWidth': '@'
                 },
                 templateUrl: 'src/dashboard.directive.html',
                 link: function(scope, element, attrs) {
                     scope.dashboard = dashboardFactory.get(scope.id);
 
+                    console.log(scope);
+
                     scope.dashboard.set({
-                        'width': scope['width']
+                        'width': scope['width'],
+                        'columns': scope['columns'],
+                        'columnsMinWidth': scope['columnsMinWidth']
                     });
 
-                    scope.columns = dashboardFactory.get(scope.id).columns;
+                    scope.grid = dashboardFactory.get(scope.id).grid;
                 }
             };
         }]);

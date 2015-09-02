@@ -22,27 +22,21 @@
         return function(params) {
             var DEFAULT_DASHBOARD = {
                 id: null,
-                /**
-                 * @ngdoc property
-                 * @name dashboard#columns
-                 * @description Number of columns to display
-                 */
-                nbColumns: 2,
+
                 nbComponent: 0,
 
                 isExtended: false,
 
-                /**
-                 * @ngdoc property
-                 * @name dashboard#components
-                 * @description List of component to display
-                 */
-                columns: [],
+                grid: [],
 
                 // Here are stored option to manage our dashboard.
                 options: {
                     // Full width of entiere dashboard
-                    width: 'auto'
+                    'width': 'auto',
+                    // Number of columns in dashboard
+                    'columns': '2',
+                    // Min widht of columns.
+                    'columnsMinWidth': null
                 },
 
                 /**
@@ -71,11 +65,11 @@
                 component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
                 dashboardObject.nbComponent++;
                 // If nocolumn yet, create one.
-                if (!dashboardObject.columns[column % dashboardObject.nbColumns]) {
-                    dashboardObject.columns[column % dashboardObject.nbColumns] = [];
+                if (!dashboardObject.grid[column]) {
+                    dashboardObject.grid[column] = [];
                 }
                 // Add in column
-                dashboardObject.columns[column % dashboardObject.nbColumns].push(component);
+                dashboardObject.grid[column].push(component);
             }
 
             /**
@@ -87,7 +81,9 @@
                 console.log(newOptions);
 
                 Object.keys(newOptions).forEach(function (key) {
-                    dashboardObject.options[key] = newOptions[key];
+                    if (newOptions[key]) {
+                        dashboardObject.options[key] = newOptions[key];
+                    }
                 });
             }
 
@@ -99,7 +95,7 @@
                 var tmpColumns = [];
                 var tmpColumn = [];
 
-                dashboardObject.columns.forEach(function(column) {
+                dashboardObject.grid.forEach(function(column) {
                     tmpColumn = [];
                     column.forEach(function(component) {
                         tmpColumn.push({

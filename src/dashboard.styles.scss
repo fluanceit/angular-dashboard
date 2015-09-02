@@ -6,12 +6,11 @@
 }
 
 .column {
-    width: 50%;
     float: left;
 }
 
 .dashboard-component {
-    margin: 10px 10px;
+    margin: 0px 10px;
     box-sizing: border-box;
     transition: transform 0.5s linear;
     overflow: auto;
@@ -35,5 +34,11 @@ a {
     img {
         padding: 0;
         margin: 0;
+    }
+}
+
+@for $i from 1 through 12 {
+    .grid-#{$i} {
+        width: 100%/$i;
     }
 }
