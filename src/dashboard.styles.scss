@@ -3,11 +3,12 @@
     width: 1000px;
     margin: auto;
     position: relative;
-}
 
-.column {
-    width: 50%;
-    float: left;
+    .column {
+        width: 50%;
+        float: left;
+        min-height: 100px;
+    }
 }
 
 .dashboard-component {
@@ -25,6 +26,10 @@
 
     .settings {
 
+    }
+
+    .sortable-handle {
+        cursor: move;
     }
 }
 
