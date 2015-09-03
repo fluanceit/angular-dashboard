@@ -42,3 +42,65 @@ a {
         margin: 0;
     }
 }
+
+.shake-effect {
+    -webkit-animation-name: shake;
+    -moz-animation-name: shake;
+    -ms-animation-name: shake;
+    -o-animation-name: shake;
+    animation-name: shake;
+
+    -webkit-animation-duration: 0.3s;
+    -moz-animation-duration: 0.3s;
+    -ms-animation-duration: 0.3s;
+    -o-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+
+    -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+@-webkit-keyframes shake {
+    0% { -webkit-transform: rotate(0deg); }
+    25% { -webkit-transform: rotate(-0.4deg); }
+    50% { -webkit-transform: rotate(0deg); }
+    75% { -webkit-transform: rotate(0.4deg); }
+    100% { -webkit-transform: rotate(0deg); }
+}
+
+@-moz-keyframes shake {
+    0% { -moz-transform: rotate(0deg); }
+    25% { -moz-transform: rotate(-0.4deg); }
+    50% { -moz-transform: rotate(0deg); }
+    75% { -moz-transform: rotate(0.4deg); }
+    100% { -moz-transform: rotate(0deg); }
+}
+
+@-o-keyframes shake {
+    0% { -o-transform: rotate(0deg); }
+    25% { -o-transform: rotate(-0.4deg); }
+    50% { -o-transform: rotate(0deg); }
+    75% { -o-transform: rotate(0.4deg); }
+    100% { -o-transform: rotate(0deg); }
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-0.4deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(0.4deg); }
+    100% { transform: rotate(0deg); }
+}
