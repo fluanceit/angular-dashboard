@@ -1,7 +1,9 @@
 
-<div class="dashboard" style="width: 100%; max-width: {{ dashboard.options.width }}">
+<div class="dashboard" style="max-width: {{ dashboard.options.width }}px;">
 
-    <div class="column grid-{{ dashboard.options.columns }}" style="min-width: {{ dashboard.options.columnsMinWidth }}" ng-repeat="column in grid">
+    <p>&nbsp;</p>
+
+    <div class="column" ng-repeat="column in grid" ng-style="{ 'width':columnsWidth }">
 
         <div ng-repeat="component in column">
 

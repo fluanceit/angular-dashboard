@@ -77,9 +77,6 @@
              */
             function set(newOptions) {
                 // For each new option we override current one.
-
-                console.log(newOptions);
-
                 Object.keys(newOptions).forEach(function (key) {
                     if (newOptions[key]) {
                         dashboardObject.options[key] = newOptions[key];

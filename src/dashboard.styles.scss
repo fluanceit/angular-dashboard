@@ -1,8 +1,13 @@
 
 .dashboard {
-    width: 1000px;
+    width: 100%;
     margin: auto;
     position: relative;
+    .columns {
+        width: 100%;
+        display: block;
+        clear: both;
+    }
 }
 
 .column {
