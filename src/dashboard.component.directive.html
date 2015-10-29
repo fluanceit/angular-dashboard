@@ -3,8 +3,8 @@
     <div
         class="default"
         ng-include="component.templates.default"
-        ng-hide="dashboard.isExtended || component.displaySettings">
+        ng-if="!dashboard.isExtended && !component.displaySettings">
     </div>
-    <div class="extended" ng-include="component.templates.extended" ng-show="component.isExtended"></div>
-    <div class="settings" ng-include="component.templates.settings" ng-show="component.displaySettings && !dashboard.isExtended"></div>
+    <div class="extended" ng-include="component.templates.extended" ng-if="component.isExtended"></div>
+    <div class="settings" ng-include="component.templates.settings" ng-if="component.displaySettings && !dashboard.isExtended"></div>
 </div>
