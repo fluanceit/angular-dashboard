@@ -1,14 +1,8 @@
-
-<div class="dashboard">
-
-    <div class="column" ng-repeat="column in columns">
-
-        <div ng-repeat="component in column">
-
+<div id="{{ id }}" class="dashboard-container" ng-style="{ 'width': width }">
+    <div id="column{{$index+0}}" class="column" ng-repeat="column in grid" ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth, 'height': columnsWidth }">
+        <div class="component" ng-repeat="component in column">
             <display-component component="component" dashboard="dashboard"></display-component>
-
         </div>
-
     </div>
-
+    <div class="clearfix"></div>
 </div>

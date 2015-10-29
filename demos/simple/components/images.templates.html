@@ -1,6 +1,7 @@
 <div class="panel panel-default image-component">
     <div class="panel-heading">
         <h3 class="panel-title">
+            <span style="float: left; color: #777;" class="sortable-handle"><i class="glyphicon glyphicon-move" ng-hide="dashboard.sortableDisabled"></i></span>
             Image component
             <a style="float: right; color: #777;" href="#" ng-click="openSettings()"><i class="glyphicon glyphicon-cog"></i></a>
         </h3>
@@ -9,8 +10,6 @@
         <a href="#" ng-click="openExtended()">
             <img src="{{ data.params.url }}" alt="">
         </a>
-        <br/>
-
     </div>
 </div>
 
