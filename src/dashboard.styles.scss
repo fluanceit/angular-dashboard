@@ -1,49 +1,48 @@
 
-.dashboard {
-    width: 100%;
-    margin: auto;
-    position: relative;
-    .columns {
-        width: 100%;
-        display: block;
-        clear: both;
-    }
+.dashboard-container {
+	position: relative;
+	width: 100%;
+	margin: auto;
+	.column {
+		float: left;
+		.component {
+			margin-top: 10px;
+		}
+	}
 }
 
-.column {
-    float: left;
-}
 
 .dashboard-component {
-    margin: 0px 10px;
-    box-sizing: border-box;
-    transition: transform 0.5s linear;
-    overflow: auto;
+	margin: 0px 10px;
+	box-sizing: border-box;
+	transition: transform 0.5s linear;
+	overflow: auto;
 
-    .extended {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
+	.extended {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
 
-    .settings {
+	}
 
-    }
+	.settings {
+
+	}
 }
 
 a {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 
-    img {
-        padding: 0;
-        margin: 0;
-    }
+	img {
+		padding: 0;
+		margin: 0;
+	}
 }
 
 @for $i from 1 through 12 {
-    .grid-#{$i} {
-        width: 100%/$i;
-    }
+	.grid-#{$i} {
+		width: 100%/$i;
+	}
 }

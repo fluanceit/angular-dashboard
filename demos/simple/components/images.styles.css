@@ -3,13 +3,21 @@
 }
 
 .image-component img {
-    width: 50%;
+	width: 100%;
 }
 
 .image-component-extended {
     text-align: center;
 }
 
-.image-component-extended img {
-    min-height: 500px;
+@media (max-width: 900px) {
+	.image-component-extended img {
+	    width: 100%;
+	}
+}
+
+@media (min-width: 901px) {
+	.image-component-extended img {
+	    min-height: 500px;
+	}
 }
