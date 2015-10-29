@@ -15,8 +15,6 @@
 			// This function calculate column width based on columns number and current width.
 			function calculate(columns, minWidth, callback) {
 
-				console.log(columns, minWidth, currentWidth);
-
 				var numberOfColumnPossible = parseInt(currentWidth / minWidth);
 
 				if (lastNumberColumns !== numberOfColumnPossible) {
@@ -29,7 +27,6 @@
 					}
 				}
 
-				console.log(numberOfColumnPossible);
 				if (callback !== undefined) {
 					callback();
 				}
@@ -52,8 +49,6 @@
 					if (scope.width !== 'auto' && currentWidth > scope.width) {
 						currentWidth = scope.width;
 					}
-
-					console.log(currentWidth);
 
 					calculate(scope.columns, scope.columnsMinWidth);
 
