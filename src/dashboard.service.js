@@ -1,117 +1,149 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('dashboard')
-        .service('dashboardObject', DashboardObjectFunction);
+	angular
+		.module('dashboard')
+		.service('dashboardObject', DashboardObjectFunction);
 
-    DashboardObjectFunction.$inject = ['$injector'];
+	DashboardObjectFunction.$inject = ['$injector'];
 
-    /**
-     * @ngdoc service
-     * @module dashboard
-     * @name dashboardObject
-     * @description
-     *
-     * This is a dashboard object. Allow you to create an object.
-     *
-     */
-    function DashboardObjectFunction($injector) {
+	/**
+	 * @ngdoc service
+	 * @module dashboard
+	 * @name dashboardObject
+	 * @description
+	 *
+	 * This is a dashboard object. Allow you to create an object.
+	 *
+	 */
+	function DashboardObjectFunction($injector) {
 
-        // Return a function to be used as new User();
-        return function(params) {
-            var DEFAULT_DASHBOARD = {
-                id: null,
-                /**
-                 * @ngdoc property
-                 * @name dashboard#columns
-                 * @description Number of columns to display
-                 */
-                nbColumns: 2,
-                nbComponent: 0,
+		// Return a function to be used as new User();
+		return function(params) {
+			var DEFAULT_DASHBOARD = {
+				id: null,
 
-                isExtended: false,
+				nbComponent: 0,
 
-                /**
-                 * @ngdoc property
-                 * @name dashboard#components
-                 * @description List of component to display
-                 */
-                columns: [],
+				isExtended: false,
 
-                /**
-                 * List of function to add
-                 */
-                add: add,
-                saveAsString: saveAsString,
-                createFromString: createFromString
-            };
+				grid: [],
 
-            var dashboardObject = DEFAULT_DASHBOARD;
+				// Here are stored option to manage our dashboard.
+				options: {
+					// Full width of entiere dashboard
+					'width': 'auto',
+					// Number of columns in dashboard
+					'columns': '2',
+					// Min widht of columns.
+					'columnsMinWidth': null,
+					// Algorithm to define where to put component if no column
+					'algo': 'shorter'
+				},
 
-            return dashboardObject;
+				/**
+				 * List of function to add
+				 */
+				add: add,
+				set: set,
+				saveAsString: saveAsString,
+				createFromString: createFromString
+			};
 
-            /**
-             * Add a component in array
-             * @param {Object} component    Dashboard component
-             * @param {integer} column      Column number, starting at zero
-             */
-            function add(component, column) {
-                if (!column) {
-                    column = 0;
-                }
-                // create id to select easily
-                component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
-                dashboardObject.nbComponent++;
-                // If nocolumn yet, create one.
-                if (!dashboardObject.columns[column % dashboardObject.nbColumns]) {
-                    dashboardObject.columns[column % dashboardObject.nbColumns] = [];
-                }
-                // Add in column
-                dashboardObject.columns[column % dashboardObject.nbColumns].push(component);
-            }
+			var dashboardObject = DEFAULT_DASHBOARD;
 
-            /**
-             * Convert the dashboard to a String
-             * @return {String} Dashboard as a String
-             */
-            function saveAsString() {
-                var tmpColumns = [];
-                var tmpColumn = [];
+			return dashboardObject;
 
-                dashboardObject.columns.forEach(function(column) {
-                    tmpColumn = [];
-                    column.forEach(function(component) {
-                        tmpColumn.push({
-                            name: component.name,
-                            params: component.params
-                        });
-                    });
-                    tmpColumns.push(tmpColumn);
-                });
+			/**
+			 * Add a component in array
+			 * @param {Object} component    Dashboard component
+			 * @param {integer} column      Column number, starting at zero
+			 */
+			function add(component, column) {
+				if (!column) {
+					if (dashboardObject.options['algo'] === 'shorter') {
+						var i, shorterColumn = 0;
+						column = 0;
+						for (i = 1; i < dashboardObject.options['columns']; i++) {
+							if (dashboardObject.grid[i]) {
+								if (dashboardObject.grid[shorterColumn] &&
+									dashboardObject.grid[i].length < dashboardObject.grid[shorterColumn].length) {
+									column = i;
+									shorterColumn = i;
+								}
+							} else {
+								column = i;
+								shorterColumn = i;
+							}
+						}
+					} else {
+						column = 0;
+					}
+				}
+				// create id to select easily
+				component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
+				dashboardObject.nbComponent++;
+				// If nocolumn yet, create one.
+				if (!dashboardObject.grid[column]) {
+					dashboardObject.grid[column] = [];
+				}
+				// Add in column
+				dashboardObject.grid[column].push(component);
+			}
 
-                return JSON.stringify(tmpColumns);
-            }
+			/**
+			 * Set dashboard options.
+			 */
+			function set(newOptions) {
+				// For each new option we override current one.
+				Object.keys(newOptions).forEach(function (key) {
+					if (newOptions[key]) {
+						dashboardObject.options[key] = newOptions[key];
+					}
+				});
+			}
 
-            /**
-             * Create a dashboard from a String
-             * @param  {String} dashboardString Dashboard as a String
-             */
-            function createFromString(dashboardString) {
-                var tmpColumns = JSON.parse(dashboardString);
-                var nbColumns = 0;
+			/**
+			 * Convert the dashboard to a String
+			 * @return {String} Dashboard as a String
+			 */
+			function saveAsString() {
+				var tmpColumns = [];
+				var tmpColumn = [];
 
-                tmpColumns.forEach(function(column) {
-                    column.forEach(function(component) {
-                        if ($injector.has(component.name)) {
-                            add(new $injector.get(component.name)(component.params), nbColumns);
-                        }
-                    });
-                    nbColumns++;
-                });
-            }
+				dashboardObject.grid.forEach(function(column) {
+					tmpColumn = [];
+					column.forEach(function(component) {
+						tmpColumn.push({
+							name: component.name,
+							params: component.params
+						});
+					});
+					tmpColumns.push(tmpColumn);
+				});
 
-        };
+				return JSON.stringify(tmpColumns);
+			}
 
-    }
+			/**
+			 * Create a dashboard from a String
+			 * @param  {String} dashboardString Dashboard as a String
+			 */
+			function createFromString(dashboardString) {
+				var tmpColumns = JSON.parse(dashboardString);
+				var nbColumns = 0;
+
+				tmpColumns.forEach(function(column) {
+					column.forEach(function(component) {
+						if ($injector.has(component.name)) {
+							add(new $injector.get(component.name)(component.params), nbColumns);
+						}
+					});
+					nbColumns++;
+				});
+			}
+
+		};
+
+	}
 })();
