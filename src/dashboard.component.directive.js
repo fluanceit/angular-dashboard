@@ -17,19 +17,27 @@
                 link: function(scope, element, attrs) {
                     scope.data = scope.component;
 
-                    scope.openExtended = function () {
-                        scope.dashboard.isExtended = true;
-                        scope.component.isExtended = true;
+                    scope.openExtended = function() {
+                        if (scope.dashboard.sortableDisabled) {
+                            scope.dashboard.isExtended = true;
+                            scope.component.isExtended = true;
+                        }
                     };
-                    scope.closeExtended = function () {
-                        scope.dashboard.isExtended = false;
-                        scope.component.isExtended = false;
+                    scope.closeExtended = function() {
+                        if (scope.dashboard.sortableDisabled) {
+                            scope.dashboard.isExtended = false;
+                            scope.component.isExtended = false;
+                        }
                     };
-                    scope.openSettings = function () {
-                        scope.component.displaySettings = true;
+                    scope.openSettings = function() {
+                        if (scope.dashboard.sortableDisabled) {
+                            scope.component.displaySettings = true;
+                        }
                     };
-                    scope.closeSettings = function () {
-                        scope.component.displaySettings = false;
+                    scope.closeSettings = function() {
+                        if (scope.dashboard.sortableDisabled) {
+                            scope.component.displaySettings = false;
+                        }
                     };
                 }
             };
