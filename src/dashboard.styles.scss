@@ -8,6 +8,21 @@
             margin-top: 10px;
         }
     }
+    .column.placeholder {
+        &::after {
+            content: "";
+            background-image: url("dnd_o.svg");
+            background-color: rgb(245, 245, 245);
+            @include border-radius(3px);
+            background-size: 80px 80px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: blocK;
+            height: 120px;
+            width: 90%;
+            margin-left: 5%;
+        }
+    }
 }
 
 .dashboard-component {
