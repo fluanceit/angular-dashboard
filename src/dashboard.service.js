@@ -70,11 +70,10 @@
                 if (!column) {
                     if (dashboardObject.options['algo'] === 'shorter') {
                         var i, shorterColumn = 0;
-                        column = 0;
-                        for (i = 1; i < dashboardObject.options['columns']; i++) {
+                        for (i = dashboardObject.options['columns']; i >= 0; i--) {
                             if (dashboardObject.grid[i]) {
                                 if (dashboardObject.grid[shorterColumn] &&
-                                    dashboardObject.grid[i].length < dashboardObject.grid[shorterColumn].length) {
+                                    dashboardObject.grid[i].length > dashboardObject.grid[shorterColumn].length) {
                                     column = i;
                                     shorterColumn = i;
                                 }
@@ -87,6 +86,7 @@
                         column = 0;
                     }
                 }
+
                 // create id to select easily
                 component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
                 dashboardObject.nbComponent++;
