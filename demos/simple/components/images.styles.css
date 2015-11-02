@@ -3,7 +3,7 @@
 }
 
 .image-component img {
-	width: 100%;
+    width: 100%;
 }
 
 .image-component-extended {
@@ -11,13 +11,13 @@
 }
 
 @media (max-width: 900px) {
-	.image-component-extended img {
-	    width: 100%;
-	}
+    .image-component-extended img {
+        width: 100%;
+    }
 }
 
 @media (min-width: 901px) {
-	.image-component-extended img {
-	    min-height: 500px;
-	}
+    .image-component-extended img {
+        min-height: 500px;
+    }
 }

@@ -70,7 +70,7 @@
                 if (!column) {
                     if (dashboardObject.options['algo'] === 'shorter') {
                         var i, shorterColumn = 0;
-                        for (i = dashboardObject.options['columns']; i >= 0; i--) {
+                        for (i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
                             if (dashboardObject.grid[i]) {
                                 if (dashboardObject.grid[shorterColumn] &&
                                     dashboardObject.grid[i].length > dashboardObject.grid[shorterColumn].length) {
@@ -82,6 +82,8 @@
                                 shorterColumn = i;
                             }
                         }
+                    } else if (dashboardObject.options['algo'] === 'random'){
+                        column = 0;
                     } else {
                         column = 0;
                     }
@@ -144,7 +146,7 @@
                             group: dashboardObject.id,
                             draggable: '.component',
                             disabled: dashboardObject.sortableDisabled,
-                            handle: ".sortable-handle",
+                            handle: '.sortable-handle',
                             onAdd: function(evt) {
                                 sortAllComponents(evt);
                             },

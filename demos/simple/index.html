@@ -13,8 +13,8 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-						Simple case to display
-					</a>
+                        Simple case to display
+                    </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <button type="button" class="btn btn-default navbar-btn" ng-click="changeSortableState()">
@@ -41,6 +41,7 @@
     var myApp = angular.module('myApp', ['dashboard']);
     myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
         function($scope, fluanceDashboard, ImageComponent) {
+
             var dashboard = fluanceDashboard.get('simple-demo');
             dashboard.set({
                 'columns': 3
@@ -76,7 +77,6 @@
             var holdTimer = 0;
             var touchDuration = 500;
 
-
             $scope.changeSortableState = function() {
                 dashboard.changeSortableState();
                 var elements = document.getElementsByClassName('dashboard-component');
@@ -88,7 +88,6 @@
                     }
                 }
             };
-
 
             theElement.addEventListener('touchstart', touchStartHandler, false);
             theElement.addEventListener('touchend', touchEndHandler, false);
