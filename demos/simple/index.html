@@ -17,7 +17,7 @@
                     </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <button type="button" class="btn btn-default navbar-btn" ng-click="changeSortableState()">
+                <button type="button" class="btn btn-default navbar-btn" ng-click="dashboard.changeSortableState()">
                     <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
                 </button>
             </ul>
@@ -42,8 +42,8 @@
     myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
         function($scope, fluanceDashboard, ImageComponent) {
 
-            var dashboard = fluanceDashboard.get('simple-demo');
-            dashboard.set({
+            $scope.dashboard = fluanceDashboard.get('simple-demo');
+            $scope.dashboard.set({
                 'columns': 3
             });
             var img = [
@@ -67,62 +67,10 @@
             ];
 
             img.forEach(function(url) {
-                dashboard.add(new ImageComponent({
+                $scope.dashboard.add(new ImageComponent({
                     'url': url
                 }));
             });
-
-            var theElement = document.getElementById('simple-demo');
-            var mylatesttap = 0;
-            var holdTimer = 0;
-            var touchDuration = 500;
-
-            $scope.changeSortableState = function() {
-                dashboard.changeSortableState();
-                var elements = document.getElementsByClassName('dashboard-component');
-                for (var i = 0; i < elements.length; i++) {
-                    if (dashboard.sortableDisabled) {
-                        elements[i].className = 'dashboard-component';
-                    } else {
-                        elements[i].className = elements[i].className + ' shake-effect';
-                    }
-                }
-            };
-
-            theElement.addEventListener('touchstart', touchStartHandler, false);
-            theElement.addEventListener('touchend', touchEndHandler, false);
-            theElement.addEventListener('touchmove', touchMoveHandler, false);
-
-            function touchStartHandler(event) {
-                if (!dashboard.sortableDisabled) {
-                    var now = new Date().getTime();
-                    var timesince = now - mylatesttap;
-                    if ((timesince < 500) && (timesince > 0)) {
-                        $scope.$apply(function(e) {
-                            $scope.changeSortableState();
-                        });
-                    }
-                    mylatesttap = new Date().getTime();
-                } else {
-                    holdTimer = setTimeout(function() {
-                        $scope.$apply(function(e) {
-                            $scope.changeSortableState();
-                        });
-                    }, touchDuration);
-                }
-            }
-
-            function touchEndHandler(event) {
-                if (holdTimer) {
-                    clearTimeout(holdTimer);
-                }
-            }
-
-            function touchMoveHandler(event) {
-                if (holdTimer) {
-                    clearTimeout(holdTimer);
-                }
-            }
         }
     ]);
     </script>
