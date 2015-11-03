@@ -36,7 +36,7 @@
                 isSortable: false, // Activate disable shaking state
 
                 // This array contain list of sortable columns
-                sortable: [], // Array of columns objects
+                sortable: null, // Array of columns objects
 
                 // stored option to manage dashboard configuration.
                 options: {
@@ -133,7 +133,6 @@
              */
             function generateGrid() {
                 var componentStack = []; // Stack component to repart.
-
             }
 
             /**
@@ -198,25 +197,28 @@
              * Apply Sortable to HTML and make it draggable/droppable
              */
             function makeItSortable() {
+                if (!dashboardObject.sortable) {
+                    dashboardObject.sortable = [];
 
-                // apply sortable on each column.
-                for (var i = 0; i < dashboardObject.grid.length; i++) {
-                    dashboardObject.sortable.push(
-                        Sortable.create(document.getElementById('column' + i), {
-                            group: dashboardObject.id,
-                            draggable: '.component',
-                            disabled: !dashboardObject.isSortable, // No databinding here, need to be updated
-                            handle: '.sortable-handle',
-                            onAdd: function(evt) {
-                                // Event triggered when add in column
-                                sortAllComponents(evt);
-                            },
-                            onUpdate: function(evt) {
-                                // event triggered when column is changed
-                                sortAllComponents(evt);
-                            }
-                        })
-                    );
+                    // apply sortable on each column.
+                    for (var i = 0; i < dashboardObject.grid.length; i++) {
+                        dashboardObject.sortable.push(
+                            Sortable.create(document.getElementById('column' + i), {
+                                group: dashboardObject.id,
+                                draggable: '.component',
+                                disabled: !dashboardObject.isSortable, // No databinding here, need to be updated
+                                handle: '.sortable-handle',
+                                onAdd: function(evt) {
+                                    // Event triggered when add in column
+                                    sortAllComponents(evt);
+                                },
+                                onUpdate: function(evt) {
+                                    // event triggered when column is changed
+                                    sortAllComponents(evt);
+                                }
+                            })
+                        );
+                    }
                 }
             }
 
