@@ -24,15 +24,15 @@ describe('dashboard tests', function() {
         }));
 
         // Save the current Dashboard
-        var savedDashboard = dashboard.saveAsString();
+        var savedDashboard = dashboard.toString();
 
         // Create a second Dashboard
         var secondDashboard = dashboardFactory.get('second');
 
         // Add the components with the saved String
-        secondDashboard.createFromString(savedDashboard);
+        secondDashboard.fromString(savedDashboard);
 
         // Compare both Dashboards
-        expect(dashboard.saveAsString()).toBe(secondDashboard.saveAsString());
+        expect(dashboard.toString()).toBe(secondDashboard.toString());
     });
 });

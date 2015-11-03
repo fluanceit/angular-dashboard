@@ -15,7 +15,6 @@
             // This function calculate column width based on columns number and current width.
             function calculate(columns, minWidth, callback) {
 
-
                 var numberOfColumnPossible = parseInt(currentWidth / minWidth);
 
                 if (lastNumberColumns !== numberOfColumnPossible) {

@@ -18,9 +18,9 @@
     }));
 
 ## Save the dashboard
-To save the current dashboard you have to use the function "saveAsString" on the dashboard.
+To save the current dashboard you have to use the function "toString" on the dashboard.
 
-    var savedString = dashboard.saveAsString();
+    var savedString = dashboard.toString();
 
 You will get a String with "JSON.stringify" with the following structure (for this example):
 
@@ -45,11 +45,11 @@ You will get a String with "JSON.stringify" with the following structure (for th
     ]
 
 ## Restore the dashboard
-To restore a dashboard you have to use the function "createFromString" on a dashboard. It will parse your String with "JSON.parse".
+To restore a dashboard you have to use the function "fromString" on a dashboard. It will parse your String with "JSON.parse".
 
 You have to pass the String which you want to use for restoring the dashboard.
 
 In the following code we will use the String that we saved in the "Save the dashboard" example.
 
     var dashboardRestore = fluanceDashboard.get('simple-restore-demo');
-    dashboardRestore.createFromString(savedString);
+    dashboardRestore.fromString(savedString);

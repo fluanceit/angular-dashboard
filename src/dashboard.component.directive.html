@@ -1,6 +1,6 @@
 
 <div id="component.id" class="dashboard-component"
-        ng-class="{'shake-effect': !dashboard.sortableDisabled}">
+        ng-class="{'shake-effect': dashboard.isSortable}">
     <div
         class="default"
         ng-include="component.templates.default"
