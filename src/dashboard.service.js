@@ -89,6 +89,8 @@
              * Put all components in grid based on algo OR defined position saved in string.
              */
             function drawGrid() {
+
+                dashboardObject.grid = [];
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
                 dashboardObject.components.forEach(function (component) {

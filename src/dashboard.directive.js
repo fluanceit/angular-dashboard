@@ -50,7 +50,6 @@
                         currentWidth = scope.width;
                     }
 
-
                     calculate(scope.columns, scope.columnsMinWidth);
 
                     scope.columnsWidth = columnsWidth;
@@ -80,8 +79,6 @@
                     });
 
                     scope.dashboard.drawGrid();
-
-                    scope.grid = dashboardFactory.get(scope.id).grid;
 
                     var theElement = document.getElementById(scope['id']);
 
