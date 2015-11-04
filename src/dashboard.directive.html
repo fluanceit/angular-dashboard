@@ -3,7 +3,7 @@
         id="column{{$index+0}}"
         class="column"
         ng-class="{ placeholder : dashboard.isStateSorting }"
-        ng-repeat="column in grid"
+        ng-repeat="column in dashboard.grid"
         ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth, 'height': columnsWidth }">
 
         <div
