@@ -129,13 +129,6 @@
             }
 
             /**
-             * Sort elements based on algo or saved configuration.
-             */
-            function generateGrid() {
-
-            }
-
-            /**
              * Convert the dashboard to a String
              * @return {String} Dashboard as a String
              */
