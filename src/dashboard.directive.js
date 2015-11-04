@@ -79,6 +79,8 @@
                         'columnsMinWidth': scope['columnsMinWidth']
                     });
 
+                    scope.dashboard.drawGrid();
+
                     scope.grid = dashboardFactory.get(scope.id).grid;
 
                     var theElement = document.getElementById(scope['id']);

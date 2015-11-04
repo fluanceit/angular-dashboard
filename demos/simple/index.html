@@ -13,8 +13,8 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                        Simple case to display
-                    </a>
+                    Simple case to display
+                </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <button type="button" class="btn btn-default navbar-btn" ng-click="dashboard.toggleSortable()">
@@ -43,9 +43,6 @@
         function($scope, fluanceDashboard, ImageComponent) {
 
             $scope.dashboard = fluanceDashboard.get('simple-demo');
-            $scope.dashboard.setOptions({
-                'columns': 3
-            });
             var img = [
                 'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',

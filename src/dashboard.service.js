@@ -29,6 +29,8 @@
                 nbComponent: 0,
                 // Used in template to know if dashboard is extended or not
                 isExtended: false,
+                // List of all component
+                components: [],
                 // Array of columns. Contain all component
                 grid: [],
 
@@ -60,7 +62,7 @@
                 setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
-
+                drawGrid: drawGrid,
                 toggleSortable: toggleSortable
             };
 
@@ -74,17 +76,36 @@
              * @param {integer} column      Column number, starting at zero
              */
             function add(component, column) {
-                // If component has a position for this configuration of columns.
-                if (component.positions && component.positions[dashboardObject.options['columns']]) {
-                    var pos = component.positions[dashboardObject.options['columns']];
 
-                    console.log('Position is ' + component.positions[dashboardObject.options['columns']]);
-                } else {
+                // Define component ID
+                component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
+                dashboardObject.nbComponent++;
+                // Add in list
+                dashboardObject.components.push(component);
 
-                    // Define columns
-                    if (!column) {
+            }
+
+            /**
+             * Put all components in grid based on algo OR defined position saved in string.
+             */
+            function drawGrid() {
+                // For each component, we define its position and inject it in our grid object.
+                // Grid is displayed in DOM by dashboard.directive.js
+                dashboardObject.components.forEach(function (component) {
+
+                    var column = 0, position = 0;
+                    var nbColumn = dashboardObject.options['columns'];
+
+                    // Check if position is define
+                    if (component.positions && component.positions[nbColumn]) {
+                        column = component.positions[nbColumn]['column'];
+                        position = component.positions[nbColumn]['position'];
+                    } else {
+
+                        // We use algo to define component position
                         if (dashboardObject.options['algo'] === 'shorter') {
                             var i, shorterColumn = 0;
+                            // For each column starting by the end, we
                             for (i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
                                 if (dashboardObject.grid[i]) {
                                     if (dashboardObject.grid[shorterColumn] &&
@@ -98,22 +119,33 @@
                                 }
                             }
                         } else if (dashboardObject.options['algo'] === 'random'){
-                            column = Math.random() * dashboardObject.options['columns'];
+                            column = Math.floor(Math.random() * dashboardObject.options['columns']);
                         } else {
                             column = 0;
                         }
-                    }
-                }
 
-                // create id to select easily
-                component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
-                dashboardObject.nbComponent++;
-                // If nocolumn yet, create one.
-                if (!dashboardObject.grid[column]) {
-                    dashboardObject.grid[column] = [];
-                }
-                // Add in column
-                dashboardObject.grid[column].push(component);
+                        // define position of defined column. Get last position.
+                        if (dashboardObject.grid[column]) {
+                            position = dashboardObject.grid[column].length;
+                        }
+
+                        // We save new position in our
+                        if (!component.positions) {
+                            component.positions = {};
+                        }
+                        component.positions[nbColumn] = {};
+                        component.positions[nbColumn]['column'] = column;
+                        component.positions[nbColumn]['position'] = position;
+                    }
+
+                    // If grid never used this column before, create one.
+                    if (!dashboardObject.grid[column]) {
+                        dashboardObject.grid[column] = [];
+                    }
+                    // Add compoment in grid to defined position
+                    dashboardObject.grid[column].splice(position, 0, component);
+
+                });
             }
 
             /**
