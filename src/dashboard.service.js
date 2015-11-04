@@ -33,7 +33,7 @@
                 grid: [],
 
                 // Define if dashboard is in sortable state
-                isSortable: false, // Activate disable shaking state
+                isStateSorting: false, // Activate disable shaking state
 
                 // This array contain list of sortable columns
                 sortable: null, // Array of columns objects
@@ -57,7 +57,7 @@
                  * List of function to add
                  */
                 add: add,
-                set: set,
+                setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
 
@@ -119,7 +119,7 @@
             /**
              * Set dashboard options.
              */
-            function set(newOptions) {
+            function setOptions(newOptions) {
                 // For each new option we override current one.
                 Object.keys(newOptions).forEach(function(key) {
                     if (newOptions[key]) {
@@ -132,7 +132,7 @@
              * Sort elements based on algo or saved configuration.
              */
             function generateGrid() {
-                var componentStack = []; // Stack component to repart.
+
             }
 
             /**
@@ -197,6 +197,7 @@
              * Apply Sortable to HTML and make it draggable/droppable
              */
             function makeItSortable() {
+                // If columns have already been initialize
                 if (!dashboardObject.sortable) {
                     dashboardObject.sortable = [];
 
@@ -206,7 +207,7 @@
                             Sortable.create(document.getElementById('column' + i), {
                                 group: dashboardObject.id,
                                 draggable: '.component',
-                                disabled: !dashboardObject.isSortable, // No databinding here, need to be updated
+                                disabled: !dashboardObject.isStateSorting, // No databinding here, need to be updated
                                 handle: '.sortable-handle',
                                 onAdd: function(evt) {
                                     // Event triggered when add in column
@@ -232,10 +233,10 @@
                 } else {
                     makeItSortable();
                     // Toggle sorting state
-                    dashboardObject.isSortable = !dashboardObject.isSortable;
+                    dashboardObject.isStateSorting = !dashboardObject.isStateSorting;
                     // Change disable option for each column
                     dashboardObject.sortable.forEach(function(sort) {
-                        sort.option('disabled', !dashboardObject.isSortable);
+                        sort.option('disabled', !dashboardObject.isStateSorting);
                     });
                 }
             }

@@ -73,7 +73,7 @@
 
                     scope.dashboard = dashboardFactory.get(scope.id);
 
-                    scope.dashboard.set({
+                    scope.dashboard.setOptions({
                         'width': scope['width'],
                         'columns': scope['columns'],
                         'columnsMinWidth': scope['columnsMinWidth']
@@ -92,19 +92,19 @@
                     theElement.addEventListener('touchmove', touchMoveHandler, false);
 
                     function touchStartHandler(event) {
-                        if (!scope.dashboard.sortableDisabled) {
+                        if (scope.dashboard.isStateSorting) {
                             var now = new Date().getTime();
                             var timesince = now - mylatesttap;
                             if ((timesince < 500) && (timesince > 0)) {
                                 scope.$apply(function(e) {
-                                    scope.dashboard.changeSortableState();
+                                    scope.dashboard.toggleSortable();
                                 });
                             }
                             mylatesttap = new Date().getTime();
                         } else {
                             holdTimer = setTimeout(function() {
                                 scope.$apply(function(e) {
-                                    scope.dashboard.changeSortableState();
+                                    scope.dashboard.toggleSortable();
                                 });
                             }, touchDuration);
                         }
