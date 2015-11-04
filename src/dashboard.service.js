@@ -7,6 +7,7 @@
 
     DashboardObjectFunction.$inject = ['$injector'];
 
+
     /**
      * @ngdoc service
      * @module dashboard
@@ -14,28 +15,30 @@
      * @description
      *
      * This is a dashboard object. Allow you to create an object.
-     *
      */
     function DashboardObjectFunction($injector) {
+
+        /* jshint maxdepth: 10 */
 
         // Return a function to be used as new User();
         return function(params) {
             var DEFAULT_DASHBOARD = {
+                // ID : string to identify a dashboard
                 id: null,
-
+                // auto_increment when add a component. To generate unique ID
                 nbComponent: 0,
-
+                // Used in template to know if dashboard is extended or not
                 isExtended: false,
-
+                // Array of columns. Contain all component
                 grid: [],
-                tmpGrid: [],
 
-                isSorted: false,
-                sortComponents: false,
-                sortable: [],
-                sortableDisabled: true,
+                // Define if dashboard is in sortable state
+                isStateSorting: false, // Activate disable shaking state
 
-                // Here are stored option to manage our dashboard.
+                // This array contain list of sortable columns
+                sortable: null, // Array of columns objects
+
+                // stored option to manage dashboard configuration.
                 options: {
                     // Full width of entiere dashboard
                     'width': 'auto',
@@ -43,7 +46,10 @@
                     'columns': '2',
                     // Min widht of columns.
                     'columnsMinWidth': null,
+                    // Enable/disable sorting
+                    'sortable': true,
                     // Algorithm to define where to put component if no column
+                    // can be shorter, or Random
                     'algo': 'shorter'
                 },
 
@@ -51,10 +57,11 @@
                  * List of function to add
                  */
                 add: add,
-                set: set,
-                saveAsString: saveAsString,
-                createFromString: createFromString,
-                changeSortableState: changeSortableState
+                setOptions: setOptions,
+                toString: toString,
+                fromString: fromString,
+
+                toggleSortable: toggleSortable
             };
 
             var dashboardObject = DEFAULT_DASHBOARD;
@@ -67,26 +74,37 @@
              * @param {integer} column      Column number, starting at zero
              */
             function add(component, column) {
-                if (!column) {
-                    if (dashboardObject.options['algo'] === 'shorter') {
-                        var i, shorterColumn = 0;
-                        column = 0;
-                        for (i = 1; i < dashboardObject.options['columns']; i++) {
-                            if (dashboardObject.grid[i]) {
-                                if (dashboardObject.grid[shorterColumn] &&
-                                    dashboardObject.grid[i].length < dashboardObject.grid[shorterColumn].length) {
+                // If component has a position for this configuration of columns.
+                if (component.positions && component.positions[dashboardObject.options['columns']]) {
+                    var pos = component.positions[dashboardObject.options['columns']];
+
+                    console.log('Position is ' + component.positions[dashboardObject.options['columns']]);
+                } else {
+
+                    // Define columns
+                    if (!column) {
+                        if (dashboardObject.options['algo'] === 'shorter') {
+                            var i, shorterColumn = 0;
+                            for (i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
+                                if (dashboardObject.grid[i]) {
+                                    if (dashboardObject.grid[shorterColumn] &&
+                                        dashboardObject.grid[i].length > dashboardObject.grid[shorterColumn].length){
+                                        column = i;
+                                        shorterColumn = i;
+                                    }
+                                } else {
                                     column = i;
                                     shorterColumn = i;
                                 }
-                            } else {
-                                column = i;
-                                shorterColumn = i;
                             }
+                        } else if (dashboardObject.options['algo'] === 'random'){
+                            column = Math.random() * dashboardObject.options['columns'];
+                        } else {
+                            column = 0;
                         }
-                    } else {
-                        column = 0;
                     }
                 }
+
                 // create id to select easily
                 component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
                 dashboardObject.nbComponent++;
@@ -101,7 +119,7 @@
             /**
              * Set dashboard options.
              */
-            function set(newOptions) {
+            function setOptions(newOptions) {
                 // For each new option we override current one.
                 Object.keys(newOptions).forEach(function(key) {
                     if (newOptions[key]) {
@@ -110,81 +128,22 @@
                 });
             }
 
-
-            /**************************************************************************************************************
-             SUSPICIOS CODE NEEDS TO BE REFACTORED
-            **************************************************************************************************************/
-            function sortAllComponents(evt) {
-                var oldColumn = evt.from.id.replace('column', '');
-                var newColumn = evt.to.id.replace('column', '');
-                var oldPosition = evt.oldIndex;
-                var newPosition = evt.newIndex;
-                var component = dashboardObject.tmpGrid[oldColumn][oldPosition];
-
-                dashboardObject.tmpGrid[oldColumn].splice(oldPosition, 1);
-                if (oldColumn === newColumn && oldPosition < newPosition) {
-                    newPosition = newPosition - 1;
-                }
-                dashboardObject.tmpGrid[newColumn].splice(newPosition, 0, component);
-                dashboardObject.grid = dashboardObject.tmpGrid;
-            }
-
-            function makeItSortable() {
-                if (!dashboardObject.sortComponents) {
-                    dashboardObject.sortComponents = true;
-                    var actIndex = 0;
-                    dashboardObject.grid.forEach(function(column) {
-                        dashboardObject.tmpGrid.push([]);
-                        column.forEach(function(component) {
-                            dashboardObject.tmpGrid[actIndex].push(component);
-                        });
-                        actIndex = actIndex + 1;
-                    });
-                    for (var i = 0; i < dashboardObject.grid.length; i++) {
-                        dashboardObject.sortable.push(Sortable.create(document.getElementById('column' + i), {
-                            group: dashboardObject.id,
-                            draggable: '.component',
-                            disabled: dashboardObject.sortableDisabled,
-                            handle: ".sortable-handle",
-                            onAdd: function(evt) {
-                                sortAllComponents(evt);
-                            },
-                            onUpdate: function(evt) {
-                                sortAllComponents(evt);
-                            }
-                        }));
-                    }
-                }
-            }
-
-            function changeSortableState() {
-                if (!dashboardObject.isSorted) {
-                    makeItSortable();
-                }
-                dashboardObject.sortableDisabled = !dashboardObject.sortableDisabled;
-                dashboardObject.sortable.forEach(function(sort) {
-                    sort.option('disabled', dashboardObject.sortableDisabled);
-                });
-            }
-            /**************************************************************************************************************/
-
-
-
-
             /**
              * Convert the dashboard to a String
              * @return {String} Dashboard as a String
              */
-            function saveAsString() {
+            function toString() {
                 var tmpColumns = [];
                 var tmpColumn = [];
 
+                // For each column in grid
                 dashboardObject.grid.forEach(function(column) {
                     tmpColumn = [];
                     column.forEach(function(component) {
                         tmpColumn.push({
                             name: component.name,
-                            params: component.params
+                            params: component.params,
+                            positions: component.positions
                         });
                     });
                     tmpColumns.push(tmpColumn);
@@ -197,21 +156,83 @@
              * Create a dashboard from a String
              * @param  {String} dashboardString Dashboard as a String
              */
-            function createFromString(dashboardString) {
+            function fromString(dashboardString) {
                 var tmpColumns = JSON.parse(dashboardString);
                 var nbColumns = 0;
 
                 tmpColumns.forEach(function(column) {
                     column.forEach(function(component) {
                         if ($injector.has(component.name)) {
-                            add(new $injector.get(component.name)(component.params), nbColumns);
+                            add(new $injector.get(component.name)(component.params, component.positions), nbColumns);
                         }
                     });
                     nbColumns++;
                 });
             }
 
-        };
+            // Apply drag/drop to angular MVC (alias grid object)
+            function sortAllComponents(evt) {
 
+                // Identify columns
+                var oldColumn = evt.from.id.replace('column', '');
+                var newColumn = evt.to.id.replace('column', '');
+
+                // Get component as tmp
+                var component = dashboardObject.grid[oldColumn][evt.oldIndex];
+                // Remove old component
+                dashboardObject.grid[oldColumn].splice(evt.oldIndex, 1);
+                // Add component to new location
+                dashboardObject.grid[newColumn].splice(evt.newIndex, 0, component);
+
+            }
+
+            /**
+             * Apply Sortable to HTML and make it draggable/droppable
+             */
+            function makeItSortable() {
+                // If columns have already been initialize
+                if (!dashboardObject.sortable) {
+                    dashboardObject.sortable = [];
+
+                    // apply sortable on each column.
+                    for (var i = 0; i < dashboardObject.grid.length; i++) {
+                        dashboardObject.sortable.push(
+                            Sortable.create(document.getElementById('column' + i), {
+                                group: dashboardObject.id,
+                                draggable: '.component',
+                                disabled: !dashboardObject.isStateSorting, // No databinding here, need to be updated
+                                handle: '.sortable-handle',
+                                onAdd: function(evt) {
+                                    // Event triggered when add in column
+                                    sortAllComponents(evt);
+                                },
+                                onUpdate: function(evt) {
+                                    // event triggered when column is changed
+                                    sortAllComponents(evt);
+                                }
+                            })
+                        );
+                    }
+                }
+            }
+
+            /**
+             * This function enable/disable sorting state of dashboard
+             */
+            function toggleSortable() {
+                // If dashboard is sortable by user
+                if (!dashboardObject.options['sortable']) {
+                    console.log('This dashboard does not allow sorting (see options configuration).');
+                } else {
+                    makeItSortable();
+                    // Toggle sorting state
+                    dashboardObject.isStateSorting = !dashboardObject.isStateSorting;
+                    // Change disable option for each column
+                    dashboardObject.sortable.forEach(function(sort) {
+                        sort.option('disabled', !dashboardObject.isStateSorting);
+                    });
+                }
+            }
+        };
     }
 })();

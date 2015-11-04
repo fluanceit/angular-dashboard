@@ -8,22 +8,22 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 
-<body>
+<body ng-controller="myController">
     <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container-fluid" ng-controller="myController">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-						Simple case to display
-					</a>
+                        Simple case to display
+                    </a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <button type="button" class="btn btn-default navbar-btn" ng-click="changeSortableState()">
+                <button type="button" class="btn btn-default navbar-btn" ng-click="dashboard.toggleSortable()">
                     <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
                 </button>
             </ul>
         </div>
     </nav>
-    <div ng-controller="myController">
+    <div>
         <dashboard id="simple-demo" data-width="1000" data-columns="3" data-columns-min-width="250">
             <!-- Transcule template from directive -->
         </dashboard>
@@ -41,12 +41,13 @@
     var myApp = angular.module('myApp', ['dashboard']);
     myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
         function($scope, fluanceDashboard, ImageComponent) {
-            var dashboard = fluanceDashboard.get('simple-demo');
-            dashboard.set({
+
+            $scope.dashboard = fluanceDashboard.get('simple-demo');
+            $scope.dashboard.setOptions({
                 'columns': 3
             });
             var img = [
-                /*'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
+                'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1442406964439-e46ab8eff7c4?q=80&fm=jpg&w=800&fit=max',
@@ -60,70 +61,16 @@
                 'https://images.unsplash.com/photo-1441966055611-30ea468880a2?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1441155472722-d17942a2b76a?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1437572848259-df63caa1a552?q=80&fm=jpg&w=800&fit=max',
-                'https://images.unsplash.com/photo-1437422061949-f6efbde0a471?q=80&fm=jpg&w=800&fit=max',*/
+                'https://images.unsplash.com/photo-1437422061949-f6efbde0a471?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1440557958969-404dc361d86f?q=80&fm=jpg&w=800&fit=max',
                 'https://images.unsplash.com/photo-1439546743462-802cabef8e97?q=80&fm=jpg&w=800&fit=max'
             ];
 
             img.forEach(function(url) {
-                dashboard.add(new ImageComponent({
+                $scope.dashboard.add(new ImageComponent({
                     'url': url
                 }));
             });
-
-            var theElement = document.getElementById('simple-demo');
-            var mylatesttap = 0;
-            var holdTimer = 0;
-            var touchDuration = 500;
-
-
-            $scope.changeSortableState = function() {
-                dashboard.changeSortableState();
-                var elements = document.getElementsByClassName('dashboard-component');
-                for (var i = 0; i < elements.length; i++) {
-                    if (dashboard.sortableDisabled) {
-                        elements[i].className = 'dashboard-component';
-                    } else {
-                        elements[i].className = elements[i].className + ' shake-effect';
-                    }
-                }
-            };
-
-
-            theElement.addEventListener('touchstart', touchStartHandler, false);
-            theElement.addEventListener('touchend', touchEndHandler, false);
-            theElement.addEventListener('touchmove', touchMoveHandler, false);
-
-            function touchStartHandler(event) {
-                if (!dashboard.sortableDisabled) {
-                    var now = new Date().getTime();
-                    var timesince = now - mylatesttap;
-                    if ((timesince < 500) && (timesince > 0)) {
-                        $scope.$apply(function(e) {
-                            $scope.changeSortableState();
-                        });
-                    }
-                    mylatesttap = new Date().getTime();
-                } else {
-                    holdTimer = setTimeout(function() {
-                        $scope.$apply(function(e) {
-                            $scope.changeSortableState();
-                        });
-                    }, touchDuration);
-                }
-            }
-
-            function touchEndHandler(event) {
-                if (holdTimer) {
-                    clearTimeout(holdTimer);
-                }
-            }
-
-            function touchMoveHandler(event) {
-                if (holdTimer) {
-                    clearTimeout(holdTimer);
-                }
-            }
         }
     ]);
     </script>

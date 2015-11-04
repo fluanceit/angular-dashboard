@@ -18,29 +18,28 @@
                     scope.data = scope.component;
 
                     scope.openExtended = function() {
-                        if (scope.dashboard.sortableDisabled) {
+                        if (!scope.dashboard.isStateSorting) {
                             scope.dashboard.isExtended = true;
                             scope.component.isExtended = true;
                         }
                     };
                     scope.closeExtended = function() {
-                        if (scope.dashboard.sortableDisabled) {
+                        if (!scope.dashboard.isStateSorting) {
                             scope.dashboard.isExtended = false;
                             scope.component.isExtended = false;
                         }
                     };
                     scope.openSettings = function() {
-                        if (scope.dashboard.sortableDisabled) {
+                        if (!scope.dashboard.isStateSorting) {
                             scope.component.displaySettings = true;
                         }
                     };
                     scope.closeSettings = function() {
-                        if (scope.dashboard.sortableDisabled) {
+                        if (!scope.dashboard.isStateSorting) {
                             scope.component.displaySettings = false;
                         }
                     };
                 }
             };
         });
-
 })();

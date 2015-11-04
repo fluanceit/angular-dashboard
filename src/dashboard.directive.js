@@ -15,7 +15,6 @@
             // This function calculate column width based on columns number and current width.
             function calculate(columns, minWidth, callback) {
 
-
                 var numberOfColumnPossible = parseInt(currentWidth / minWidth);
 
                 if (lastNumberColumns !== numberOfColumnPossible) {
@@ -74,13 +73,54 @@
 
                     scope.dashboard = dashboardFactory.get(scope.id);
 
-                    scope.dashboard.set({
+                    scope.dashboard.setOptions({
                         'width': scope['width'],
                         'columns': scope['columns'],
                         'columnsMinWidth': scope['columnsMinWidth']
                     });
 
                     scope.grid = dashboardFactory.get(scope.id).grid;
+
+                    var theElement = document.getElementById(scope['id']);
+
+                    var mylatesttap = 0;
+                    var holdTimer = 0;
+                    var touchDuration = 500;
+
+                    theElement.addEventListener('touchstart', touchStartHandler, false);
+                    theElement.addEventListener('touchend', touchEndHandler, false);
+                    theElement.addEventListener('touchmove', touchMoveHandler, false);
+
+                    function touchStartHandler(event) {
+                        if (scope.dashboard.isStateSorting) {
+                            var now = new Date().getTime();
+                            var timesince = now - mylatesttap;
+                            if ((timesince < 500) && (timesince > 0)) {
+                                scope.$apply(function(e) {
+                                    scope.dashboard.toggleSortable();
+                                });
+                            }
+                            mylatesttap = new Date().getTime();
+                        } else {
+                            holdTimer = setTimeout(function() {
+                                scope.$apply(function(e) {
+                                    scope.dashboard.toggleSortable();
+                                });
+                            }, touchDuration);
+                        }
+                    }
+
+                    function touchEndHandler(event) {
+                        if (holdTimer) {
+                            clearTimeout(holdTimer);
+                        }
+                    }
+
+                    function touchMoveHandler(event) {
+                        if (holdTimer) {
+                            clearTimeout(holdTimer);
+                        }
+                    }
 
                 }
             };
