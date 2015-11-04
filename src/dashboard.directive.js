@@ -8,19 +8,34 @@
         .module('dashboard')
         .directive('dashboard', ['dashboardFactory', function(dashboardFactory) {
 
+            //
             var currentWidth;
+            //
             var lastNumberColumns;
+            //
+            var numberOfColumnPossible;
+            //
             var columnsWidth;
+            // Maximum number of columns
+            var numberMaxOfColumn;
+            // Thread to avoir too much event trigger during resize
+            var timeout;
 
             // This function calculate column width based on columns number and current width.
             function calculate(columns, minWidth, callback) {
 
-                var numberOfColumnPossible = parseInt(currentWidth / minWidth);
+                numberOfColumnPossible = parseInt(currentWidth / minWidth);
+
+                if (numberOfColumnPossible > numberMaxOfColumn) {
+                    numberOfColumnPossible = numberMaxOfColumn;
+                }
 
                 if (lastNumberColumns !== numberOfColumnPossible) {
                     lastNumberColumns = numberOfColumnPossible;
                     // Case 1, we make them float
                     if (numberOfColumnPossible < columns) {
+                        columnsWidth = (100 / numberOfColumnPossible) + '%';
+                    } else if (numberOfColumnPossible > columns) {
                         columnsWidth = (100 / numberOfColumnPossible) + '%';
                     } else {
                         columnsWidth = (100 / columns) + '%';
@@ -43,6 +58,7 @@
                 templateUrl: 'src/dashboard.directive.html',
                 controller: ['$scope', function(scope) {
 
+                    // Get current width of parent
                     currentWidth = $('#' + scope.id).parent().width();
 
                     // If screen smaller than expected width, we take size
@@ -50,6 +66,9 @@
                         currentWidth = scope.width;
                     }
 
+                    numberMaxOfColumn = scope.columns;
+
+                    // init claculation for widhtcolumns and number of columns
                     calculate(scope.columns, scope.columnsMinWidth);
 
                     scope.columnsWidth = columnsWidth;
@@ -60,11 +79,26 @@
                     // On each resize, we look if columns are smaller than scope.columnsMinWidth and
                     // if it is we trigger a claculate and then a scope.apply()
                     window.addEventListener('resize', function() {
-                        currentWidth = document.getElementById(scope.id).offsetWidth;
-                        calculate(scope.columns, scope.columnsMinWidth, function() {
-                            // scope.$apply() is required since scope is modified in an even.
-                            scope.$apply();
-                        });
+
+                        clearTimeout(timeout);
+                        timeout = setTimeout(function () {
+                            //
+                            currentWidth = document.getElementById(scope.id).offsetWidth;
+                            calculate(scope.columns, scope.columnsMinWidth, function() {
+
+                                if (numberOfColumnPossible !== scope.dashboard.options['columns']) {
+                                    scope.columnsWidth = columnsWidth;
+                                    scope.dashboard.setOptions({
+                                        'columns': numberOfColumnPossible
+                                    });
+                                    scope.dashboard.drawGrid();
+                                    // scope.$apply() is required since scope is modified in an even.
+                                    scope.$apply();
+                                }
+                            });
+                        }, 150);
+
+
                     }, true);
 
                 }],
