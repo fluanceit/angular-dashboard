@@ -104,18 +104,17 @@
 
                         // We use algo to define component position
                         if (dashboardObject.options['algo'] === 'shorter') {
-                            var i, shorterColumn = 0;
-                            // For each column starting by the end, we
-                            for (i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
-                                if (dashboardObject.grid[i]) {
-                                    if (dashboardObject.grid[shorterColumn] &&
-                                        dashboardObject.grid[i].length > dashboardObject.grid[shorterColumn].length){
-                                        column = i;
-                                        shorterColumn = i;
-                                    }
-                                } else {
+                            // For each column starting by the end, we check size
+                            for (var i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
+                                // if column i in grid does not exist
+                                if (!dashboardObject.grid[i]) {
                                     column = i;
-                                    shorterColumn = i;
+                                    dashboardObject.grid[i] = [];
+                                } else {
+                                    // Si it exist
+                                    if (dashboardObject.grid[i].length <= dashboardObject.grid[column].length) {
+                                        column = i;
+                                    }
                                 }
                             }
                         } else if (dashboardObject.options['algo'] === 'random'){
