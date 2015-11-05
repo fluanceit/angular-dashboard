@@ -26,6 +26,7 @@
 
                 numberOfColumnPossible = parseInt(currentWidth / minWidth);
 
+
                 if (numberOfColumnPossible > numberMaxOfColumn) {
                     numberOfColumnPossible = numberMaxOfColumn;
                 }
@@ -73,6 +74,15 @@
 
                     scope.columnsWidth = columnsWidth;
 
+                    scope.dashboard = dashboardFactory.get(scope.id);
+
+                    scope.dashboard.setOptions({
+                        'width': scope['width'],
+                        'columns': numberOfColumnPossible,
+                        'columnsMinWidth': scope['columnsMinWidth']
+                    });
+
+                    scope.dashboard.drawGrid();
                     // This is use during resize, to detect a change of state with previous value
                     lastNumberColumns = scope.columns;
 
@@ -100,19 +110,6 @@
 
 
                     }, true);
-
-                }],
-                link: function(scope, element, attrs) {
-
-                    scope.dashboard = dashboardFactory.get(scope.id);
-
-                    scope.dashboard.setOptions({
-                        'width': scope['width'],
-                        'columns': scope['columns'],
-                        'columnsMinWidth': scope['columnsMinWidth']
-                    });
-
-                    scope.dashboard.drawGrid();
 
                     var theElement = document.getElementById(scope['id']);
 
@@ -155,7 +152,7 @@
                         }
                     }
 
-                }
+                }]
             };
         }]);
 
