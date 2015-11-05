@@ -8,13 +8,13 @@
         .module('dashboard')
         .directive('dashboard', ['dashboardFactory', function(dashboardFactory) {
 
-            //
+            // Width of the dashboard container
             var currentWidth;
-            //
+            // To detet a change of column
             var lastNumberColumns;
-            //
+            // Usually currentWidth / minWidth where max is numberMaxOfColumn
             var numberOfColumnPossible;
-            //
+            // Width of columns in % to use in ng-style
             var columnsWidth;
             // Maximum number of columns
             var numberMaxOfColumn;
@@ -25,6 +25,7 @@
             function calculate(columns, minWidth, callback) {
 
                 numberOfColumnPossible = parseInt(currentWidth / minWidth);
+
 
                 if (numberOfColumnPossible > numberMaxOfColumn) {
                     numberOfColumnPossible = numberMaxOfColumn;
@@ -73,6 +74,15 @@
 
                     scope.columnsWidth = columnsWidth;
 
+                    scope.dashboard = dashboardFactory.get(scope.id);
+
+                    scope.dashboard.setOptions({
+                        'width': scope['width'],
+                        'columns': numberOfColumnPossible,
+                        'columnsMinWidth': scope['columnsMinWidth']
+                    });
+
+                    scope.dashboard.drawGrid();
                     // This is use during resize, to detect a change of state with previous value
                     lastNumberColumns = scope.columns;
 
@@ -101,19 +111,8 @@
 
                     }, true);
 
-                }],
-                link: function(scope, element, attrs) {
 
-                    scope.dashboard = dashboardFactory.get(scope.id);
-
-                    scope.dashboard.setOptions({
-                        'width': scope['width'],
-                        'columns': scope['columns'],
-                        'columnsMinWidth': scope['columnsMinWidth']
-                    });
-
-                    scope.dashboard.drawGrid();
-
+                    // Doing some touch stuff ...
                     var theElement = document.getElementById(scope['id']);
 
                     var mylatesttap = 0;
@@ -155,7 +154,7 @@
                         }
                     }
 
-                }
+                }]
             };
         }]);
 

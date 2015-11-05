@@ -89,8 +89,13 @@
              * Put all components in grid based on algo OR defined position saved in string.
              */
             function drawGrid() {
+                // If is on sorting mode, we stop it
+                if (dashboardObject.isStateSorting) {
+                    dashboardObject.toggleSortable();
+                }
 
                 dashboardObject.grid = [];
+                dashboardObject.sortable = null;
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
                 dashboardObject.components.forEach(function (component) {
@@ -214,8 +219,16 @@
                 var component = dashboardObject.grid[oldColumn][evt.oldIndex];
                 // Remove old component
                 dashboardObject.grid[oldColumn].splice(evt.oldIndex, 1);
+
+                if (evt.newIndex === 0) {
+                    console.log(dashboardObject.grid[newColumn]);
+                }
                 // Add component to new location
                 dashboardObject.grid[newColumn].splice(evt.newIndex, 0, component);
+
+                if (evt.newIndex === 0) {
+                    console.log(dashboardObject.grid[newColumn]);
+                }
 
             }
 
@@ -223,12 +236,14 @@
              * Apply Sortable to HTML and make it draggable/droppable
              */
             function makeItSortable() {
+
                 // If columns have already been initialize
                 if (!dashboardObject.sortable) {
                     dashboardObject.sortable = [];
 
                     // apply sortable on each column.
                     for (var i = 0; i < dashboardObject.grid.length; i++) {
+
                         dashboardObject.sortable.push(
                             Sortable.create(document.getElementById('column' + i), {
                                 group: dashboardObject.id,
