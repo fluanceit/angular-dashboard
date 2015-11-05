@@ -12,6 +12,7 @@
     margin: auto;
     .column {
         float: left;
+        min-height: 100px;
         .component {
             margin-top: 10px;
         }
@@ -65,7 +66,7 @@ a {
     }
 }
 
-.shake-effect {
+.shake-effect .dashboard-component {
     -webkit-animation-name: shake;
     -moz-animation-name: shake;
     -ms-animation-name: shake;
