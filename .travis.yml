@@ -12,7 +12,7 @@ script:
 - gulp build
 after_success:
 - bash ./scripts/deploy.sh
-echo `#- bash ./scripts/publish.sh`
+- echo `#- bash ./scripts/publish.sh`
 env:
   global:
   - GH_REF: github.com/fluanceit/angular-dashboard.git
