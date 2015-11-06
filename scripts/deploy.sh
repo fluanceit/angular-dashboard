@@ -14,6 +14,7 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     echo "*** Deployed docs ***"
 	echo "*** Deploying dist ***"
 	cd ..
+	ls -la
 	git clone https://${GH_TOKEN}@github.com/fluanceit/bower-angular-dashboard.git
 	cp -rf ./dist ./bower-angular-dashboard
 	cd bower-angular-dashboard
