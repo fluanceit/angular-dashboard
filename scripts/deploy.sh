@@ -17,6 +17,9 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
 	git clone https://${GH_TOKEN}@github.com/fluanceit/bower-angular-dashboard.git
 	cp -rf ./dist ./bower-angular-dashboard
 	cd bower-angular-dashboard
+	echo "+++ Git working dirctory content+++"
+	ls -la
+	echo "--- Git working dirctory content---"
     git config user.name "Travis CI"
     git config user.email "frontdev@fluance.net"
     git add .
