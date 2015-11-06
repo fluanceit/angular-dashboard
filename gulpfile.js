@@ -34,7 +34,7 @@ var sass = require('gulp-sass');
  * Generate documentation‡
  */
 gulp.task('doc', ['docs:clean'], function() {
-    gulp.start('docs:build');
+    return gulp.start('docs:build');
 });
 
 /**

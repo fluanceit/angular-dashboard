@@ -8,7 +8,8 @@ before_script:
 - chmod +x ./scripts/deploy.sh
 script:
 - gulp test
-- gulp doc
+- gulp docs:clean
+- gulp docs:build
 - gulp build
 after_success:
 - bash ./scripts/deploy.sh
