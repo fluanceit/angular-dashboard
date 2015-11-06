@@ -20,7 +20,7 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     git config user.email "frontdev@fluance.net"
     git add .
     git commit -m "Deploy to GitHub Dist Repo"
-    git push --quiet > /dev/null 2>&1
+    git push --verbose > /dev/null 2>&1
 	echo "*** Deployed dist ***"
 fi
 echo "*** done ***"
