@@ -127,40 +127,6 @@ gulp.task('templatecache', function() {
 
 
 /****************************************************************************************************************
- * PUBLISH THE DISTRIBUTION
- */
-
-var git = require('gulp-git');
-var runSequence = require('run-sequence');
-
-gulp.task('publish', function(callback) {
-    runSequence('build-clean', 'clonesub', callback);
-});
-
-/* Step 0 : Clean directory */
-gulp.task('build-clean', function(callback) {
-    del(['dist/*.js', 'dist/*.css'], callback);
-});
-
-/* Step 1 : Clone the bower repo into the dist directory */
-gulp.task('clonesub', function(callback) {
-    git.clone('https://github.com/fluanceit/bower-angular-dashboard', {
-        args: 'dist'
-    }, function(err) {
-        if (err) throw err;
-    });
-});
-
-/* Step 2 : Build the dashboard (copying files into the fresh clone) */
-/* Step 3 : Commit the changes */
-/* Step 4 : Generate newest tag from main repo */
-/* Step 5 : Tag the git clone */
-/* Step 6 : Push the new version to the github repo */
-/* Step 7 : Wipe the dist directory */
-
-
-
-/****************************************************************************************************************
  * Serve the dev environment
  */
 gulp.task('serve', ['sass'], function() {
