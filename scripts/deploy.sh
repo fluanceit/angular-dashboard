@@ -4,7 +4,7 @@ github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.
 echo "Github user: " $github_user
 if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
 	echo "*** Deploying docs ***"
-    cd build_docs
+    cd angular-dashboard/build_docs
     git init
     git config user.name "Travis CI"
     git config user.email "frontdev@fluance.net"
@@ -14,7 +14,6 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     echo "*** Deployed docs ***"
 	echo "*** Deploying dist ***"
 	cd ..
-	ls -la
 	git clone https://${GH_TOKEN}@github.com/fluanceit/bower-angular-dashboard.git
 	cp -rf ./dist ./bower-angular-dashboard
 	cd bower-angular-dashboard
