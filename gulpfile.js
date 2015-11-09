@@ -132,7 +132,7 @@ gulp.task('templatecache', function() {
 /****************************************************************************************************************
  * Serve the dev environment
  */
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['build','sass'], function() {
     serve({
         mode: 'dev',
         file: 'simple'
@@ -163,6 +163,7 @@ function serve(args) {
         .on('start', function() {
             startBrowserSync();
             gulp.watch('./src/**/*.scss', ['sass']);
+            gulp.watch('./src/**/*.{html,js}', ['build']);
         })
         //.on('change', tasks)
         .on('restart', function() {
