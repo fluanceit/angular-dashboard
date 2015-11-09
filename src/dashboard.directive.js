@@ -14,6 +14,7 @@
             var lastNumberColumns;
             // Usually currentWidth / minWidth where max is numberMaxOfColumn
             var numberOfColumnPossible;
+            
             // Width of columns in % to use in ng-style
             var columnsWidth;
             // Maximum number of columns
