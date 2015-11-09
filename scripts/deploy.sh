@@ -25,7 +25,7 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     git config push.default simple
     git add .
     git commit -m "Deploy to GitHub Dist Repo"
-    git push -f -q https://mambax:$GITHUB_API_KEY@github.com/fluanceit/bower-angular-dashboard master &2>/dev/null
+    git push -f --verbose https://mambax:$GITHUB_API_KEY@github.com/fluanceit/bower-angular-dashboard master
 	echo "*** Deployed dist ***"
 fi
 echo "*** done ***"
