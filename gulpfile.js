@@ -87,11 +87,11 @@ function startTests(singleRun, done) {
  * BUILD THE COMPONENT
  */
 
-gulp.task('build', ['compile'], function() {
+gulp.task('build', ['compile', 'sass'], function() {
     del.sync(['dist/tmp/**', ]);
     return gulp.src(['src/*.css'])
-        //.pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
-        //.pipe(base64(''))
+        .pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
+        .pipe(base64(''))
         .pipe(concat('angular-dashboard-fluance.css'))
         .pipe(gulp.dest('dist'))
         .pipe(uglifycss({
