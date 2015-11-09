@@ -40,8 +40,11 @@ gulp.task('doc', ['docs:clean'], function() {
  * Generate a css file from the scss files
  */
 gulp.task('sass', function() {
+    var sourcemaps = require('gulp-sourcemaps');
     gulp.src('./src/**/*.scss')
+        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./src'));
 });
 
