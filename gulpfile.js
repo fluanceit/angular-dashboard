@@ -1,16 +1,31 @@
 /* jshint camelcase:false */
 var gulp = require('gulp');
-
 var plug = require('gulp-load-plugins')();
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var htmlify = require('gulp-angular-htmlify');
+var templates = require('gulp-angular-templatecache');
+var minifyHTML = require('gulp-minify-html');
+var del = require('del');
+var uglifycss = require('gulp-uglifycss');
+var base64 = require('gulp-base64-inline');
+var replace = require('gulp-replace');
+
+
+
 var log = plug.util.log;
 var env = plug.util.env;
+
 // Our server for dev
 var express = require('express');
 var app = express();
 var browserSync = require('browser-sync');
 var server_port = process.env.PORT || 8001;
+
 // Load docs tasks
 require('require-dir')('./docs');
+
 // Generate a css file from the scss files
 var sass = require('gulp-sass');
 
@@ -18,19 +33,22 @@ var sass = require('gulp-sass');
  * Generate documentation‡
  */
 gulp.task('doc', ['docs:clean'], function() {
-    gulp.start('docs:build');
+    return gulp.start('docs:build');
 });
 
 /**
  * Generate a css file from the scss files
  */
-gulp.task('sass', function () {
-  gulp.src('./src/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./src'));
+gulp.task('sass', function() {
+    var sourcemaps = require('gulp-sourcemaps');
+    gulp.src('./src/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./src'));
 });
 
-/**
+/****************************************************************************************************************
  * Run specs once and exit
  * To start servers and run midway specs as well:
  *    gulp test --startServers
@@ -66,8 +84,53 @@ function startTests(singleRun, done) {
     }
 }
 
-/**
- * serve the dev environment
+
+
+/****************************************************************************************************************
+ * BUILD THE COMPONENT
+ */
+
+gulp.task('build', ['compile', 'sass'], function() {
+    del.sync(['dist/tmp/**', ]);
+    return gulp.src(['src/*.css'])
+        .pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
+        .pipe(base64(''))
+        .pipe(concat('angular-dashboard-fluance.css'))
+        .pipe(gulp.dest('dist'))
+        .pipe(uglifycss({
+            'max-line-len': 80
+        }))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile', ['templatecache'], function() {
+    return gulp.src(['src/*.module.js', 'src/*.js', 'dist/tmp/templates.js'])
+        .pipe(concat('angular-dashboard-fluance.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('templatecache', function() {
+    return gulp.src(['src/*.html'])
+        .pipe(htmlify())
+        .pipe(minifyHTML({
+            quotes: true
+        }))
+        .pipe(templates('templates.js', {
+            'module': 'dashboard'
+        }))
+        .pipe(gulp.dest('dist/tmp'));
+});
+
+/****************************************************************************************************************
+ * Serve the dev environment
  */
 gulp.task('serve', ['sass'], function() {
     serve({
@@ -127,7 +190,7 @@ function startBrowserSync() {
         './src/**/*.html',
         './src/**/*.json',
         './src/content/images/**/*.*'
-      ];
+    ];
 
     log('Starting BrowserSync on port ' + server_port);
     browserSync({

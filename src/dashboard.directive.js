@@ -26,7 +26,6 @@
 
                 numberOfColumnPossible = parseInt(currentWidth / minWidth);
 
-
                 if (numberOfColumnPossible > numberMaxOfColumn) {
                     numberOfColumnPossible = numberMaxOfColumn;
                 }
@@ -56,7 +55,7 @@
                     'columns': '@',
                     'columnsMinWidth': '@'
                 },
-                templateUrl: 'src/dashboard.directive.html',
+                templateUrl: 'dashboard.directive.html',
                 controller: ['$scope', function(scope) {
 
                     // Get current width of parent

@@ -13,7 +13,7 @@
                     'component': '=',
                     'dashboard': '='
                 },
-                templateUrl: 'src/dashboard.component.directive.html',
+                templateUrl: 'dashboard.component.directive.html',
                 link: function(scope, element, attrs) {
                     scope.data = scope.component;
 
