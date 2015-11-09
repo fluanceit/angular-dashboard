@@ -16,13 +16,11 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
 	echo "*** Deploying dist ***"
 	git clone https://github.com/fluanceit/bower-angular-dashboard.git
 	cp -rf ./dist/* ./bower-angular-dashboard
+	cp -rf ./bower_angular_dashboard/* ./bower-angular-dashboard
 	cd bower-angular-dashboard
     git config user.name "Travis CI"
     git config user.email "frontdev@fluance.net"
     git config push.default simple
-    echo "+++ Git working dirctory content+++"
-	ls -la
-	echo "--- Git working dirctory content---"
     git add .
     git commit -m "Deploy to GitHub Dist Repo"
     git push -f -q https://mambax:$GITHUB_API_KEY@github.com/fluanceit/bower-angular-dashboard master > /dev/null 2>&1
