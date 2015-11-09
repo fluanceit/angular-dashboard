@@ -4,7 +4,6 @@ var plug = require('gulp-load-plugins')();
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var ngmin = require('gulp-angular-templatecache');
 var htmlify = require('gulp-angular-htmlify');
 var templates = require('gulp-angular-templatecache');
 var minifyHTML = require('gulp-minify-html');
@@ -91,22 +90,16 @@ function startTests(singleRun, done) {
 gulp.task('build', ['compile'], function() {
     del(['dist/tmp/**', ]);
     return gulp.src(['src/*.css'])
-        .pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
-        .on("error", errorAlert)
-        .pipe(base64(''))
-        .on("error", errorAlert)
+        //.pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
+        //.pipe(base64(''))
         .pipe(concat('angular-dashboard-fluance.css'))
-        .on("error", errorAlert)
         .pipe(gulp.dest('dist'))
-        .on("error", errorAlert)
         .pipe(uglifycss({
             'max-line-len': 80
         }))
-        .on("error", errorAlert)
         .pipe(rename({
             extname: '.min.css'
         }))
-        .on("error", errorAlert)
         .pipe(gulp.dest('dist'));
 });
 
@@ -130,10 +123,6 @@ gulp.task('templatecache', function() {
         .pipe(templates('templates.js'))
         .pipe(gulp.dest('dist/tmp'));
 });
-
-function errorAlert(err) {
-    log(err.toString());
-}
 
 /****************************************************************************************************************
  * Serve the dev environment
