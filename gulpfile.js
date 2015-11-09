@@ -92,15 +92,21 @@ gulp.task('build', ['compile'], function() {
     del(['dist/tmp/**', ]);
     return gulp.src(['src/*.css'])
         .pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
+        .on("error", errorAlert)
         .pipe(base64(''))
+        .on("error", errorAlert)
         .pipe(concat('angular-dashboard-fluance.css'))
+        .on("error", errorAlert)
         .pipe(gulp.dest('dist'))
+        .on("error", errorAlert)
         .pipe(uglifycss({
             'max-line-len': 80
         }))
+        .on("error", errorAlert)
         .pipe(rename({
             extname: '.min.css'
         }))
+        .on("error", errorAlert)
         .pipe(gulp.dest('dist'));
 });
 
@@ -125,6 +131,9 @@ gulp.task('templatecache', function() {
         .pipe(gulp.dest('dist/tmp'));
 });
 
+function errorAlert(err) {
+    log(err.toString());
+}
 
 /****************************************************************************************************************
  * Serve the dev environment
