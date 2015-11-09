@@ -23,8 +23,9 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     git config push.default simple
     git add .
     git commit -m "Deploy to GitHub Dist Repo"
-    tag_message=`git log --pretty=format:'%h' -n 1`
-    git tag "$tag_message"
+    tag_sha=`git log --pretty=format:'%h' -n 1`
+    tag_ver=`cat bower.json | grep -Po '(?<="version": ")[^"]*'`
+    git tag "v$tag_ver-build.${TRAVIS_BUILD_ID}+sha.$tag_sha"
     git push -f -q --tags "https://$github_user:$GITHUB_API_KEY@${GH_BOWER_REF}" master > /dev/null 2>&1
 	echo "*** Deployed dist ***"
 fi
