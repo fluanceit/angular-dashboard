@@ -22,9 +22,10 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
 	echo "--- Git working dirctory content---"
     git config user.name "Travis CI"
     git config user.email "frontdev@fluance.net"
+    git config push.default simple
     git add .
     git commit -m "Deploy to GitHub Dist Repo"
-    git push --verbose 
+    git push --force --quiet
 	echo "*** Deployed dist ***"
 fi
 echo "*** done ***"
