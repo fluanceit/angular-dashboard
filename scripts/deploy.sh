@@ -25,7 +25,7 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     git commit -m "Deploy to GitHub Dist Repo"
     tag_message=`git log --pretty=format:'%h' -n 1`
     git tag "$tag_message"
-    git push -f -q "https://$github_user:$GITHUB_API_KEY@${GH_BOWER_REF}" master > /dev/null 2>&1
+    git push -f -q --tags "https://$github_user:$GITHUB_API_KEY@${GH_BOWER_REF}" master > /dev/null 2>&1
 	echo "*** Deployed dist ***"
 fi
 echo "*** done ***"
