@@ -9,7 +9,7 @@ if [ "$github_user" == "fluanceit" ]; then
     git config user.email "frontdev@fluance.net"
     git add .
     git commit -m "Deploy to GitHub Pages"
-    git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
+    git push --force --quiet "https://${GH_USER}:${GH_TOKEN}@${GH_REF}" master:gh-pages > /dev/null 2>&1
     echo "*** Deployed docs ***"
     cd ..
     echo "*** Fetching commit message from source repo ***"
@@ -31,7 +31,7 @@ if [ "$github_user" == "fluanceit" ]; then
     tag_sha=`git log --pretty=format:'%h' -n 1`
     tag_ver=`cat bower.json | grep -Po '(?<="version": ")[^"]*'`
     git tag "v$tag_ver-build.${TRAVIS_BUILD_NUMBER}+sha.$tag_sha"
-    git push -f -q --tags "https://${GH_TOKEN}@${GH_BOWER_REF}" master > /dev/null 2>&1
+    git push -f -q --tags "https://${GH_USER}:${GH_TOKEN}@${GH_BOWER_REF}" master > /dev/null 2>&1
 	echo "*** Deployed dist ***"
 fi
 echo "*** done deploy.sh ***"
