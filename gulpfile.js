@@ -107,7 +107,7 @@ gulp.task('build', ['compile', 'sass'], function() {
 });
 
 gulp.task('compile', ['templatecache'], function() {
-    return gulp.src(['src/*.js', 'dist/tmp/templates.js'])
+    return gulp.src(['src/*.module.js', 'src/*.js', 'dist/tmp/templates.js'])
         .pipe(concat('angular-dashboard-fluance.js'))
         .pipe(gulp.dest('dist'))
         .pipe(uglify())
@@ -123,7 +123,9 @@ gulp.task('templatecache', function() {
         .pipe(minifyHTML({
             quotes: true
         }))
-        .pipe(templates('templates.js'))
+        .pipe(templates('templates.js', {
+            'module': 'dashboard'
+        }))
         .pipe(gulp.dest('dist/tmp'));
 });
 

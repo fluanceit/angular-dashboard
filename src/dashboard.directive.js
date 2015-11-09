@@ -56,7 +56,7 @@
                     'columns': '@',
                     'columnsMinWidth': '@'
                 },
-                templateUrl: 'src/dashboard.directive.html',
+                templateUrl: 'dashboard.directive.html',
                 controller: ['$scope', function(scope) {
 
                     // Get current width of parent

@@ -27,6 +27,7 @@ switch (environment){
         console.log('** DEV **');
         app.use(express.static('./demos/simple/'));
         app.use(express.static('./'));
+        app.use(express.static('./src/'));
         app.use('/*', express.static('./demos/simple/index.html'));
         break;
 }
