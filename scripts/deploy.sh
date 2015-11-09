@@ -1,8 +1,7 @@
 #!/bin/bash
 echo "*** deploy.sh ***"
 github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.*$//g'`
-echo "Github user: " $github_user
-if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
+if [ "$github_user" == "fluanceit" ]; then
 	echo "*** Deploying docs ***"
     cd build_docs
     git init
@@ -32,7 +31,7 @@ if [ "$github_user" == "fluanceit" ] || [ "$github_user" == "mambax" ]; then
     tag_sha=`git log --pretty=format:'%h' -n 1`
     tag_ver=`cat bower.json | grep -Po '(?<="version": ")[^"]*'`
     git tag "v$tag_ver-build.${TRAVIS_BUILD_NUMBER}+sha.$tag_sha"
-    git push -f -q --tags "https://$github_user:$GITHUB_API_KEY@${GH_BOWER_REF}" master > /dev/null 2>&1
+    git push -f -q --tags "https://${GH_TOKEN}@${GH_BOWER_REF}" master > /dev/null 2>&1
 	echo "*** Deployed dist ***"
 fi
 echo "*** done deploy.sh ***"
