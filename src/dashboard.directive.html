@@ -2,14 +2,16 @@
     <div
         id="column{{$index+0}}"
         class="column"
-        ng-class="{ placeholder : dashboard.isStateSorting }"
+        ng-class="{
+            'placeholder' : dashboard.isStateSorting,
+            'shake-effect': dashboard.isStateSorting
+        }"
         ng-repeat="column in dashboard.grid"
-        ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth, 'height': columnsWidth }">
+        ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth }">
 
         <div
             class="component"
             ng-repeat="component in column">
-
             <display-component
                 component="component"
                 dashboard="dashboard"></display-component>

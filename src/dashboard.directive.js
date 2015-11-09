@@ -110,6 +110,8 @@
 
                     }, true);
 
+
+                    // Doing some touch stuff ...
                     var theElement = document.getElementById(scope['id']);
 
                     var mylatesttap = 0;
