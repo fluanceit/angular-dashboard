@@ -88,7 +88,7 @@ function startTests(singleRun, done) {
  */
 
 gulp.task('build', ['compile'], function() {
-    del(['dist/tmp/**', ]);
+    del.sync(['dist/tmp/**', ]);
     return gulp.src(['src/*.css'])
         //.pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
         //.pipe(base64(''))
