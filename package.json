@@ -63,9 +63,9 @@
     "gulp-rename": "~1.2.2",
     "gulp-angular-templatecache": "~1.8.0",
     "gulp-angular-htmlify": "~2.3.0",
-    "gulp-uglifycss": "~1.0.4",
     "gulp-base64-inline": "~1.0.3",
     "gulp-replace": "~0.5.4",
-    "gulp-sourcemaps": "~1.6.0"
+    "gulp-sourcemaps": "~1.6.0",
+    "gulp-minify-css": "~1.2.1"
   }
 }
