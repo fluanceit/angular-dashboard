@@ -15,7 +15,11 @@
                 },
                 templateUrl: 'dashboard.component.directive.html',
                 link: function(scope, element, attrs) {
-                    scope.data = scope.component;
+
+                    scope.params = scope.component.params;
+                    if (scope.component.scope) {
+                        angular.extend(scope, scope.component.scope);
+                    }
 
                     scope.openExtended = function() {
                         if (!scope.dashboard.isStateSorting) {
