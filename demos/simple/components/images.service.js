@@ -25,15 +25,22 @@
                 // SOME DATA, NOT REQUIRED
                 name: componentName,
                 params: params,
-                /**
-                 * @ngdoc property
-                 * @name imagesComponent#template
-                 * @description URL to display
-                 */
-                templates: {
-                    'default' : '/demos/simple/components/images.templates.html',
-                    'extended': '/demos/simple/components/images.templates.extended.html',
-                    'settings': '/demos/simple/components/images.templates.settings.html'
+                states: {
+                    'default': {
+                        template: '/demos/simple/components/images.templates.html',
+                        controller: function () {
+                            console.log('Open default state');
+                        }
+                    },
+                    'extended': {
+                        template: '/demos/simple/components/images.templates.extended.html'
+                    },
+                    'settings': {
+                        template: '/demos/simple/components/images.templates.settings.html',
+                        controller: function () {
+                            console.log('Open settings state');
+                        }
+                    }
                 }
             };
         };
