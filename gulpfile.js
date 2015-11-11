@@ -8,10 +8,10 @@ var htmlify = require('gulp-angular-htmlify');
 var templates = require('gulp-angular-templatecache');
 var minifyHTML = require('gulp-minify-html');
 var del = require('del');
-var uglifycss = require('gulp-uglifycss');
 var base64 = require('gulp-base64-inline');
 var replace = require('gulp-replace');
-
+var minifyCss = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 var log = plug.util.log;
@@ -40,11 +40,8 @@ gulp.task('doc', ['docs:clean'], function() {
  * Generate a css file from the scss files
  */
 gulp.task('sass', function() {
-    var sourcemaps = require('gulp-sourcemaps');
     gulp.src('./src/**/*.scss')
-        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(sourcemaps.write())
         .pipe(gulp.dest('./src'));
 });
 
@@ -97,9 +94,11 @@ gulp.task('build', ['compile', 'sass'], function() {
         .pipe(base64(''))
         .pipe(concat('angular-dashboard-fluance.css'))
         .pipe(gulp.dest('dist'))
-        .pipe(uglifycss({
-            'max-line-len': 80
+        .pipe(sourcemaps.init())
+        .pipe(minifyCss({
+            sourceMap: true
         }))
+        .pipe(sourcemaps.write('../dist'))
         .pipe(rename({
             extname: '.min.css'
         }))
@@ -110,7 +109,9 @@ gulp.task('compile', ['templatecache'], function() {
     return gulp.src(['src/*.module.js', 'src/*.js', 'dist/tmp/templates.js'])
         .pipe(concat('angular-dashboard-fluance.js'))
         .pipe(gulp.dest('dist'))
+        .pipe(sourcemaps.init())
         .pipe(uglify())
+        .pipe(sourcemaps.write('../dist'))
         .pipe(rename({
             extname: '.min.js'
         }))
