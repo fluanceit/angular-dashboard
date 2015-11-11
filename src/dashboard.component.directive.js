@@ -21,7 +21,9 @@
                         angular.extend(scope, scope.component.scope);
                     }
 
-                    scope.component.states.default.controller();
+                    if (scope.component.states.default && scope.component.states.default.controller) {
+                        scope.component.states.default.controller();
+                    }
 
                     scope.openExtended = function() {
                         if (!scope.dashboard.isStateSorting) {
