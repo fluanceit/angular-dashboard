@@ -18,7 +18,9 @@
 
                     scope.params = scope.component.params;
                     if (scope.component.scope) {
-                        angular.extend(scope, scope.component.scope);
+                        // angular.extend(scope, scope.component.scope);
+                        // Break data binding :( needs to be fixed
+                        scope.scope = scope.component.scope;
                     }
 
                     if (scope.component.states.default && scope.component.states.default.controller) {
