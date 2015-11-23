@@ -62,6 +62,7 @@
                 setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
+                disableExtended: disableExtended,
                 drawGrid: drawGrid,
                 toggleSortable: toggleSortable
             };
@@ -280,6 +281,20 @@
                         sort.option('disabled', !dashboardObject.isStateSorting);
                     });
                 }
+            }
+
+            /**
+             * This function disable extended dashboard to make it as default
+             */
+            function disableExtended() {
+                dashboardObject.isExtended = false;
+
+                dashboardObject.components.forEach(function(component) {
+                    if (component.isExtended) {
+                        component.isExtended = false;
+                    }
+                });
+
             }
         };
     }
