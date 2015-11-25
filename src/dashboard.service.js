@@ -221,15 +221,8 @@
                 // Remove old component
                 dashboardObject.grid[oldColumn].splice(evt.oldIndex, 1);
 
-                if (evt.newIndex === 0) {
-                    console.log(dashboardObject.grid[newColumn]);
-                }
                 // Add component to new location
                 dashboardObject.grid[newColumn].splice(evt.newIndex, 0, component);
-
-                if (evt.newIndex === 0) {
-                    console.log(dashboardObject.grid[newColumn]);
-                }
 
             }
 
