@@ -76,7 +76,7 @@
              * @param {Object} component    Dashboard component
              * @param {integer} column      Column number, starting at zero
              */
-            function add(component, column) {
+            function add(component) {
 
                 // Define component ID
                 component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
@@ -84,6 +84,7 @@
                 // Add in list
                 dashboardObject.components.push(component);
 
+                return component;
             }
 
             /**
@@ -96,6 +97,10 @@
                 }
 
                 dashboardObject.grid = [];
+                for (var i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
+                    dashboardObject.grid[i] = [];
+                }
+
                 dashboardObject.sortable = null;
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
@@ -172,23 +177,20 @@
              * @return {String} Dashboard as a String
              */
             function toString() {
-                var tmpColumns = [];
-                var tmpColumn = [];
+                var componentList = [];
 
                 // For each column in grid
                 dashboardObject.grid.forEach(function(column) {
-                    tmpColumn = [];
                     column.forEach(function(component) {
-                        tmpColumn.push({
+                        componentList.push({
                             name: component.name,
                             params: component.params,
                             positions: component.positions
                         });
                     });
-                    tmpColumns.push(tmpColumn);
                 });
 
-                return JSON.stringify(tmpColumns);
+                return JSON.stringify(componentList);
             }
 
             /**
@@ -196,16 +198,14 @@
              * @param  {String} dashboardString Dashboard as a String
              */
             function fromString(dashboardString) {
-                var tmpColumns = JSON.parse(dashboardString);
+                var componentList = JSON.parse(dashboardString);
                 var nbColumns = 0;
 
-                tmpColumns.forEach(function(column) {
-                    column.forEach(function(component) {
-                        if ($injector.has(component.name)) {
-                            add(new $injector.get(component.name)(component.params, component.positions), nbColumns);
-                        }
-                    });
-                    nbColumns++;
+                componentList.forEach(function(component) {
+                    if ($injector.has(component.name)) {
+                        var componentObject = add(new $injector.get(component.name)(component.params));
+                        componentObject.positions = component.positions;
+                    }
                 });
             }
 
@@ -221,15 +221,26 @@
                 // Remove old component
                 dashboardObject.grid[oldColumn].splice(evt.oldIndex, 1);
 
-                if (evt.newIndex === 0) {
-                    console.log(dashboardObject.grid[newColumn]);
-                }
+                // Update component position
+                //
+                var nbColumn = dashboardObject.options['columns'];
+
+                component.positions[nbColumn].column = newColumn;
+
                 // Add component to new location
                 dashboardObject.grid[newColumn].splice(evt.newIndex, 0, component);
 
-                if (evt.newIndex === 0) {
-                    console.log(dashboardObject.grid[newColumn]);
-                }
+                // Update old position index
+                dashboardObject.grid[oldColumn].forEach(function (component, index) {
+                    component.positions[nbColumn].column = parseInt(oldColumn);
+                    component.positions[nbColumn].position = parseInt(index);
+                });
+
+                // Update new position index
+                dashboardObject.grid[newColumn].forEach(function (component, index) {
+                    component.positions[nbColumn].column = parseInt(newColumn);
+                    component.positions[nbColumn].position = parseInt(index);
+                });
 
             }
 
@@ -294,7 +305,6 @@
                         component.isExtended = false;
                     }
                 });
-
             }
         };
     }

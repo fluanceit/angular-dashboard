@@ -107,53 +107,7 @@
                                 }
                             });
                         }, 150);
-
-
                     }, true);
-
-
-                    // Doing some touch stuff ...
-                    var theElement = document.getElementById(scope['id']);
-
-                    var mylatesttap = 0;
-                    var holdTimer = 0;
-                    var touchDuration = 500;
-
-                    theElement.addEventListener('touchstart', touchStartHandler, false);
-                    theElement.addEventListener('touchend', touchEndHandler, false);
-                    theElement.addEventListener('touchmove', touchMoveHandler, false);
-
-                    function touchStartHandler(event) {
-                        if (scope.dashboard.isStateSorting) {
-                            var now = new Date().getTime();
-                            var timesince = now - mylatesttap;
-                            if ((timesince < 500) && (timesince > 0)) {
-                                scope.$apply(function(e) {
-                                    scope.dashboard.toggleSortable();
-                                });
-                            }
-                            mylatesttap = new Date().getTime();
-                        } else {
-                            holdTimer = setTimeout(function() {
-                                scope.$apply(function(e) {
-                                    scope.dashboard.toggleSortable();
-                                });
-                            }, touchDuration);
-                        }
-                    }
-
-                    function touchEndHandler(event) {
-                        if (holdTimer) {
-                            clearTimeout(holdTimer);
-                        }
-                    }
-
-                    function touchMoveHandler(event) {
-                        if (holdTimer) {
-                            clearTimeout(holdTimer);
-                        }
-                    }
-
                 }]
             };
         }]);

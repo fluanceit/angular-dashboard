@@ -163,7 +163,7 @@ function serve(args) {
     return plug.nodemon(options)
         .on('start', function() {
             startBrowserSync();
-            gulp.watch('./src/**/*.scss', ['sass']);
+            gulp.watch('./src/**/*.scss', ['build']);
             gulp.watch('./src/**/*.{html,js}', ['build']);
         })
         //.on('change', tasks)
