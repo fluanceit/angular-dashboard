@@ -88,12 +88,13 @@
 
                     // On each resize, we look if columns are smaller than scope.columnsMinWidth and
                     // if it is we trigger a claculate and then a scope.apply()
-                    window.addEventListener('resize', function() {
+                    window.addEventListener('resize', function(event) {
 
                         clearTimeout(timeout);
                         timeout = setTimeout(function () {
-                            //
-                            currentWidth = document.getElementById(scope.id).offsetWidth;
+
+                            currentWidth = document.getElementById('dashboard-' + scope.id).offsetWidth;
+
                             calculate(scope.columns, scope.columnsMinWidth, function() {
 
                                 if (numberOfColumnPossible !== scope.dashboard.options['columns']) {
