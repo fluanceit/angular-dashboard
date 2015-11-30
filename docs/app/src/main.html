@@ -1,38 +1,51 @@
 <div>
+    <div ng-include="'src/navbar.html'"></div>
 
-    <div class="container">
-        <div ng-include="'src/navbar.html'"></div>
-    </div>
-    <div class="container">
+    <div class="row">
 
-
-      <div class="row">
-
-        <div class="col-md-12" ng-if="!docs.currentArea" ng-include="docs.partialPath"></div>
-
-        <div class="col-md-3" ng-if="docs.currentArea">
-          <ul class="nav-list naked-list">
-            <li ng-repeat="navGroup in docs.currentArea.navGroups" class="nav-index-group">
-            <a class="nav-index-group-heading" ng-href="{{navGroup.href}}"><span>{{navGroup.name}}</span></a>
-            <ul>
-              <li ng-repeat="navItem in navGroup.navItems | orderBy:'priority'" ng-class="docs.navState(navItem)" class="nav-index-listing">
-                <a ng-href="{{navItem.href}}"><span>{{navItem.name}}</span></a>
-              </li>
-
-            </ul>
-            </li>
-          </ul>
+        <div class="col s12">
+            <div class="row">
+                <div class="col m12" ng-if="!docs.currentArea" ng-include="docs.partialPath"></div>
+                <div class="col m3" ng-if="docs.currentArea">
+                    <ul class="nav-list naked-list">
+                        <li ng-repeat="navGroup in docs.currentArea.navGroups" class="nav-index-group">
+                            <h6><a class="nav-index-group-heading" ng-href="{{navGroup.href}}"><span>{{navGroup.name}}</span></a></h6>
+                            <ul class="">
+                                <li ng-repeat="navItem in navGroup.navItems | orderBy:'priority'" ng-class="docs.navState(navItem)" class="">
+                                    <a ng-href="{{navItem.href}}"><span>{{navItem.name}}</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col m9" ng-if="docs.currentArea" ng-include="docs.partialPath" autoscroll="true"></div>
+            </div>
         </div>
-
-        <div class="col-md-9" ng-if="docs.currentArea" ng-include="docs.partialPath" autoscroll="true"></div>
-
-      </div>
-
-      <hr>
-
-      <div class="footer">
-        <p>This documentation is based on <a href="https://github.com/petebacondarwin/dgeni-example">petebacondarwin/dgeni-example</a> github repo.</p>
-      </div>
-
     </div>
+
+    <footer class="page-footer teal lighten-2">
+        <div class="container">
+            <div class="row">
+                <div class="col l8 s12">
+                    <h5 class="white-text">About Angular Dashboard Fluance</h5>
+                    <p class="grey-text text-lighten-4">Angular Dashboard Fluance is an implenent of the dashboard design pattern for angularjs. It define a common base to build a strong and smart dashboard interface.<br/>Only defining Models-Controllers at a low level, it is <strong>CSS framework free</strong>, and build to <strong>feet any project</strong>.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Shortcuts</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="https://github.com/fluanceit/angular-dashboard/issues">Bug tracker</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+
+                <a class="grey-text text-lighten-4 right" href="https://github.com/fluanceit/angular-dashboard"><img src="http://svgporn.com/logos/github-icon.svg" alt="Github" style="height: 25px; margin-right: 10px; vertical-align: middle; margin-bottom: 5px;" />Github respostory</a>
+            </div>
+        </div>
+    </footer>
 </div>

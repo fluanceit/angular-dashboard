@@ -14,6 +14,7 @@ function browserSyncInit(baseDir, files, browser) {
     if (isDebug) {
         routes = {
             '/bower_components': './bower_components',
+            '/dist': './dist',
             '/deps': './bower_components',
             '/components': './docs/src/components',
             '/app': './src/client'
@@ -27,6 +28,7 @@ function browserSyncInit(baseDir, files, browser) {
             middleware: [],
             routes: routes
         },
+        notify: false,
         browser: browser
     });
 }
@@ -34,7 +36,7 @@ function browserSyncInit(baseDir, files, browser) {
 // Run document application on server for development purposes.
 // If you modify ngdoc contents(in .js or .ngdoc), run Dgeni to rebuild partial htmls, and reload.
 // If you modify document app, reload only.
-gulp.task('docs:serve', ['dgeni', 'docs:wiredep', 'module'], function() {
+gulp.task('docs:serve', ['dgeni', 'docs:wiredep', 'module', 'build'], function() {
     browserSyncInit(['.tmp', 'docs/app'], ['docs/app/*.html', 'docs/app/src/**/*']);
     gulp.watch([
         'docs/config/templates/**/*',
