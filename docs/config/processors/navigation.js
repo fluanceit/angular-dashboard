@@ -7,14 +7,14 @@ module.exports = function generateNavigationProcessor(log) {
     var debug = log.debug;
 
     var AREA_NAMES = {
-        guide: 'Developer Guide',
-        features: 'Features'
+        presentation: 'Presentation',
+        guide: 'Developer Guide'
     };
 
     var mappers = {
-        features: function(pages, key) {
+        presentation: function(pages, key) {
             var res = {
-                name: 'Features',
+                name: 'Presentation',
                 type: 'groups',
                 href: key,
                 navItems: []

@@ -1,0 +1,47 @@
+@ngdoc overview
+
+@name Components
+@priority 110
+
+@description
+
+# Components
+
+A dashboard contains components. You have to implement your own for your project.
+
+To connect with your dashbaord object, components need to have a defined structure. They need to be developped specifically for this project. It has been design to easily fit in an angular project, so it can use injection.
+
+However, you can find here a set of already made component with working exemple :
+
+### 3 views
+
+A component can have three states to display its content.
+
+<div class="row">
+    <div class="col s12 m4">
+        <h4>Default</h4>
+        <p></p>
+    </div>
+    <div class="col s12 m4">
+        <h4>Extended</h4>
+        <p></p>
+    </div>
+    <div class="col s12 m4">
+        <h4>Settings</h4>
+        <p></p>
+    </div>
+</div>
+
+### Simple exemple
+
+Here is an image component which use our the three views.
+
+<dashboard id="components-image" data-with="auto"></dashboard>
+
+<div class="row">
+    <div class="col s12">
+        <h4>Live exemples</h4>
+        <p>Since now you know all about our features and about components, you should give a look at some exemples we build for you to see what should your final result looks like.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/exemples" role="button">See some live exemples</a>
+    </div>
+</div>

@@ -5,11 +5,11 @@
         </a>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li ng-repeat="area in navbar.areas" ng-class="{active:docs.currentArea.id === area.id}"><a ng-href="{{area.href}}" >{{area.name}}</a></li>
+            <li ng-repeat="area in navbar.areas | orderBy: '-name'" ng-class="{active:docs.currentArea.id === area.id}"><a ng-href="{{area.href}}" >{{area.name}}</a></li>
         </ul>
         <ul class="side-nav" id="nav-mobile">
             <li><a href="#/index">Home</a></li>
-            <li ng-repeat="area in navbar.areas" ng-class="{active:docs.currentArea.id === area.id}"><a ng-href="{{area.href}}" >{{area.name}}</a></li>
+            <li ng-repeat="area in navbar.areas | orderBy: '-name'" ng-class="{active:docs.currentArea.id === area.id}"><a ng-href="{{area.href}}" >{{area.name}}</a></li>
         </ul>
     </div>
 </nav>

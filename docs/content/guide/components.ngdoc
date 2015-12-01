@@ -1,0 +1,189 @@
+@ngdoc overview
+@name Components
+@priority 120
+@description
+
+# Components
+
+## Create your own
+
+You have to create your own components to feet with your needs.
+
+You have to define a service which return a defined structure.
+
+<table class="striped responsive-table">
+    <thead>
+      <tr>
+          <th data-field="id">Name</th>
+          <th data-field="name">Type</th>
+          <th data-field="price">Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>**name**</td>
+            <td>``String``</td>
+            <td>Component's name. Use to invoke an instance.</td>
+        </tr>
+        <tr>
+            <td>**params**</td>
+            <td>``Object``</td>
+            <td>
+                List of parameters to pass on initialisation. It will be saved if using ``toString()``
+                <pre><code>
+{
+    'param1': 'value',
+    'param2': 'value',
+    ...
+}</code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>**scope**</td>
+            <td>``Object``</td>
+            <td>Used to communicate values from your component to your template.<br/>You need
+            to explicitely call scope in your html like {{ scope.variable }}.</td>
+        </tr>
+        <tr>
+            <td>**states**</td>
+            <td>``Object``</td>
+            <td>
+                List of states
+            <pre><code>
+states: {
+    [default | extended | settings]: {
+        template: 'path.html',
+        controller: function () {
+            // Execute when state is activated
+        }
+    }
+}</code></pre></td>
+        </tr>
+    </tbody>
+</table>
+
+Here is a complete exemple.
+
+    var componentName = 'imagesComponent';
+
+    angular
+        .module('dashboard')
+        .service(componentName, ImagesComponent);
+
+    function ImagesComponent() {
+        return function(params) {
+            // Write here your code.
+            var scope = {};
+
+            scope.alert = function () {
+                alert('Hi!');
+            };
+
+            return {
+                name: componentName,
+                params: params,
+                scope: scope,
+                states: {
+                    'default': {
+                        template: '/demos/simple/components/images.templates.html',
+                        controller: function () {
+                            // Do some code.
+                        }
+                    },
+                    'extended': {
+                        template: '/demos/simple/components/images.templates.extended.html',
+                        controller: function () {
+                            // Do some code.
+                        }
+                    },
+                    'settings': {
+                        template: '/demos/simple/components/images.templates.settings.html',
+                        controller: function () {
+                            // Do some code.
+                        }
+                    }
+                }
+            };
+        };
+    }
+
+Then to add a component in a dashbaord, use the add method :
+
+    var myApp = angular.module('myApp', ['dashboard']);
+    myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
+        function($scope, fluanceDashboard, ImageComponent) {
+
+            fluanceDashboard.get('simple-demo').add(new ImageComponent({
+                'url': 'https://images.unsplash.com/photo-1445251836269-d158eaa028a6'
+            }));
+        }
+    ]);
+
+## Templating
+
+Templates are completely free of any restriction. However, this library provide a set of variables and function you can use.
+
+### variables
+
+
+<table class="striped responsive-table">
+    <thead>
+      <tr>
+          <th data-field="id">Name</th>
+          <th data-field="name">Type</th>
+          <th data-field="price">Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>**params**</td>
+            <td>``Object``</td>
+            <td>Contains params from component description.</td>
+        </tr>
+        <tr>
+            <td>**scope** (optional)</td>
+            <td>``Object``</td>
+            <td>Contain all variable describe in scope value of your component.</td>
+        </tr>
+        <tr>
+            <td>**dashboard**</td>
+            <td>``Object``</td>
+            <td>Access dashboard object.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+### Functions
+
+
+<table class="striped responsive-table">
+    <thead>
+      <tr>
+          <th data-field="id">Function name</th>
+          <th data-field="price">Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>**openExtended()**</td>
+            <td>Change state to go in extended mode. Only from default.</td>
+        </tr>
+        <tr>
+            <td>**closeExtended()**</td>
+            <td>Go back from extended mode to default.</td>
+        </tr>
+        <tr>
+            <td>**openSettings()**</td>
+            <td>Change state to go in settings mode. Only from default.</td>
+        </tr>
+        <tr>
+            <td>**closeSettings()**</td>
+            <td>Go back from settings mode to default.</td>
+        </tr>
+    </tbody>
+</table>
+

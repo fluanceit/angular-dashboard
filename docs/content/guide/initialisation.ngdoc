@@ -1,0 +1,66 @@
+@ngdoc overview
+@name Constructor
+@priority 110
+@description
+
+# Constructor
+
+First step, define in your html a directive.
+
+    <dashboard id="simple-demo" data-width="auto" data-columns="6" data-columns-min-width="250">
+        <!-- Transcule template from directive -->
+    </dashboard>
+
+Then you can use JS in a controller to feed your content.
+
+    var myApp = angular.module('myApp', ['dashboard']);
+
+    myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
+        function($scope, fluanceDashboard, ImageComponent) {
+            var images = [
+                'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
+                'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',
+                'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max'
+            ];
+            images.forEach(function(url) {
+                fluanceDashboard.get('simple-demo').add(new ImageComponent({
+                    'url': url
+                }));
+            });
+        }
+    ]);
+
+## Attributs
+
+<table class="striped responsive-table">
+    <thead>
+      <tr>
+          <th data-field="id">Name</th>
+          <th data-field="name">Type</th>
+          <th data-field="price">Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>**id**</td>
+            <td>``String``</td>
+            <td>Name to identify a dashboard and access using dashboardFactory.get(id).</td>
+        </tr>
+        <tr>
+            <td>**data-width**</td>
+            <td>``Integer | 'Auto'``</td>
+            <td>Define dashboard width. auto = 100%.</td>
+        </tr>
+        <tr>
+            <td>**data-columns**</td>
+            <td>``Integer``</td>
+            <td>Number of columns.</td>
+        </tr>
+        <tr>
+            <td>**data-columns-min-width**</td>
+            <td>``Integer``</td>
+            <td>Minimum width in pixel before to remove a column and redefine layout.</td>
+        </tr>
+    </tbody>
+</table>

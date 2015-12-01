@@ -1,0 +1,18 @@
+@ngdoc overview
+@name Reorganize
+@priority 150
+@description
+
+# Reorganize
+
+You can activate a re-organize state to let your users re-organize it.
+
+    var dashboard = fluanceDashboard.get('simple-demo');
+    dashboard.toggleSortable();
+
+You can test is dashboard is sorting :
+
+    if (dashboard.isStateSorting) {
+        // execute code if sorting mode is activated
+    }
+
