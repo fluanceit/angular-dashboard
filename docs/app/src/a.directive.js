@@ -3,13 +3,16 @@
 angular.module('docApp').directive('a', function (DOCS_OVERWRITELINK, DOCS_AREA_DATA) {
   var linkCache = {};
   var isRewrite = function (link) {
+    if (!link) {
+        return false;
+    }
     var res = link.indexOf('#/') === -1;
     if(!res){
       return false;
     }
     res = false;
     angular.forEach(DOCS_AREA_DATA, function (area) {
-      res = res || link.indexOf(area) === 0; 
+      res = res || link.indexOf(area) === 0;
     });
     return res;
   };

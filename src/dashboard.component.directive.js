@@ -27,7 +27,7 @@
                         scope.component.states.default.controller();
                     }
 
-                    scope.openExtended = function() {
+                    scope.openExtended = function(event) {
                         if (!scope.dashboard.isStateSorting) {
                             scope.dashboard.isExtended = true;
                             scope.component.isExtended = true;
@@ -35,35 +35,31 @@
                             if (scope.component.states.extended && scope.component.states.extended.controller) {
                                 scope.component.states.extended.controller();
                             }
-
                         }
                     };
-                    scope.closeExtended = function() {
+                    scope.closeExtended = function(event) {
                         if (!scope.dashboard.isStateSorting) {
                             scope.dashboard.isExtended = false;
                             scope.component.isExtended = false;
                             if (scope.component.states.default && scope.component.states.default.controller) {
                                 scope.component.states.default.controller();
                             }
-
                         }
                     };
-                    scope.openSettings = function() {
+                    scope.openSettings = function(event) {
                         if (!scope.dashboard.isStateSorting) {
                             scope.component.displaySettings = true;
                             if (scope.component.states.settings && scope.component.states.settings.controller) {
                                 scope.component.states.settings.controller();
                             }
-
                         }
                     };
-                    scope.closeSettings = function() {
+                    scope.closeSettings = function(event) {
                         if (!scope.dashboard.isStateSorting) {
                             scope.component.displaySettings = false;
                             if (scope.component.states.default && scope.component.states.default.controller) {
                                 scope.component.states.default.controller();
                             }
-
                         }
                     };
                 }

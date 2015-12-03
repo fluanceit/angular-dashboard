@@ -10,7 +10,7 @@ angular.module('docApp').controller('DocsCtrl', function($scope, $location, DOCS
 		var res = [];
 		if (navItem.type === 'section'){
 			res.push('nav-index-section');
-		} 
+		}
 		if ('/' + navItem.href === docs.currentPath){
 			res.push('current');
 		}

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="styles/runnableExample.css" />
     <link rel="stylesheet" href="styles/github.css" />
     <link rel="stylesheet" href="../../dist/angular-dashboard-fluance.css" />
+    <link rel="stylesheet" href="components/images/images.styles.css" />
+
     <!-- endbuild -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -28,7 +30,7 @@
 			<div ng-include="'src/main.html'"></div>
 		</div>
 
-		<!-- build:js({docs/app,.tmp}) scripts/vendor.js -->
+	<!-- build:js({docs/app,.tmp}) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../../bower_components/jquery/dist/jquery.js"></script>
     <script src="../../bower_components/angular/angular.js"></script>
@@ -53,6 +55,8 @@
 		<script src="src/navbar.controller.js"></script>
 		<script src="src/area-data.js"></script>
 		<script src="src/nav-data.js"></script>
+        <script src="components/components.module.js"></script>
+        <script src="components/images/images.service.js"></script>
     <!-- inject:partials -->
     <!-- angular templates will be automaticaly converted in js and inserted here -->
     <!-- endinject -->

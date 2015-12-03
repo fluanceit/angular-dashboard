@@ -5,32 +5,15 @@
 
 # Constructor
 
+## Directive
+
 First step, define in your html a directive.
 
     <dashboard id="simple-demo" data-width="auto" data-columns="6" data-columns-min-width="250">
         <!-- Transcule template from directive -->
     </dashboard>
 
-Then you can use JS in a controller to feed your content.
-
-    var myApp = angular.module('myApp', ['dashboard']);
-
-    myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
-        function($scope, fluanceDashboard, ImageComponent) {
-            var images = [
-                'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
-                'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',
-                'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max'
-            ];
-            images.forEach(function(url) {
-                fluanceDashboard.get('simple-demo').add(new ImageComponent({
-                    'url': url
-                }));
-            });
-        }
-    ]);
-
-## Attributs
+### Attributs
 
 <table class="striped responsive-table">
     <thead>
@@ -64,3 +47,24 @@ Then you can use JS in a controller to feed your content.
         </tr>
     </tbody>
 </table>
+
+## Programmatical access
+
+Then you can use JS in a controller to populate your dashboard and edit settings.
+
+    var myApp = angular.module('myApp', ['dashboard']);
+
+    myApp.controller('myController', ['$scope', 'dashboardFactory', 'imagesComponent',
+        function($scope, fluanceDashboard, ImageComponent) {
+            var images = [
+                'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
+                'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',
+                'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max'
+            ];
+            images.forEach(function(url) {
+                fluanceDashboard.get('simple-demo').add(new ImageComponent({
+                    'url': url
+                }));
+            });
+        }
+    ]);

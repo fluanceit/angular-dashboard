@@ -36,7 +36,9 @@ A component can have three states to display its content.
 
 Here is an image component which use our the three views.
 
-<dashboard id="components-image" data-with="auto"></dashboard>
+<div ng-controller="exempleController">
+    <dashboard id="components-simple-exemple" data-width="auto" data-columns="3" data-columns-min-width="250"></dashboard>
+</div>
 
 <div class="row">
     <div class="col s12">
