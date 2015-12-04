@@ -29,7 +29,7 @@
 
                     scope.openExtended = function(event) {
                         if (!scope.dashboard.isStateSorting) {
-                            scope.dashboard.isExtended = true;
+                            scope.dashboard.enableExtended();
                             scope.component.isExtended = true;
                             // Execute JS
                             if (scope.component.states.extended && scope.component.states.extended.controller) {

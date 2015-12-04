@@ -21,10 +21,18 @@ Inject them in your HTML code using :
 
     <html>
         <head>
+            <!-- CSS -->
             <link rel="stylesheet" href="angular-dashboard-fluance.css" />
-            <script src="angular-dashboard-fluance.js"></script>
         </head>
         <body>
-
+            <!-- HTML -->
+            <p>Hello world!</p>
+            <!-- Script -->
+            <script src="angular-dashboard-fluance.js"></script>
+            <!-- Inject your components -->
+            <script src="component1.js"></script>
+            <script src="component2.js"></script>
+            <script src="component3.js"></script>
+            ...
         </body>
     </html>

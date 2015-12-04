@@ -62,6 +62,7 @@
                 setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
+                enableExtended: enableExtended,
                 disableExtended: disableExtended,
                 drawGrid: drawGrid,
                 toggleSortable: toggleSortable
@@ -292,6 +293,10 @@
                         sort.option('disabled', !dashboardObject.isStateSorting);
                     });
                 }
+            }
+
+            function enableExtended() {
+                dashboardObject.isExtended = true;
             }
 
             /**

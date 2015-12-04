@@ -8,7 +8,6 @@
         .module('dashboard')
         .directive('dashboard', ['dashboardFactory', function(dashboardFactory) {
 
-
             // Width of the dashboard container
             var currentWidth;
             // To detet a change of column
@@ -112,5 +111,4 @@
                 }]
             };
         }]);
-
 })();
