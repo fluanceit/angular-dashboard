@@ -1,6 +1,6 @@
 <div id="dashboard-{{ id }}"
     class="dashboard-container"
-    ng-style="{ 'width': width }">
+    ng-style="{ 'width': dashboard.options.width }">
     <div
         id="column{{$index+0}}"
         class="dashboard-column"
@@ -9,7 +9,7 @@
             'shake-effect': dashboard.isStateSorting
         }"
         ng-repeat="column in dashboard.grid"
-        ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth }">
+        ng-style="{ 'max-width': dashboard.columnsWidth, 'width': dashboard.columnsWidth }">
 
         <div
             class="component"

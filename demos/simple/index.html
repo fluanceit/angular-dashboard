@@ -23,7 +23,7 @@
             </ul>
         </div>
     </nav>
-    <div>
+    <div id="dashboard-parent" style="display: none;">
         <dashboard id="simple-demo" data-width="auto" data-columns="6" data-columns-min-width="250">
             <!-- Transcule template from directive -->
         </dashboard>
@@ -32,7 +32,7 @@
     <script src="/bower_components/Sortable/Sortable.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
 
-    <script src="/dist/angular-dashboard-fluance.min.js"></script>
+    <script src="/dist/angular-dashboard-fluance.js"></script>
 
     <script src="/demos/simple/components/images.service.js"></script>
     <script type="text/javascript">
@@ -65,8 +65,15 @@
                     sessionStorage.setItem('cockpit', $scope.dashboard.toString());
                 }
             };
+
+            setTimeout(function () {
+                $('#dashboard-parent').show();
+                $scope.dashboard.refresh();
+                $scope.$apply();
+            }, 1000);
         }
     ]);
+
     </script>
 </body>
 
