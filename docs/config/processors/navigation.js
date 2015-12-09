@@ -7,10 +7,30 @@ module.exports = function generateNavigationProcessor(log) {
     var debug = log.debug;
 
     var AREA_NAMES = {
+        presentation: 'Presentation',
         guide: 'Developer Guide'
     };
 
     var mappers = {
+        presentation: function(pages, key) {
+            var res = {
+                name: 'Presentation',
+                type: 'groups',
+                href: key,
+                navItems: []
+            };
+
+            lodash(pages).forEach(function(page) {
+                res.navItems.push({
+                    name: page.name,
+                    type: '',
+                    href: page.path,
+                    priority: page.priority
+                });
+            });
+
+            return [res];
+        },
         guide: function(pages, key) {
             var res = {
                 name: 'Developer Guide',

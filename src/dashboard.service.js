@@ -40,6 +40,9 @@
                 // This array contain list of sortable columns
                 sortable: null, // Array of columns objects
 
+                // Column width in pixel
+                columnsWidth: null,
+
                 // stored option to manage dashboard configuration.
                 options: {
                     // Full width of entiere dashboard
@@ -62,14 +65,18 @@
                 setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
+                enableExtended: enableExtended,
                 disableExtended: disableExtended,
-                drawGrid: drawGrid,
+                refresh: refresh,
                 toggleSortable: toggleSortable
             };
 
-            var dashboardObject = DEFAULT_DASHBOARD;
+            var instance = DEFAULT_DASHBOARD;
 
-            return dashboardObject;
+            var lastNumberColumns, maxAllowColumns;
+
+            return instance;
+
 
             /**
              * Add a component in array
@@ -79,35 +86,79 @@
             function add(component) {
 
                 // Define component ID
-                component.id = dashboardObject.id + '-' + dashboardObject.nbComponent;
-                dashboardObject.nbComponent++;
+                component.id = instance.id + '-' + instance.nbComponent;
+                instance.nbComponent++;
                 // Add in list
-                dashboardObject.components.push(component);
+                instance.components.push(component);
 
                 return component;
             }
 
             /**
-             * Put all components in grid based on algo OR defined position saved in string.
+             * Refresh dashboard grid layout. Used for exemple on resize event to
+             * redefine column number.
+             * @return {[type]} [description]
              */
-            function drawGrid() {
+            function refresh() {
+
+                // Define options shortcut
+                var options = instance.options;
+
+
                 // If is on sorting mode, we stop it
-                if (dashboardObject.isStateSorting) {
-                    dashboardObject.toggleSortable();
+                if (instance.isStateSorting) {
+                    instance.toggleSortable();
                 }
 
-                dashboardObject.grid = [];
-                for (var i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
-                    dashboardObject.grid[i] = [];
+                //
+                // Redefine grid layout
+                //
+                var currentWidth = $('#' + instance.id).parent().width();
+
+                console.log(currentWidth);
+
+                // If screen smaller than expected width, we take size
+                if (options.width !== 'auto' &&
+                    options.width < currentWidth) {
+                    currentWidth = options.width;
+                }
+                console.log(currentWidth);
+
+                // instance.options.width = currentWidth;
+
+                var numberOfColumnPossible = parseInt(currentWidth / options.columnsMinWidth);
+                if (numberOfColumnPossible > maxAllowColumns) {
+                    numberOfColumnPossible = maxAllowColumns;
+                }
+                if (lastNumberColumns !== numberOfColumnPossible) {
+                    lastNumberColumns = numberOfColumnPossible;
+                    // Case 1, we make them float
+                    if (numberOfColumnPossible < options.columns) {
+                        instance.columnsWidth = (100 / numberOfColumnPossible) + '%';
+                    } else if (numberOfColumnPossible > options.columns) {
+                        instance.columnsWidth = (100 / numberOfColumnPossible) + '%';
+                    } else {
+                        instance.columnsWidth = (100 / options.columns) + '%';
+                    }
+                }
+                options.columns = numberOfColumnPossible;
+
+                console.log(options.columns);
+                //
+                // Dispatch component in new grid layout.
+                //
+                instance.grid = [];
+                for (var i = options['columns'] - 1; i >= 0; i--) {
+                    instance.grid[i] = [];
                 }
 
-                dashboardObject.sortable = null;
+                instance.sortable = null;
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
-                dashboardObject.components.forEach(function (component) {
+                instance.components.forEach(function (component) {
 
                     var column = 0, position = 0;
-                    var nbColumn = dashboardObject.options['columns'];
+                    var nbColumn = options['columns'];
 
                     // Check if position is define
                     if (component.positions && component.positions[nbColumn]) {
@@ -116,29 +167,29 @@
                     } else {
 
                         // We use algo to define component position
-                        if (dashboardObject.options['algo'] === 'shorter') {
+                        if (options['algo'] === 'shorter') {
                             // For each column starting by the end, we check size
-                            for (var i = dashboardObject.options['columns'] - 1; i >= 0; i--) {
+                            for (var i = options['columns'] - 1; i >= 0; i--) {
                                 // if column i in grid does not exist
-                                if (!dashboardObject.grid[i]) {
+                                if (!instance.grid[i]) {
                                     column = i;
-                                    dashboardObject.grid[i] = [];
+                                    instance.grid[i] = [];
                                 } else {
                                     // Si it exist
-                                    if (dashboardObject.grid[i].length <= dashboardObject.grid[column].length) {
+                                    if (instance.grid[i].length <= instance.grid[column].length) {
                                         column = i;
                                     }
                                 }
                             }
-                        } else if (dashboardObject.options['algo'] === 'random'){
-                            column = Math.floor(Math.random() * dashboardObject.options['columns']);
+                        } else if (options['algo'] === 'random'){
+                            column = Math.floor(Math.random() * options['columns']);
                         } else {
                             column = 0;
                         }
 
                         // define position of defined column. Get last position.
-                        if (dashboardObject.grid[column]) {
-                            position = dashboardObject.grid[column].length;
+                        if (instance.grid[column]) {
+                            position = instance.grid[column].length;
                         }
 
                         // We save new position in our
@@ -151,11 +202,11 @@
                     }
 
                     // If grid never used this column before, create one.
-                    if (!dashboardObject.grid[column]) {
-                        dashboardObject.grid[column] = [];
+                    if (!instance.grid[column]) {
+                        instance.grid[column] = [];
                     }
                     // Add compoment in grid to defined position
-                    dashboardObject.grid[column].splice(position, 0, component);
+                    instance.grid[column].splice(position, 0, component);
 
                 });
             }
@@ -167,7 +218,11 @@
                 // For each new option we override current one.
                 Object.keys(newOptions).forEach(function(key) {
                     if (newOptions[key]) {
-                        dashboardObject.options[key] = newOptions[key];
+                        instance.options[key] = newOptions[key];
+                        // If edit columns, we save as maxAllowColumns
+                        if (key === 'columns') {
+                            maxAllowColumns = newOptions[key];
+                        }
                     }
                 });
             }
@@ -180,7 +235,7 @@
                 var componentList = [];
 
                 // For each column in grid
-                dashboardObject.grid.forEach(function(column) {
+                instance.grid.forEach(function(column) {
                     column.forEach(function(component) {
                         componentList.push({
                             name: component.name,
@@ -217,27 +272,27 @@
                 var newColumn = evt.to.id.replace('column', '');
 
                 // Get component as tmp
-                var component = dashboardObject.grid[oldColumn][evt.oldIndex];
+                var component = instance.grid[oldColumn][evt.oldIndex];
                 // Remove old component
-                dashboardObject.grid[oldColumn].splice(evt.oldIndex, 1);
+                instance.grid[oldColumn].splice(evt.oldIndex, 1);
 
                 // Update component position
                 //
-                var nbColumn = dashboardObject.options['columns'];
+                var nbColumn = instance.options['columns'];
 
                 component.positions[nbColumn].column = newColumn;
 
                 // Add component to new location
-                dashboardObject.grid[newColumn].splice(evt.newIndex, 0, component);
+                instance.grid[newColumn].splice(evt.newIndex, 0, component);
 
                 // Update old position index
-                dashboardObject.grid[oldColumn].forEach(function (component, index) {
+                instance.grid[oldColumn].forEach(function (component, index) {
                     component.positions[nbColumn].column = parseInt(oldColumn);
                     component.positions[nbColumn].position = parseInt(index);
                 });
 
                 // Update new position index
-                dashboardObject.grid[newColumn].forEach(function (component, index) {
+                instance.grid[newColumn].forEach(function (component, index) {
                     component.positions[nbColumn].column = parseInt(newColumn);
                     component.positions[nbColumn].position = parseInt(index);
                 });
@@ -250,17 +305,17 @@
             function makeItSortable() {
 
                 // If columns have already been initialize
-                if (!dashboardObject.sortable) {
-                    dashboardObject.sortable = [];
+                if (!instance.sortable) {
+                    instance.sortable = [];
 
                     // apply sortable on each column.
-                    for (var i = 0; i < dashboardObject.grid.length; i++) {
+                    for (var i = 0; i < instance.grid.length; i++) {
 
-                        dashboardObject.sortable.push(
+                        instance.sortable.push(
                             Sortable.create(document.getElementById('column' + i), {
-                                group: dashboardObject.id,
+                                group: instance.id,
                                 draggable: '.component',
-                                disabled: !dashboardObject.isStateSorting, // No databinding here, need to be updated
+                                disabled: !instance.isStateSorting, // No databinding here, need to be updated
                                 handle: '.sortable-handle',
                                 onAdd: function(evt) {
                                     // Event triggered when add in column
@@ -281,26 +336,30 @@
              */
             function toggleSortable() {
                 // If dashboard is sortable by user
-                if (!dashboardObject.options['sortable']) {
+                if (!instance.options['sortable']) {
                     console.log('This dashboard does not allow sorting (see options configuration).');
                 } else {
                     makeItSortable();
                     // Toggle sorting state
-                    dashboardObject.isStateSorting = !dashboardObject.isStateSorting;
+                    instance.isStateSorting = !instance.isStateSorting;
                     // Change disable option for each column
-                    dashboardObject.sortable.forEach(function(sort) {
-                        sort.option('disabled', !dashboardObject.isStateSorting);
+                    instance.sortable.forEach(function(sort) {
+                        sort.option('disabled', !instance.isStateSorting);
                     });
                 }
+            }
+
+            function enableExtended() {
+                instance.isExtended = true;
             }
 
             /**
              * This function disable extended dashboard to make it as default
              */
             function disableExtended() {
-                dashboardObject.isExtended = false;
+                instance.isExtended = false;
 
-                dashboardObject.components.forEach(function(component) {
+                instance.components.forEach(function(component) {
                     if (component.isExtended) {
                         component.isExtended = false;
                     }

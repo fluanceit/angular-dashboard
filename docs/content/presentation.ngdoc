@@ -1,0 +1,29 @@
+@ngdoc overview
+
+@name Presentation
+@priority 110
+
+@description
+
+# Quick overview
+
+Here is a general presentation of the angular-dashboard-fluance project.
+
+<div class="row">
+    <div class="col s12 m4">
+        <h4>Features</h4>
+        <p>We created this library to easily replicate those features and not having to recode them.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/features" role="button">Get started</a>
+    </div>
+    <div class="col s12 m4">
+        <h4>Components</h4>
+        <p>This library has been build to really easily customize and create your own elements. They need to be define specifically for your case.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/components" role="button">Get started</a>
+    </div>
+    <div class="col s12 m4">
+        <h4>Exemples</h4>
+        <p>You should give a look at some exemples we build for you to see what should your final result looks like.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/exemples" role="button">Get started</a>
+    </div>
+</div>
+

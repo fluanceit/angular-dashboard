@@ -23,7 +23,7 @@
             </ul>
         </div>
     </nav>
-    <div>
+    <div id="dashboard-parent" style="display: none;">
         <dashboard id="simple-demo" data-width="auto" data-columns="6" data-columns-min-width="250">
             <!-- Transcule template from directive -->
         </dashboard>
@@ -32,7 +32,7 @@
     <script src="/bower_components/Sortable/Sortable.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
 
-    <script src="/dist/angular-dashboard-fluance.min.js"></script>
+    <script src="/dist/angular-dashboard-fluance.js"></script>
 
     <script src="/demos/simple/components/images.service.js"></script>
     <script type="text/javascript">
@@ -48,20 +48,6 @@
                 var img = [
                     'https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max',
                     'https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1442406964439-e46ab8eff7c4?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1442188950719-e8a67aea613a?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1442029739115-ce733f0de45e?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1443827423664-eac70d49dd0d?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1438368915865-a852ef86fc42?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1443453489887-98f56bc5bb38?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1441966055611-30ea468880a2?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1441155472722-d17942a2b76a?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1437572848259-df63caa1a552?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1437422061949-f6efbde0a471?q=80&fm=jpg&w=800&fit=max',
-                    'https://images.unsplash.com/photo-1440557958969-404dc361d86f?q=80&fm=jpg&w=800&fit=max',
                     'https://images.unsplash.com/photo-1439546743462-802cabef8e97?q=80&fm=jpg&w=800&fit=max'
                 ];
 
@@ -79,8 +65,15 @@
                     sessionStorage.setItem('cockpit', $scope.dashboard.toString());
                 }
             };
+
+            setTimeout(function () {
+                $('#dashboard-parent').show();
+                $scope.dashboard.refresh();
+                $scope.$apply();
+            }, 1000);
         }
     ]);
+
     </script>
 </body>
 

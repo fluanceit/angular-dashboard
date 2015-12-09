@@ -21,7 +21,7 @@
         &::after {
             content: "";
             background-image: url("dnd_o.svg");
-            background-color: rgb(245, 245, 245);
+            background-color: pink; // rgb(245, 245, 245)
             @include border-radius(3px);
             background-size: 80px 80px;
             background-repeat: no-repeat;
@@ -33,6 +33,7 @@
         }
     }
 }
+
 
 .dashboard-component {
     margin: 0px 10px;
@@ -59,6 +60,11 @@ a {
         margin: 0;
     }
 }
+
+a[ng-click]{
+    cursor: pointer;
+}
+
 
 .shake-effect .dashboard-component {
     -webkit-animation-name: shake;

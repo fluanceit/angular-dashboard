@@ -1,9 +1,11 @@
 @ngdoc overview
 
 @name Guide
+@priority 120
 
 @description
 
 # Developer Guide
 
-TODO
+This section explain how to use angular-dashboard-fluance as a developer.
+

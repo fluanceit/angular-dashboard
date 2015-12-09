@@ -28,6 +28,18 @@ html, body {
     text-align: center;
 }
 
+ul.sidebar {
+    margin-top: 40px;
+}
+
+ul.sidebar h6 a {
+    padding-left: 10px;
+}
+
+ul.sidebar li a{
+    width: 100%;
+}
+
 .header-fixed {
   position:fixed;
   z-index:1000;
