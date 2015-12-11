@@ -16,7 +16,9 @@ gulp.task('docs:wiredep', function() {
                 '/open-sans-fontface/',
                 '/foundation',
                 '/bootstrap/',
-                '/angular-bootstrap/'
+                '/angular-bootstrap/',
+                '/Sortable/knockout-sortable.js',
+                '/Sortable/react-sortable-mixin.js'
             ]
         }))
         .pipe(gulp.dest('docs/app'));

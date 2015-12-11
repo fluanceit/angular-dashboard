@@ -9,8 +9,8 @@ var $ = require('gulp-load-plugins')({
 // Template Cache.
 gulp.task('docs:partials', ['dgeni'], function() {
     return gulp.src([
-            'src/client/app/**/*.html',
-            'docs/app/{src,.tmp}/**/*.html',
+            'src/**/*.html',
+            'docs/app/**/*.html',
             '.tmp/{partials,.tmp}/**/*.html'
             ])
         .pipe($.minifyHtml({

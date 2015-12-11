@@ -27,16 +27,16 @@
                 params: params,
                 states: {
                     'default': {
-                        template: '/components/images/images.templates.html',
+                        template: 'components/images/images.templates.html',
                         controller: function () {
                             console.log('Open default state');
                         }
                     },
                     'extended': {
-                        template: '/components/images/images.templates.extended.html'
+                        template: 'components/images/images.templates.extended.html'
                     },
                     'settings': {
-                        template: '/components/images/images.templates.settings.html',
+                        template: 'components/images/images.templates.settings.html',
                         controller: function () {
                             console.log('Open settings state');
                         }

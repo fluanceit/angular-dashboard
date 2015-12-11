@@ -59,9 +59,8 @@ var dgeniGenerate = function() {
                     include: 'docs/content/**/*.ngdoc',
                     basePath: 'docs/content'
                 }, {
-                    include: 'src/client/app/**/*.js',
-                    exclude: 'src/client/test-helpers/',
-                    basePath: 'src/client/app'
+                    include: 'src/**/*.js',
+                    basePath: 'src'
                 }];
 
                 //templateFinder.templateFolders.unshift(path.resolve(__dirname, 'templates'));

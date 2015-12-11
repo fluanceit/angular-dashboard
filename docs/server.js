@@ -16,8 +16,6 @@ function browserSyncInit(baseDir, files, browser) {
             '/bower_components': './bower_components',
             '/dist': './dist',
             '/deps': './bower_components',
-            '/components': './docs/src/components',
-            '/app': './src/client'
         };
     }
 
@@ -41,11 +39,11 @@ gulp.task('docs:serve', ['dgeni', 'docs:wiredep', 'module', 'build'], function()
     gulp.watch([
         'docs/config/templates/**/*',
         'docs/content/**/*',
-        'src/client/app/**/*'
+        'src/**/*'
         ], ['dgeni',
         browserSync.reload
     ]);
-    gulp.watch(['src/client/app/**/*.js'], ['module']);
+    gulp.watch(['src/**/*.js'], ['module']);
 });
 
 // Run document applicaton on server.

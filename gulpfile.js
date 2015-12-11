@@ -87,34 +87,36 @@ function startTests(singleRun, done) {
  * BUILD THE COMPONENT
  */
 
-gulp.task('build', ['compile', 'sass'], function() {
-    del.sync(['dist/tmp/**', ]);
+gulp.task('build', ['compile-js', 'compile-css'], function() {
+    return del.sync(['dist/tmp/**']);
+});
+
+gulp.task('compile-css', ['sass'], function() {
     return gulp.src(['src/*.css'])
-        .pipe(replace('background\-image\: url\(\"', 'background\: inline\(\"'))
         .pipe(base64(''))
         .pipe(concat('angular-dashboard-fluance.css'))
         .pipe(gulp.dest('dist'))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
         .pipe(sourcemaps.init())
         .pipe(minifyCss({
             sourceMap: true
         }))
         .pipe(sourcemaps.write('../dist'))
-        .pipe(rename({
-            extname: '.min.css'
-        }))
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('compile', ['templatecache'], function() {
+gulp.task('compile-js', ['templatecache'], function() {
     return gulp.src(['src/*.module.js', 'src/*.js', 'dist/tmp/templates.js'])
         .pipe(concat('angular-dashboard-fluance.js'))
         .pipe(gulp.dest('dist'))
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write('../dist'))
         .pipe(rename({
             extname: '.min.js'
         }))
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('../dist'))
         .pipe(gulp.dest('dist'));
 });
 
