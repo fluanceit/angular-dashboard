@@ -8,10 +8,18 @@
     <div class="row">
         <div class="col s12 center-align">
             <i class="material-icons grey-text" style="font-size: 240px;">dashboard</i>
+            <h1>Angular-dashboard-fluance </h1>
+            <p>An angular library to implement your own component in a generic dashboard pattern.</p>
+        </div>
+        <div class="col s12 center-align">
+            <p class="center">
+                <a class="btn btn-primary btn-lg" href="presentation" role="button">What is it for ?</a>
+                <a class="btn btn-primary btn-lg" href="guide" role="button">How to use ?</a>
+                <a class="btn btn-primary btn-lg" href="guide" role="button">Examples</a>
+            </p>
         </div>
         <div class="col s12">
-            <p style="padding-top: 20px;">Angular Dashboard Fluance is an implenent of the dashboard design pattern for angularjs. It define a common base to build a strong and smart dashboard interface.<br/>Only defining Models-Controllers at a low level, it is **CSS framework free**, and build to **feet any project**.</p>
-            <p class="left"><a class="btn btn-primary btn-lg" href="guide" role="button">Get started</a></p>
+            <p style="padding-top: 20px;">Angular Dashboard Fluance is an implenent of the dashboard design pattern for angularjs. It define a common base to build a strong and smart dashboard interface.<br/>Only defining Models-Controllers at a low level, it is **CSS framework free**, and build to **fit any project**.</p>
         </div>
     </div>
 </div>
