@@ -62,6 +62,7 @@
         "jQuery": false,
         "APP_CONFIG": true,
         "VERSION": true,
-        "_LTracker": true
+        "_LTracker": true,
+        "Sortable": true
     }
 }

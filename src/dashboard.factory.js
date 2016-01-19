@@ -25,15 +25,17 @@
         var store = {};
 
         var factory = {
-            get: get
+            get: get,
+            remove: remove,
+            reinitialize: reinitialize
         };
 
         return factory;
 
         /**
          * Get a dashboard, based on its id
-         * @param  {[type]} id [description]
-         * @return {[type]}    [description]
+         * @param  {String} id [description]
+         * @return {Object}    Index of dashbaords
          */
         function get(id) {
             if (!store[id]) {
@@ -41,6 +43,23 @@
                 store[id].id = id;
             }
             return store[id];
+        }
+
+        /**
+         * Remove from a dashboard, based on its id
+         * @param  {String} id [description]
+         */
+        function remove(id) {
+            if (store[id]) {
+                delete store[id];
+            }
+        }
+
+        /**
+         * Remove all dashboards from factory (used to reinitialize)
+         */
+        function reinitialize() {
+            store = {};
         }
 
     }

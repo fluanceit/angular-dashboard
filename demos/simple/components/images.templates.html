@@ -1,14 +1,14 @@
 <div class="panel panel-default image-component">
     <div class="panel-heading">
         <h3 class="panel-title">
-            <span style="float: left; color: #777;" class="sortable-handle"><i class="glyphicon glyphicon-move" ng-hide="dashboard.sortableDisabled"></i></span>
+            <span style="float: left; color: #777;" class="sortable-handle"><i class="glyphicon glyphicon-move" ng-show="dashboard.isStateSorting"></i></span>
             Image component
             <a style="float: right; color: #777;" href="#" ng-click="openSettings()"><i class="glyphicon glyphicon-cog"></i></a>
         </h3>
     </div>
     <div class="panel-body">
         <a href="#" ng-click="openExtended()">
-            <img ng-src="{{ data.params.url }}" alt="">
+            <img ng-src="{{ params.url }}" alt="">
         </a>
     </div>
 </div>

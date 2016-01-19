@@ -6,10 +6,6 @@
     width: 100%;
 }
 
-.image-component-extended {
-    text-align: center;
-}
-
 @media (max-width: 900px) {
     .image-component-extended img {
         width: 100%;

@@ -4,7 +4,7 @@
     var componentName = 'imagesComponent';
 
     angular
-        .module('dashboard')
+        .module('components')
         .service(componentName, ImagesComponent);
 
     ImagesComponent.$inject = [];
@@ -27,16 +27,16 @@
                 params: params,
                 states: {
                     'default': {
-                        template: '/demos/simple/components/images.templates.html',
+                        template: 'components/images/images.templates.html',
                         controller: function () {
                             console.log('Open default state');
                         }
                     },
                     'extended': {
-                        template: '/demos/simple/components/images.templates.extended.html'
+                        template: 'components/images/images.templates.extended.html'
                     },
                     'settings': {
-                        template: '/demos/simple/components/images.templates.settings.html',
+                        template: 'components/images/images.templates.settings.html',
                         controller: function () {
                             console.log('Open settings state');
                         }

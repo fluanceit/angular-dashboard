@@ -1,8 +1,24 @@
-<div id="{{ id }}" class="dashboard-container" ng-style="{ 'width': width }">
-    <div id="column{{$index+0}}" class="column" ng-class="{placeholder : !dashboard.sortableDisabled}" ng-repeat="column in grid" ng-style="{ 'max-width': columnsWidth, 'width': columnsWidth, 'height': columnsWidth }">
-        <div class="component" ng-repeat="component in column">
-            <display-component component="component" dashboard="dashboard"></display-component>
+<div id="dashboard-{{ id }}"
+    class="dashboard-container"
+    ng-style="{ 'width': dashboard.options.width }">
+    <div
+        id="column{{$index+0}}"
+        class="dashboard-column"
+        ng-class="{
+            'placeholder' : dashboard.isStateSorting,
+            'shake-effect': dashboard.isStateSorting
+        }"
+        ng-repeat="column in dashboard.grid"
+        ng-style="{ 'max-width': dashboard.columnsWidth, 'width': dashboard.columnsWidth }">
+
+        <div
+            class="component"
+            ng-repeat="component in column">
+            <display-component
+                component="component"
+                dashboard="dashboard"></display-component>
         </div>
+
     </div>
     <div class="clearfix"></div>
 </div>

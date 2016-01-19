@@ -10,7 +10,16 @@ gulp.task('docs:wiredep', function() {
         .pipe(wiredep({
             bowerJson: require('../bower.json'),
             directory: 'bower_components',
-            exclude: [/bootstrap-sass-official/, /bootstrap.js/, /open-sans-fontface/, /foundation/],
+            exclude: [
+                '/bootstrap-sass-official/',
+                '/bootstrap.js/',
+                '/open-sans-fontface/',
+                '/foundation',
+                '/bootstrap/',
+                '/angular-bootstrap/',
+                '/Sortable/knockout-sortable.js',
+                '/Sortable/react-sortable-mixin.js'
+            ]
         }))
         .pipe(gulp.dest('docs/app'));
 });

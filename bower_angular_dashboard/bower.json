@@ -1,0 +1,28 @@
+{
+    "name": "bower-angular-dashboard",
+    "version": "0.0.1",
+    "homepage": "https://github.com/fluanceit/bower-angular-dashboard",
+    "description": "Distribution of dashboard interface for angularjs (1.x) applications.",
+    "main": [
+        "angular-dashboard-fluance.css",
+        "angular-dashboard-fluance.js"
+    ],
+    "moduleType": [
+        "amd"
+    ],
+    "keywords": [
+        "Angular",
+        "Dashboard",
+        "FluanceIT",
+        "Sortable"
+    ],
+    "authors": [
+        "FluanceIT"
+    ],
+    "license": "Apache-2.0",
+    "dependencies": {
+        "jquery": "~2.1.4",
+        "Sortable": "~1.2.1",
+        "angular": "~1.4.4"
+    }
+}

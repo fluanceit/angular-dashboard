@@ -1,16 +1,31 @@
 /* jshint camelcase:false */
 var gulp = require('gulp');
-
 var plug = require('gulp-load-plugins')();
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var htmlify = require('gulp-angular-htmlify');
+var templates = require('gulp-angular-templatecache');
+var minifyHTML = require('gulp-minify-html');
+var del = require('del');
+var base64 = require('gulp-base64-inline');
+var replace = require('gulp-replace');
+var minifyCss = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
+
+
 var log = plug.util.log;
 var env = plug.util.env;
+
 // Our server for dev
 var express = require('express');
 var app = express();
 var browserSync = require('browser-sync');
 var server_port = process.env.PORT || 8001;
+
 // Load docs tasks
 require('require-dir')('./docs');
+
 // Generate a css file from the scss files
 var sass = require('gulp-sass');
 
@@ -18,19 +33,19 @@ var sass = require('gulp-sass');
  * Generate documentation‡
  */
 gulp.task('doc', ['docs:clean'], function() {
-    gulp.start('docs:build');
+    return gulp.start('docs:build');
 });
 
 /**
  * Generate a css file from the scss files
  */
-gulp.task('sass', function () {
-  gulp.src('./src/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./src'));
+gulp.task('sass', function() {
+    gulp.src('./src/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./src'));
 });
 
-/**
+/****************************************************************************************************************
  * Run specs once and exit
  * To start servers and run midway specs as well:
  *    gulp test --startServers
@@ -66,10 +81,61 @@ function startTests(singleRun, done) {
     }
 }
 
-/**
- * serve the dev environment
+
+
+/****************************************************************************************************************
+ * BUILD THE COMPONENT
  */
-gulp.task('serve', ['sass'], function() {
+
+gulp.task('build', ['compile-js', 'compile-css'], function() {
+    return del.sync(['dist/tmp/**']);
+});
+
+gulp.task('compile-css', ['sass'], function() {
+    return gulp.src(['src/*.css'])
+        .pipe(base64(''))
+        .pipe(concat('angular-dashboard-fluance.css'))
+        .pipe(gulp.dest('dist'))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(minifyCss({
+            sourceMap: true
+        }))
+        .pipe(sourcemaps.write('../dist'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('compile-js', ['templatecache'], function() {
+    return gulp.src(['src/*.module.js', 'src/*.js', 'dist/tmp/templates.js'])
+        .pipe(concat('angular-dashboard-fluance.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('../dist'))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('templatecache', function() {
+    return gulp.src(['src/*.html'])
+        .pipe(htmlify())
+        .pipe(minifyHTML({
+            quotes: true
+        }))
+        .pipe(templates('templates.js', {
+            'module': 'dashboard'
+        }))
+        .pipe(gulp.dest('dist/tmp'));
+});
+
+/****************************************************************************************************************
+ * Serve the dev environment
+ */
+gulp.task('serve', ['build','sass'], function() {
     serve({
         mode: 'dev',
         file: 'simple'
@@ -99,7 +165,8 @@ function serve(args) {
     return plug.nodemon(options)
         .on('start', function() {
             startBrowserSync();
-            gulp.watch('./src/**/*.scss', ['sass']);
+            gulp.watch('./src/**/*.scss', ['build']);
+            gulp.watch('./src/**/*.{html,js}', ['build']);
         })
         //.on('change', tasks)
         .on('restart', function() {
@@ -127,7 +194,7 @@ function startBrowserSync() {
         './src/**/*.html',
         './src/**/*.json',
         './src/content/images/**/*.*'
-      ];
+    ];
 
     log('Starting BrowserSync on port ' + server_port);
     browserSync({

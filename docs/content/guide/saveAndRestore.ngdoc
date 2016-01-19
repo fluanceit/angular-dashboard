@@ -1,55 +1,85 @@
 @ngdoc overview
 @name Save and restore
-@priority 110
+@priority 160
 @description
 
 # Save and restore
-## Starting point
-    var dashboard = fluanceDashboard.get('simple-demo');
 
-    dashboard.add(new ImageComponent({
-        url: 'http://myimage.com/image1.png'
-    }), 2);
-    dashboard.add(new ImageComponent({
-        url: 'http://myimage.com/image2.png'
-    }), 1);
-    dashboard.add(new ImageComponent({
-        url: 'http://myimage.com/image3.png'
-    }));
+Main reason to export as a string is being able to save a dashboard layout in a cookie or a storage.
 
-## Save the dashboard
-To save the current dashboard you have to use the function "saveAsString" on the dashboard.
 
-    var savedString = dashboard.saveAsString();
+You can export a dashboard as a String using toString() method :
 
-You will get a String with "JSON.stringify" with the following structure (for this example):
+    var object = fluanceDashboard.get('simple-demo');
+    var backup = object.toString();
 
-    [
-        [{
-            "name": "imagesComponent",
-            "params": {
-                "url": "http://myimage.com/image1.png"
+You can initialise a dashboard from a string using fromString() method :
+
+    var object = fluanceDashboard.get('simple-demo');
+    object.fromString(backup);
+
+## Under the hood
+
+Generated string will contains a list of component, with its parameters to make it possible to recreate from scratch. It also keep in memory positions of each component compare to each other and so for each layout (alias number of columns displayed)
+
+    [{
+        "name": "imagesComponent",
+        "params": {
+            "url": "https://images.unsplash.com/photo-1445251836269-d158eaa028a6?q=80&fm=jpg&w=800&fit=max"
+        },
+        "positions": {
+            # If 2 columns
+            "2": {
+                "column": 0,
+                "position": 1
+            },
+            # If 4 columns
+            "4": {
+                "column": 0,
+                "position": 0
+            },
+            # If 5 columns
+            "5": {
+                "column": 0,
+                "position": 0
             }
-        }, {
-            "name": "imagesComponent",
-            "params": {
-                "url": "http://myimage.com/image2.png"
+        }
+    }, {
+        "name": "imagesComponent",
+        "params": {
+            "url": "https://images.unsplash.com/photo-1439546743462-802cabef8e97?q=80&fm=jpg&w=800&fit=max"
+        },
+        "positions": {
+            "2": {
+                "column": 0,
+                "position": 2
+            },
+            "4": {
+                "column": 2,
+                "position": 0
+            },
+            "5": {
+                "column": 1,
+                "position": 0
             }
-        }],
-        [{
-            "name": "imagesComponent",
-            "params": {
-                "url": "http://myimage.com/image3.png"
+        }
+    }, {
+        "name": "imagesComponent",
+        "params": {
+            "url": "https://images.unsplash.com/photo-1443479579455-1860f114bf77?q=80&fm=jpg&w=800&fit=max"
+        },
+        "positions": {
+            "2": {
+                "column": 0,
+                "position": 0
+            },
+            "4": {
+                "column": 3,
+                "position": 0
+            },
+            "5": {
+                "column": 1,
+                "position": 1
             }
-        }]
-    ]
-
-## Restore the dashboard
-To restore a dashboard you have to use the function "createFromString" on a dashboard. It will parse your String with "JSON.parse".
-
-You have to pass the String which you want to use for restoring the dashboard.
-
-In the following code we will use the String that we saved in the "Save the dashboard" example.
-
-    var dashboardRestore = fluanceDashboard.get('simple-restore-demo');
-    dashboardRestore.createFromString(savedString);
+        }
+    }]

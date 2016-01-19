@@ -1,10 +1,9 @@
-
 <div id="component.id" class="dashboard-component">
     <div
         class="default"
-        ng-include="component.templates.default"
+        ng-include="component.states.default.template"
         ng-if="!dashboard.isExtended && !component.displaySettings">
     </div>
-    <div class="extended" ng-include="component.templates.extended" ng-if="component.isExtended"></div>
-    <div class="settings" ng-include="component.templates.settings" ng-if="component.displaySettings && !dashboard.isExtended"></div>
+    <div class="extended" ng-include="component.states.extended.template" ng-if="component.isExtended"></div>
+    <div class="settings" ng-include="component.states.settings.template" ng-if="component.displaySettings && !dashboard.isExtended"></div>
 </div>

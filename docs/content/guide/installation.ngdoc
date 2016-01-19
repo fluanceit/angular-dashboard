@@ -1,0 +1,38 @@
+@ngdoc overview
+@name Installation
+@priority 100
+@description
+
+# Installation
+
+## Using bower
+
+You can install bower
+
+    $ bower install https://github.com/fluanceit/bower-angular-dashboard.github
+
+You can use wiredep to automatically inject **angular-dashboard-fluance.js** and **angular-dashboard-fluance.css** files.
+
+## Manually
+
+Download latest releases version on our <a href="https://github.com/fluanceit/bower-angular-dashboard/releases">main repository</a>, unzip, copy paste .js and .css files in your project.
+
+Inject them in your HTML code using :
+
+    <html>
+        <head>
+            <!-- CSS -->
+            <link rel="stylesheet" href="angular-dashboard-fluance.css" />
+        </head>
+        <body>
+            <!-- HTML -->
+            <p>Hello world!</p>
+            <!-- Script -->
+            <script src="angular-dashboard-fluance.js"></script>
+            <!-- Inject your components -->
+            <script src="component1.js"></script>
+            <script src="component2.js"></script>
+            <script src="component3.js"></script>
+            ...
+        </body>
+    </html>

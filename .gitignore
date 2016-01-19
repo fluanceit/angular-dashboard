@@ -3,3 +3,5 @@ bower_components
 build_docs
 .tmp
 src/dashboard.styles.css
+build
+dist

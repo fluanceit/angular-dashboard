@@ -2,7 +2,8 @@
 
 var DOCS_OVERWRITELINK = true;
 
-angular.module('docApp', ['ui.bootstrap'])
+angular.module('docApp', ['dashboard', 'components']);
+angular.module('docApp')
 .constant('DOCS_OVERWRITELINK', typeof DOCS_OVERWRITELINK === 'undefined' ? false : DOCS_OVERWRITELINK)
 .provider('DOCS_OVERWRITELINK', function (DOCS_OVERWRITELINK) {
 	return {
