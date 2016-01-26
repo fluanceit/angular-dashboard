@@ -154,9 +154,10 @@
                 instance.sortable = null;
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
-                instance.components.forEach(function (component) {
+                instance.components.forEach(function(component) {
 
-                    var column = 0, position = 0;
+                    var column = 0,
+                        position = 0;
                     var nbColumn = options['columns'];
 
                     // Check if position is define
@@ -180,7 +181,7 @@
                                     }
                                 }
                             }
-                        } else if (options['algo'] === 'random'){
+                        } else if (options['algo'] === 'random') {
                             column = Math.floor(Math.random() * options['columns']);
                         } else {
                             column = 0;
@@ -285,13 +286,13 @@
                 instance.grid[newColumn].splice(evt.newIndex, 0, component);
 
                 // Update old position index
-                instance.grid[oldColumn].forEach(function (component, index) {
+                instance.grid[oldColumn].forEach(function(component, index) {
                     component.positions[nbColumn].column = parseInt(oldColumn);
                     component.positions[nbColumn].position = parseInt(index);
                 });
 
                 // Update new position index
-                instance.grid[newColumn].forEach(function (component, index) {
+                instance.grid[newColumn].forEach(function(component, index) {
                     component.positions[nbColumn].column = parseInt(newColumn);
                     component.positions[nbColumn].position = parseInt(index);
                 });
@@ -316,6 +317,9 @@
                                 draggable: '.component',
                                 disabled: !instance.isStateSorting, // No databinding here, need to be updated
                                 handle: '.sortable-handle',
+                                scroll: true,
+                                scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
+                                scrollSpeed: 10, // px
                                 onAdd: function(evt) {
                                     // Event triggered when add in column
                                     sortAllComponents(evt);
