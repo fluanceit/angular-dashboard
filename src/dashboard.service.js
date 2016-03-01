@@ -103,7 +103,6 @@
                 // Define options shortcut
                 var options = instance.options;
 
-
                 // If is on sorting mode, we stop it
                 if (instance.isStateSorting) {
                     instance.toggleSortable();
@@ -114,14 +113,11 @@
                 //
                 var currentWidth = $('#' + instance.id).parent().width();
 
-                console.log(currentWidth);
-
                 // If screen smaller than expected width, we take size
                 if (options.width !== 'auto' &&
                     options.width < currentWidth) {
                     currentWidth = options.width;
                 }
-                console.log(currentWidth);
 
                 // instance.options.width = currentWidth;
 
@@ -142,7 +138,6 @@
                 }
                 options.columns = numberOfColumnPossible;
 
-                console.log(options.columns);
                 //
                 // Dispatch component in new grid layout.
                 //

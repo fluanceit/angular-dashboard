@@ -21,9 +21,9 @@ Here is a general presentation of the angular-dashboard-fluance project.
         <a class="btn btn-primary btn-lg left" href="#/presentation/components" role="button">Get started</a>
     </div>
     <div class="col s12 m4">
-        <h4>Exemples</h4>
-        <p>You should give a look at some exemples we build for you to see what should your final result looks like.</p>
-        <a class="btn btn-primary btn-lg left" href="#/presentation/exemples" role="button">Get started</a>
+        <h4>Examples</h4>
+        <p>You should give a look at some examples we build for you to see what should your final result looks like.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/examples" role="button">Get started</a>
     </div>
 </div>
 
