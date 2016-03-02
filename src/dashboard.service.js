@@ -122,6 +122,8 @@
                 // instance.options.width = currentWidth;
 
                 var numberOfColumnPossible = parseInt(currentWidth / options.columnsMinWidth);
+                numberOfColumnPossible = (numberOfColumnPossible ? numberOfColumnPossible : 1);
+
                 if (numberOfColumnPossible > maxAllowColumns) {
                     numberOfColumnPossible = maxAllowColumns;
                 }
@@ -137,7 +139,7 @@
                     }
                 }
                 // If numberOfColumnPossible === 0 then 1 is minimim number of possible column
-                options.columns = (numberOfColumnPossible ? numberOfColumnPossible : 1);
+                options.columns = numberOfColumnPossible;
                 //
                 // Dispatch component in new grid layout.
                 //
