@@ -136,8 +136,8 @@
                         instance.columnsWidth = (100 / options.columns) + '%';
                     }
                 }
-                options.columns = numberOfColumnPossible;
-
+                // If numberOfColumnPossible === 0 then 1 is minimim number of possible column
+                options.columns = (numberOfColumnPossible ? numberOfColumnPossible : 1);
                 //
                 // Dispatch component in new grid layout.
                 //
