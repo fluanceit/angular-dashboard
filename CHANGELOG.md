@@ -12,7 +12,7 @@
 ## Breaking Changes
 - None
 
-# 1.0.0 Initial commit - Release the Kraken (2016-03-08)
+# 1.0.0 Release the Kraken (2016-03-08)
 
 ## Features
 - Main directive 'dashboard' to create an instance in DOM.
