@@ -6,9 +6,13 @@ Dashboard interface for angularjs *(+1.4)*.
 
 Full documentation is available at : [http://fluanceit.github.io/angular-dashboard/](http://fluanceit.github.io/angular-dashboard/)
 
-## Dev env
+## Installation
 
-Gulp manage tasks in this project. You can run the following scripts :
+Run `$> npm install` and `$> bower install` to download required dependancies.
+
+## Command line tools
+
+We use Gulp as a task manager. You can run the following scripts :
 
 ```
 // Run local demo
