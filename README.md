@@ -6,6 +6,22 @@ Dashboard interface for angularjs *(+1.4)*.
 
 Full documentation is available at : [http://fluanceit.github.io/angular-dashboard/](http://fluanceit.github.io/angular-dashboard/)
 
+## Dev env
+
+Gulp manage tasks in this project. You can run the following scripts :
+
+```
+// Run local demo
+$> gulp serve --sync
+
+// Build local instance of library
+$> gulp build
+
+// Run local server to edit documentation
+$> gulp docs:serve
+
+```
+
 ## Contribution
 
 1. Fork this repository
