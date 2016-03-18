@@ -15,10 +15,10 @@
 # 1.0.0 Release the Kraken (2016-03-08)
 
 ## Features
-- Main directive 'dashboard' to create an instance in DOM.
-- DashboardFactory to access programmatically a dashboard instance.
-- Define a generic component structure with three panels: 'default', 'extended', and 'settings'.
-- Reorder component using drag and drop.
-- Import and Export as a String to easily save in browser storage.
-- Responsive structure, with adaptive number of columns and independant stored composition.
-- Some basic styling for reorder effect and extended view.
+- **directive**: Main directive 'dashboard' to create an instance in DOM
+- **factory**: DashboardFactory to access programmatically a dashboard instance
+- **components**: Define a generic component structure with three panels: 'default', 'extended', and 'settings'
+- **customized layout**: Reorder component using drag and drop
+- **import export**: as a String to easily save in browser storage
+- **responsive design**: Responsive structure, with adaptive number of columns and independant stored composition
+- **basic styling**: Some basic styling for reorder effect and extended view
