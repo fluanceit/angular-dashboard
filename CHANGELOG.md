@@ -12,6 +12,11 @@
 ## Breaking Changes
 - None
 
+# 1.0.1 (2016-04-19)
+
+## Features
+- Add support for AngularJS 1.5
+
 # 1.0.0 Release the Kraken (2016-03-08)
 
 ## Features
