@@ -22,19 +22,25 @@
     "tests"
   ],
   "dependencies": {
-    "angular-animate": "~1.4.4",
+    "angular-animate": "~1.5.5",
     "jquery": "~2.1.4",
     "Sortable": "~1.2.1",
-    "angular": "~1.4.4",
+    "angular": "~1.5.5",
     "angular-bootstrap": "~0.13.3",
     "bootstrap": "~3.3.5",
     "google-code-prettify": "~1.0.4",
-    "Materialize": "materialize#~0.97.3"
+    "Materialize": "materialize#~0.97.3",
+    "angular-mocks": "=1.5.5"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.4",
+    "angular-mocks": "~1.5.5",
     "bootstrap": "~3.3.5",
     "google-code-prettify": "~1.0.4",
     "angular-bootstrap": "~0.13.3"
+  },
+  "resolutions": {
+    "angular": "~1.5.5",
+    "angular-animate": "~1.5.5",
+    "angular-mocks": "=1.5.5"
   }
 }
