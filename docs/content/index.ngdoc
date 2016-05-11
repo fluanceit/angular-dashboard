@@ -13,8 +13,8 @@
         </div>
         <div class="col s12 center-align">
             <p class="center">
-                <a class="btn btn-primary btn-lg" href="presentation" role="button">What is it about ?</a>
-                <a class="btn btn-primary btn-lg" href="guide" role="button">How to use ?</a>
+                <a class="btn btn-primary btn-lg" href="presentation" role="button">What is it about?</a>
+                <a class="btn btn-primary btn-lg" href="guide" role="button">How to use?</a>
                 <a class="btn btn-primary btn-lg" href="presentation/examples" role="button">Examples</a>
             </p>
         </div>

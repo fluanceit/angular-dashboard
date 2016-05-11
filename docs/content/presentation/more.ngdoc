@@ -1,11 +1,11 @@
 @ngdoc overview
-@name what's next ?
+@name Next steps
 @priority 130
 @description
 
-# what is next
+# Next steps
 
-If you need a feature which is not describe here, you can submit a request on our <a href="https://github.com/fluanceit/angular-dashboard/issues">github issue tracker</a>.
+If you need a feature which is not described here, you can submit a request on our <a href="https://github.com/fluanceit/angular-dashboard/issues">github issue tracker</a>.
 
 Even if this project has only been contributed and build for one of our company project, we are very open to external contribution.<br/>
-Feel free to get in touch with us, we would love to here from you !
+Feel free to get in touch with us, we would love to hear from you !

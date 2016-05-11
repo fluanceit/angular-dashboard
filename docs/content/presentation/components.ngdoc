@@ -42,8 +42,8 @@ Here is an image component which use our the three views.
 
 <div class="row">
     <div class="col s12">
-        <h4>Live examples</h4>
-        <p>Since now you know all about our features and about components, you should give a look at some examples we build for you to see what should your final result looks like.</p>
-        <a class="btn btn-primary btn-lg left" href="#/presentation/examples" role="button">See some live examples</a>
+        <h4>Live example</h4>
+        <p>Since now you know all about our features and about components, you should give a look at the example we built for you to see what your final result should look like.</p>
+        <a class="btn btn-primary btn-lg left" href="#/presentation/examples" role="button">See a live example</a>
     </div>
 </div>

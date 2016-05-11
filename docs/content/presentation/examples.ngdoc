@@ -1,6 +1,17 @@
 @ngdoc overview
-@name Examples
+@name Example
 @priority 120
 @description
 
-# Some examples
+# An example
+
+<div style="border: 1px solid grey;">
+	<div ng-controller="exemple2Controller">
+		<div style="text-align: center; margin-top: 30px;">
+			<button type="button" class="btn btn-default navbar-btn" ng-click="toggleSortable()">
+		        <span class="glyphicon glyphicon-random" aria-hidden="true">Toggle sort</span>
+		    </button>
+	    </div>
+	    <dashboard id="components-simple-exemple2" data-width="auto" data-columns="4" data-columns-min-width="250"></dashboard>
+	</div>
+</div>
