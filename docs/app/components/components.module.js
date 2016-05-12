@@ -36,6 +36,9 @@
 
         $scope.toggleSortable = function() {
             dashboard.toggleSortable();
+            if (!dashboard.isStateSorting) {
+                Materialize.toast('New dashboard layout can be saved: ' + dashboard.toString(), 4000);
+            }
         };
 
         if (dashboard.nbComponent === 0) {

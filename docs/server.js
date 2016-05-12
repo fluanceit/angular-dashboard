@@ -38,6 +38,7 @@ gulp.task('docs:serve', ['dgeni', 'docs:wiredep', 'module', 'build'], function()
     browserSyncInit(['.tmp', 'docs/app'], ['docs/app/*.html', 'docs/app/src/**/*']);
     gulp.watch([
         'docs/config/templates/**/*',
+        'docs/app/components/**/*',
         'docs/content/**/*',
         'src/**/*'
         ], ['dgeni',

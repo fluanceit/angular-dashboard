@@ -10,10 +10,10 @@
 First step, define in your html a directive.
 
     <dashboard id="simple-demo" data-width="auto" data-columns="6" data-columns-min-width="250">
-        <!-- Transcule template from directive -->
+        <!-- Transclude template from directive -->
     </dashboard>
 
-### Attributs
+### Attributes
 
 <table class="striped responsive-table">
     <thead>
@@ -28,7 +28,7 @@ First step, define in your html a directive.
         <tr>
             <td>**id**</td>
             <td>``String``</td>
-            <td>Name to identify a dashboard and access using dashboardFactory.get(id).</td>
+            <td>Name to identify a dashboard and access using ``dashboardFactory.get(id)``.</td>
         </tr>
         <tr>
             <td>**data-width**</td>
@@ -38,12 +38,12 @@ First step, define in your html a directive.
         <tr>
             <td>**data-columns**</td>
             <td>``Integer``</td>
-            <td>Number of columns.</td>
+            <td>Number of columns at 100% of your definied ``data-width``.</td>
         </tr>
         <tr>
             <td>**data-columns-min-width**</td>
             <td>``Integer``</td>
-            <td>Minimum width in pixel before to remove a column and redefine layout.</td>
+            <td>Minimum width in pixel before to remove a column and rearranging the layout.</td>
         </tr>
     </tbody>
 </table>
@@ -62,9 +62,13 @@ Then you can use JS in a controller to populate your dashboard and edit settings
                 'https://images.unsplash.com/photo-1443926818681-717d074a57af?q=80&fm=jpg&w=800&fit=max'
             ];
             images.forEach(function(url) {
+                //**
                 fluanceDashboard.get('simple-demo').add(new ImageComponent({
                     'url': url
                 }));
+                //**
             });
         }
     ]);
+
+We add three times the same component by using a loop over a list of images. The important code here is the one between the ``//**``, which adds a new component to the dashboard. Here you could add your own component &#128525;

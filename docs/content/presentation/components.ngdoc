@@ -17,24 +17,13 @@ However, you can find here a set of already made component with working example 
 
 A component can have three states to display its content.
 
-<div class="row">
-    <div class="col s12 m4">
-        <h4>Default</h4>
-        <p></p>
-    </div>
-    <div class="col s12 m4">
-        <h4>Extended</h4>
-        <p></p>
-    </div>
-    <div class="col s12 m4">
-        <h4>Settings</h4>
-        <p></p>
-    </div>
-</div>
+**Default**, Extended and Settings
 
-### Simple example
+Of course, if your component does not need any settings, you can save yourself the time and not implement the view (same goes for extended).
 
-Here is an image component which use our the three views.
+### Simple demo of one component
+
+Here are three image components which feature our the three views (orange buttons below).
 
 <div ng-controller="exempleController">
     <dashboard id="components-simple-exemple" data-width="auto" data-columns="3" data-columns-min-width="250"></dashboard>
@@ -43,7 +32,7 @@ Here is an image component which use our the three views.
 <div class="row">
     <div class="col s12">
         <h4>Live example</h4>
-        <p>Since now you know all about our features and about components, you should give a look at the example we built for you to see what your final result should look like.</p>
+        <p>Since now you know all about our features and about components, you should give a look at the example we built for you to see what your final result can look like.</p>
         <a class="btn btn-primary btn-lg left" href="#/presentation/examples" role="button">See a live example</a>
     </div>
 </div>

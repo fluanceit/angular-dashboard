@@ -5,12 +5,15 @@
 
 # An example
 
+Play with the windows size to see the dashboard rearrange!
+
 <div style="border: 1px solid grey;">
 	<div ng-controller="exemple2Controller">
 		<div style="text-align: center; margin-top: 30px;">
 			<button type="button" class="btn btn-default navbar-btn" ng-click="toggleSortable()">
 		        <span class="glyphicon glyphicon-random" aria-hidden="true">Toggle sort</span>
 		    </button>
+		    <span style="display: block; margin-top: 15px;">Note: As of <a href="https://github.com/fluanceit/angular-dashboard/issues/60">Issue #60</a> our dashboard does not currently show the smoke effect in newest browser versions. We look into this issue asap. You can still move components to new places, but the smoke effect showing a ghost component while moving is broken.</span>
 	    </div>
 	    <dashboard id="components-simple-exemple2" data-width="auto" data-columns="4" data-columns-min-width="250"></dashboard>
 	</div>

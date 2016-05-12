@@ -7,9 +7,9 @@
 
 ## Create your own
 
-You have to create your own components to feet with your needs.
+You have to create your own components to fit with your needs.
 
-You have to define a service which return a defined structure.
+You have to define a service which return the **following structure**.
 
 <table class="striped responsive-table">
     <thead>
@@ -43,7 +43,7 @@ You have to define a service which return a defined structure.
             <td>**scope**</td>
             <td>``Object``</td>
             <td>Used to communicate values from your component to your template.<br/>You need
-            to explicitely call scope in your html like {{ scope.variable }}.</td>
+            to explicitely call scope in your html like <pre><code> {{ scope.variable }} </code></pre></td>
         </tr>
         <tr>
             <td>**states**</td>
@@ -63,7 +63,7 @@ states: {
     </tbody>
 </table>
 
-Here is a complete exemple.
+Here is a complete example.
 
     var componentName = 'imagesComponent';
 
@@ -75,10 +75,6 @@ Here is a complete exemple.
         return function(params) {
             // Write here your code.
             var scope = {};
-
-            scope.alert = function () {
-                alert('Hi!');
-            };
 
             return {
                 name: componentName,
@@ -124,7 +120,7 @@ Then to add a component in a dashbaord, use the add method :
 
 Templates are completely free of any restriction. However, this library provide a set of variables and function you can use.
 
-### variables
+### Variables
 
 
 <table class="striped responsive-table">
@@ -145,12 +141,12 @@ Templates are completely free of any restriction. However, this library provide 
         <tr>
             <td>**scope** (optional)</td>
             <td>``Object``</td>
-            <td>Contain all variable describe in scope value of your component.</td>
+            <td>Contains all variables described in scope value of your component.</td>
         </tr>
         <tr>
             <td>**dashboard**</td>
             <td>``Object``</td>
-            <td>Access dashboard object.</td>
+            <td>Access dashboard object the component resides in.</td>
         </tr>
     </tbody>
 </table>
@@ -169,19 +165,19 @@ Templates are completely free of any restriction. However, this library provide 
 
     <tbody>
         <tr>
-            <td>**openExtended()**</td>
+            <td>``openExtended()``</td>
             <td>Change state to go in extended mode. Only from default.</td>
         </tr>
         <tr>
-            <td>**closeExtended()**</td>
+            <td>``closeExtended()``</td>
             <td>Go back from extended mode to default.</td>
         </tr>
         <tr>
-            <td>**openSettings()**</td>
+            <td>``openSettings()``</td>
             <td>Change state to go in settings mode. Only from default.</td>
         </tr>
         <tr>
-            <td>**closeSettings()**</td>
+            <td>``closeSettings()``</td>
             <td>Go back from settings mode to default.</td>
         </tr>
     </tbody>
