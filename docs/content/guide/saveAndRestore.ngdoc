@@ -5,7 +5,7 @@
 
 # Save and restore
 
-Main reason to export as a string is being able to save a dashboard layout in a cookie or a storage.
+Main reason to export as a string is being able to save a dashboard layout in a cookie or a persistent storage.
 
 
 You can export a dashboard as a String using toString() method :
@@ -18,9 +18,11 @@ You can initialise a dashboard from a string using fromString() method :
     var object = fluanceDashboard.get('simple-demo');
     object.fromString(backup);
 
+**Note:** Make sure, that if you import a dashboard, that you offer all components the dashboard needs. So if you saved a dashboard with an ``ImageComponent`` in it, make sure the loading instance also has this ``ImageComponent`` available.
+
 ## Under the hood
 
-Generated string will contains a list of component, with its parameters to make it possible to recreate from scratch. It also keep in memory positions of each component compare to each other and so for each layout (alias number of columns displayed)
+The generated string contains a list of components, with their parameters to make it possible to recreate the dashboard from scratch. It also keeps in memory the positions of each component relatively and so for each layout (a.k.a. number of columns displayed).
 
     [{
         "name": "imagesComponent",

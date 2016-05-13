@@ -5,7 +5,7 @@
 
 # Reorganize
 
-You can activate a re-organize state to let your users re-organize it.
+You can activate a rearrange state to let your users rearrange it.
 
     var dashboard = fluanceDashboard.get('simple-demo');
     dashboard.toggleSortable();
@@ -13,6 +13,12 @@ You can activate a re-organize state to let your users re-organize it.
 You can test is dashboard is sorting :
 
     if (dashboard.isStateSorting) {
-        // execute code if sorting mode is activated
+        // execute code if sorting mode is enabled
+    }
+
+Or maybe when sorting is finished?
+
+    if (!dashboard.isStateSorting) {
+        // execute code if sorting mode is disabled
     }
 

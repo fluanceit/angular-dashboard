@@ -7,11 +7,11 @@
 
 ## Using bower
 
-You can install bower
+You can install it with bower
 
     $ bower install https://github.com/fluanceit/bower-angular-dashboard.github
 
-You can use wiredep to automatically inject **angular-dashboard-fluance.js** and **angular-dashboard-fluance.css** files.
+You can use wiredep to automatically inject **angular-dashboard-fluance.js** and **angular-dashboard-fluance.css** files into your project.
 
 ## Manually
 

@@ -10,6 +10,7 @@ gulp.task('docs:wiredep', function() {
         .pipe(wiredep({
             bowerJson: require('../bower.json'),
             directory: 'bower_components',
+            devDependencies: true, // default: false
             exclude: [
                 '/bootstrap-sass-official/',
                 '/bootstrap.js/',

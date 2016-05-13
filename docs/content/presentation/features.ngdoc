@@ -7,25 +7,25 @@
 
 # Features
 
-We created this project to easily replicate those functionnality and not having to recode them.
+We created this project to easily replicate the functionnality below and not having to recode them.
 
 <div class="row">
     <div class="col s12 m6">
         <h4>Fix column design</h4>
         <i class="material-icons grey-text" style="font-size: 190px;">view_column</i> <i class="material-icons grey-text" style="font-size: 190px;">view_quilt</i>
-        <p> Dashboard can only get a fixed number of columns. It is not possible for a component to be in two different columns.</p>
+        <p> Dashboard can only get a fixed number of columns. However, it is not possible for a component to be in two different columns.</p>
     </div>
     <div class="col s12 m6">
         <h4>Responsive layout</h4>
         <p><i class="material-icons grey-text " style="font-size: 60px;">smartphone</i> <i class="material-icons grey-text " style="font-size: 60px;">tablet</i> <i class="material-icons grey-text " style="font-size: 60px;">computer</i></p>
-        <p>When defining a number of columns, you also specify a minimum width in pixels. If a column is less than this vlaue, last columns will be removed and components will be dispatch in other one.</p>
+        <p>When defining a number of columns, you also specify a minimum width in pixels. If a column is less than this value, the columns themselves wrap and arrange in a new layout (most probably by going below the previous column).</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col s12">
         <h4>Sortable</h4>
-        <p><i class="material-icons grey-text" style="font-size: 60px;">drag_drop</i></p>
+        <p><i class="material-icons grey-text" style="font-size: 60px;">swap_vert</i></p>
         <p>Components can be sorted using drag and drop interaction.</p>
     </div>
 </div>
@@ -33,14 +33,14 @@ We created this project to easily replicate those functionnality and not having 
 <div class="row">
     <div class="col s12">
         <h4>Export/Import as String</h4>
-        <p>Export or Import a dashboard as a String. This feature also include components parameters to load them.</p>
+        <p>Export or Import a dashboard using a String. This feature also include components parameters to load them.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col s12">
         <h4>Modular components</h4>
-        <p>This dashboard library has been build to really easily customize and create your own elements. They need to be define specifically for your case.</p>
+        <p>This dashboard library has been build to really easily customize and create your own elements. They can be defined specifically for your use case.</p>
         <a class="btn btn-primary btn-lg left" href="#/presentation/components" role="button">Read about components</a>
     </div>
 </div>

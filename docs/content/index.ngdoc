@@ -9,12 +9,12 @@
         <div class="col s12 center-align">
             <i class="material-icons grey-text" style="font-size: 240px;">dashboard</i>
             <h1>Angular-dashboard-fluance </h1>
-            <p>An angular library to implement your own component in a generic dashboard pattern.</p>
+            <p>An angular library to implement your own components in a generic dashboard pattern.</p>
         </div>
         <div class="col s12 center-align">
             <p class="center">
-                <a class="btn btn-primary btn-lg" href="presentation" role="button">What is it about ?</a>
-                <a class="btn btn-primary btn-lg" href="guide" role="button">How to use ?</a>
+                <a class="btn btn-primary btn-lg" href="presentation" role="button">What is it about?</a>
+                <a class="btn btn-primary btn-lg" href="guide" role="button">How to use?</a>
                 <a class="btn btn-primary btn-lg" href="presentation/examples" role="button">Examples</a>
             </p>
         </div>
