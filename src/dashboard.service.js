@@ -119,8 +119,6 @@
                     currentWidth = options.width;
                 }
 
-                // instance.options.width = currentWidth;
-
                 var numberOfColumnPossible = parseInt(currentWidth / options.columnsMinWidth);
                 numberOfColumnPossible = (numberOfColumnPossible ? numberOfColumnPossible : 1);
 
@@ -163,7 +161,7 @@
                         position = component.positions[nbColumn]['position'];
                     } else {
 
-                        // We use algo to define component position
+                        // define component position
                         if (options['algo'] === 'shorter') {
                             // For each column starting by the end, we check size
                             for (var i = options['columns'] - 1; i >= 0; i--) {
@@ -172,7 +170,7 @@
                                     column = i;
                                     instance.grid[i] = [];
                                 } else {
-                                    // Si it exist
+                                    // If it exist
                                     if (instance.grid[i].length <= instance.grid[column].length) {
                                         column = i;
                                     }
@@ -189,7 +187,7 @@
                             position = instance.grid[column].length;
                         }
 
-                        // We save new position in our
+                        // Save new position in layout.
                         if (!component.positions) {
                             component.positions = {};
                         }
@@ -202,7 +200,7 @@
                     if (!instance.grid[column]) {
                         instance.grid[column] = [];
                     }
-                    // Add compoment in grid to defined position
+                    // Add compoment in grid to defined position.
                     instance.grid[column].splice(position, 0, component);
 
                 });
@@ -216,7 +214,7 @@
                 Object.keys(newOptions).forEach(function(key) {
                     if (newOptions[key]) {
                         instance.options[key] = newOptions[key];
-                        // If edit columns, we save as maxAllowColumns
+                        // If edit columns, we save as maxAllowColumns.
                         if (key === 'columns') {
                             maxAllowColumns = newOptions[key];
                         }
@@ -274,7 +272,6 @@
                 instance.grid[oldColumn].splice(evt.oldIndex, 1);
 
                 // Update component position
-                //
                 var nbColumn = instance.options['columns'];
 
                 component.positions[nbColumn].column = newColumn;
@@ -349,6 +346,9 @@
                 }
             }
 
+            /**
+             * Change dashboard state to extended.
+             */
             function enableExtended() {
                 instance.isExtended = true;
             }
