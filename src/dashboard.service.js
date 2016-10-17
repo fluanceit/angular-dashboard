@@ -343,6 +343,13 @@
                     instance.sortable.forEach(function(sort) {
                         sort.option('disabled', !instance.isStateSorting);
                     });
+
+                    // update 'isSorting' state of all components
+                    instance.components.forEach(function(component) {
+                        if(component.states.default.refreshStateSorting) {
+                            component.states.default.refreshStateSorting(instance.isStateSorting);
+                        }
+                    });
                 }
             }
 

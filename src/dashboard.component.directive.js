@@ -25,6 +25,11 @@
 
                     if (scope.component.states.default && scope.component.states.default.controller) {
                         scope.component.states.default.controller();
+
+                        // update state 'isSorting' for the component
+                        if(scope.component.states.default.refreshStateSorting) {
+                            scope.component.states.default.refreshStateSorting(scope.dashboard.isStateSorting);
+                        }
                     }
 
                     scope.openExtended = function(event) {
