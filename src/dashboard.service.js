@@ -369,6 +369,11 @@
                 instance.components.forEach(function(component) {
                     if (component.isExtended) {
                         component.isExtended = false;
+
+                        // change component state to 'default'
+                        if (component.states.default && component.states.default.controller) {
+                            component.states.default.controller();
+                        }
                     }
                 });
             }
