@@ -64,6 +64,7 @@
                 setOptions: setOptions,
                 toString: toString,
                 fromString: fromString,
+                hasComponent: hasComponent,
                 enableExtended: enableExtended,
                 disableExtended: disableExtended,
                 refresh: refresh,
@@ -246,17 +247,53 @@
             /**
              * Create a dashboard from a String
              * @param  {String} dashboardString Dashboard as a String
+             * @returns {Boolean|String} true, if all components were added to the Dashboard or Dashboard as String with only the added components
              */
             function fromString(dashboardString) {
-                var componentList = JSON.parse(dashboardString);
-                var nbColumns = 0;
+                var componentList = JSON.parse(dashboardString),
+                    componentNotFound = false,
+                    newComponentList = [];
 
                 componentList.forEach(function(component) {
                     if ($injector.has(component.name)) {
                         var componentObject = add(new $injector.get(component.name)(component.params));
                         componentObject.positions = component.positions;
+                        newComponentList.push(component);
+                    }
+                    else {
+                        componentNotFound = true;
                     }
                 });
+
+                return componentNotFound ? JSON.stringify(newComponentList) : true;
+            }
+
+            /**
+             * Verifies if component is part of the Dashboard
+             * @param {Object} component component to verify
+             * @returns {boolean} true, if component is part of the Dashboard; false, otherwise
+             */
+            function hasComponent(component) {
+                var _component;
+
+                for(var i=0; i<instance.components.length; i++) {
+                    _component = instance.components[i];
+                    // same name
+                    if(component.name === _component.name) {
+                        if(component.params && _component.params) {
+                            // same name and same params
+                            if(_.isMatch(component.params, _component.params)) {
+                                return true;
+                            }
+                        }
+                        // same name (no params)
+                        else {
+                            return true;
+                        }
+                    }
+                };
+                // not found
+                return false;
             }
 
             // Apply drag/drop to angular MVC (alias grid object)
