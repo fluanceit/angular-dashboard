@@ -23,13 +23,18 @@
                         scope.scope = scope.component.scope;
                     }
 
-                    if (scope.component.states.default && scope.component.states.default.controller) {
+                    // call controller for state = 'default'
+                    if (!scope.component.isExtended && scope.component.states.default && scope.component.states.default.controller) {
                         scope.component.states.default.controller();
 
                         // update state 'isSorting' for the component
                         if(scope.component.states.default.refreshStateSorting) {
                             scope.component.states.default.refreshStateSorting(scope.dashboard.isStateSorting);
                         }
+                    }
+                    // call controller for state = 'extended'
+                    else if (scope.component.isExtended && scope.component.states.extended && scope.component.states.extended.controller) {
+                        scope.component.states.extended.controller();
                     }
 
                     scope.openExtended = function(event) {
