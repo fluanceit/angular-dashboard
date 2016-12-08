@@ -251,21 +251,29 @@
              */
             function fromString(dashboardString) {
                 var componentList = JSON.parse(dashboardString),
-                    componentNotFound = false,
-                    newComponentList = [];
+                    componentNotAdded = false,
+                    newComponentList = [],
+                    componentObject;
 
                 componentList.forEach(function(component) {
+                    // component is known by injector
                     if ($injector.has(component.name)) {
-                        var componentObject = add(new $injector.get(component.name)(component.params));
-                        componentObject.positions = component.positions;
-                        newComponentList.push(component);
+                        try {
+                            componentObject = add(new $injector.get(component.name)(component.params));
+                            componentObject.positions = component.positions;
+                            newComponentList.push(component);
+                        }
+                        // error creating/injecting component
+                        catch(error) {
+                            componentNotAdded = true;
+                        }
                     }
                     else {
-                        componentNotFound = true;
+                        componentNotAdded = true;
                     }
                 });
 
-                return componentNotFound ? JSON.stringify(newComponentList) : true;
+                return componentNotAdded ? JSON.stringify(newComponentList) : true;
             }
 
             /**
