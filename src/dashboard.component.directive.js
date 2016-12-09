@@ -23,8 +23,8 @@
                         scope.scope = scope.component.scope;
                     }
 
-                    // call controller for state = 'default'
-                    if (!scope.component.isExtended && scope.component.states.default && scope.component.states.default.controller) {
+                    // call controller for state = 'default' (don't call if dashboard is in sorting state)
+                    if (!scope.dashboard.isStateSorting && !scope.component.isExtended && scope.component.states.default && scope.component.states.default.controller) {
                         scope.component.states.default.controller();
 
                         // update state 'isSorting' for the component
