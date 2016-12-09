@@ -306,36 +306,49 @@
 
             // Apply drag/drop to angular MVC (alias grid object)
             function sortAllComponents(evt) {
+                var oldColumn,
+                    newColumn,
+                    component,
+                    nbColumn;
 
                 // Identify columns
-                var oldColumn = evt.from.id.replace('column', '');
-                var newColumn = evt.to.id.replace('column', '');
+                oldColumn = evt.from.id.replace('column', '');
+                newColumn = evt.to.id.replace('column', '');
 
                 // Get component as tmp
-                var component = instance.grid[oldColumn][evt.oldIndex];
-                // Remove old component
-                instance.grid[oldColumn].splice(evt.oldIndex, 1);
+                component = instance.grid[oldColumn][evt.oldIndex];
 
-                // Update component position
-                var nbColumn = instance.options['columns'];
+                // sort component only if it is found:
+                // - update the component position in the current grid configuration (total number of columns)
+                if(component) {
+                    // Remove component from dragged location (old column)
+                    instance.grid[oldColumn].splice(evt.oldIndex, 1);
 
-                component.positions[nbColumn].column = newColumn;
+                    // Get total number of columns in the grid
+                    nbColumn = instance.options['columns'];
 
-                // Add component to new location
-                instance.grid[newColumn].splice(evt.newIndex, 0, component);
+                    // Update component position to dropped column (new)
+                    component.positions[nbColumn].column = newColumn;
 
-                // Update old position index
-                instance.grid[oldColumn].forEach(function(component, index) {
-                    component.positions[nbColumn].column = parseInt(oldColumn);
-                    component.positions[nbColumn].position = parseInt(index);
-                });
+                    // Add component to dropped location (new column)
+                    instance.grid[newColumn].splice(evt.newIndex, 0, component);
 
-                // Update new position index
-                instance.grid[newColumn].forEach(function(component, index) {
-                    component.positions[nbColumn].column = parseInt(newColumn);
-                    component.positions[nbColumn].position = parseInt(index);
-                });
+                    // Update old position indexes:
+                    // - component was removed from array, update the position of all components in this array
+                    instance.grid[oldColumn].forEach(function (component, index) {
+                        // column remains the same; update only the component position
+                        //component.positions[nbColumn].column = parseInt(oldColumn);
+                        component.positions[nbColumn].position = parseInt(index);
+                    });
 
+                    // Update new position index:
+                    // - component was added into array, update the position of all components in this array
+                    instance.grid[newColumn].forEach(function (component, index) {
+                        // column remains the same; update only the component position
+                        //component.positions[nbColumn].column = parseInt(newColumn);
+                        component.positions[nbColumn].position = parseInt(index);
+                    });
+                }
             }
 
             /**
