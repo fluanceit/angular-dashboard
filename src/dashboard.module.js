@@ -11,5 +11,5 @@
      * Main module to display angular dashboard fluance.
      *
      **/
-    angular.module('dashboard', []);
+    angular.module('dashboard', ['ng-sortable']);
 })();

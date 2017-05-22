@@ -48,7 +48,7 @@
                     'width': 'auto',
                     // Number of columns in dashboard
                     'columns': '2',
-                    // Min widht of columns.
+                    // Min width of columns.
                     'columnsMinWidth': null,
                     // Enable/disable sorting
                     'sortable': true,
@@ -68,15 +68,16 @@
                 enableExtended: enableExtended,
                 disableExtended: disableExtended,
                 refresh: refresh,
-                toggleSortable: toggleSortable
+                toggleSortable: toggleSortable,
+                sortAllComponents: sortAllComponents
             };
 
             var instance = DEFAULT_DASHBOARD;
-
             var lastNumberColumns, maxAllowColumns;
 
             return instance;
 
+            // ---------------------------------------------------------------------------
 
             /**
              * Add a component in array
@@ -147,7 +148,6 @@
                     instance.grid[i] = [];
                 }
 
-                instance.sortable = null;
                 // For each component, we define its position and inject it in our grid object.
                 // Grid is displayed in DOM by dashboard.directive.js
                 instance.components.forEach(function(component) {
@@ -308,82 +308,30 @@
             function sortAllComponents(evt) {
                 var oldColumn,
                     newColumn,
-                    component,
                     nbColumn;
 
                 // Identify columns
-                oldColumn = evt.from.id.replace('column', '');
-                newColumn = evt.to.id.replace('column', '');
+                oldColumn = evt.originalEvent.from.id.replace('column', '');
+                newColumn = evt.originalEvent.to.id.replace('column', '');
 
-                // Get component as tmp
-                component = instance.grid[oldColumn][evt.oldIndex];
+                // -- update the component position in the current grid configuration (total number of columns) --
 
-                // sort component only if it is found:
-                // - update the component position in the current grid configuration (total number of columns)
-                if(component) {
-                    // Remove component from dragged location (old column)
-                    instance.grid[oldColumn].splice(evt.oldIndex, 1);
+                // Get total number of columns in the grid
+                nbColumn = instance.options['columns'];
 
-                    // Get total number of columns in the grid
-                    nbColumn = instance.options['columns'];
+                // Update old (FROM) position indexes:
+                // - component was removed from array, update the position of all components in this array
+                instance.grid[oldColumn].forEach(function (component, index) {
+                    // column remains the same; update only the component position
+                    component.positions[nbColumn].position = parseInt(index);
+                });
 
-                    // Update component position to dropped column (new)
-                    component.positions[nbColumn].column = newColumn;
-
-                    // Add component to dropped location (new column)
-                    instance.grid[newColumn].splice(evt.newIndex, 0, component);
-
-                    // Update old position indexes:
-                    // - component was removed from array, update the position of all components in this array
-                    instance.grid[oldColumn].forEach(function (component, index) {
-                        // column remains the same; update only the component position
-                        //component.positions[nbColumn].column = parseInt(oldColumn);
-                        component.positions[nbColumn].position = parseInt(index);
-                    });
-
-                    // Update new position index:
-                    // - component was added into array, update the position of all components in this array
-                    instance.grid[newColumn].forEach(function (component, index) {
-                        // column remains the same; update only the component position
-                        //component.positions[nbColumn].column = parseInt(newColumn);
-                        component.positions[nbColumn].position = parseInt(index);
-                    });
-                }
-            }
-
-            /**
-             * Apply Sortable to HTML and make it draggable/droppable
-             */
-            function makeItSortable() {
-
-                // If columns have already been initialize
-                if (!instance.sortable) {
-                    instance.sortable = [];
-
-                    // apply sortable on each column.
-                    for (var i = 0; i < instance.grid.length; i++) {
-
-                        instance.sortable.push(
-                            Sortable.create(document.getElementById('column' + i), {
-                                group: instance.id,
-                                draggable: '.component',
-                                disabled: !instance.isStateSorting, // No databinding here, need to be updated
-                                handle: '.sortable-handle',
-                                scroll: true,
-                                scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
-                                scrollSpeed: 10, // px
-                                onAdd: function(evt) {
-                                    // Event triggered when add in column
-                                    sortAllComponents(evt);
-                                },
-                                onUpdate: function(evt) {
-                                    // event triggered when column is changed
-                                    sortAllComponents(evt);
-                                }
-                            })
-                        );
-                    }
-                }
+                // Update new (TO) position index:
+                // - component was added into array, update the position of all components in this array
+                instance.grid[newColumn].forEach(function (component, index) {
+                    component.positions[nbColumn].column = parseInt(newColumn);
+                    component.positions[nbColumn].position = parseInt(index);
+                });
             }
 
             /**
@@ -394,13 +342,8 @@
                 if (!instance.options['sortable']) {
                     console.log('This dashboard does not allow sorting (see options configuration).');
                 } else {
-                    makeItSortable();
                     // Toggle sorting state
                     instance.isStateSorting = !instance.isStateSorting;
-                    // Change disable option for each column
-                    instance.sortable.forEach(function(sort) {
-                        sort.option('disabled', !instance.isStateSorting);
-                    });
 
                     // update 'isSorting' state of all components
                     instance.components.forEach(function(component) {

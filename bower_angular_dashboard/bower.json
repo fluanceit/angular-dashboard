@@ -1,6 +1,6 @@
 {
     "name": "bower-angular-dashboard",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "homepage": "https://github.com/fluanceit/bower-angular-dashboard",
     "description": "Distribution of dashboard interface for angularjs (1.x) applications.",
     "main": [
