@@ -22,7 +22,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "jquery": "~2.1.4",
-        "Sortable": "~1.2.1",
+        "Sortable": "~1.5.1",
         "angular": "~1.5.5"
     }
 }
