@@ -56,6 +56,33 @@
                             }, 150);
                         }
                     }, true);
+
+                    // Sortable configuration
+                    scope.sortableConfig = {
+                        group: {
+                            name: scope.dashboard.id,
+                            pull: function(to, from, dragEl, evt) {
+                                if(evt.type === 'dragstart') {
+                                    return false;
+                                }
+                                return true;
+                            }
+                        },
+                        draggable: '.component',
+                        disabled: scope.dashboard.isStateSorting, // No databinding here, need to be updated
+                        handle: '.sortable-handle',
+                        scroll: true,
+                        scrollSensitivity: 30, // px, how near the mouse must be to an edge to start scrolling.
+                        scrollSpeed: 10, // px
+                        onAdd: function(evt) {
+                            // Event triggered when add in column
+                            scope.dashboard.sortAllComponents(evt);
+                        },
+                        onUpdate: function(evt) {
+                            // event triggered when column is changed
+                            scope.dashboard.sortAllComponents(evt);
+                        }
+                    }
                 }]
             };
         }]);
