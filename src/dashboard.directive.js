@@ -62,7 +62,8 @@
                         group: {
                             name: scope.dashboard.id,
                             pull: function(to, from, dragEl, evt) {
-                                if(evt.type === 'dragstart') {
+				// for mobile (evt.pointerType == "touch" => in Sortable.js:_triggerDragStart()), evt.type = undefined. Use 'to' and 'from'
+				if((evt.type === 'dragstart') || (!evt.type && (to === from))) {
                                     return false;
                                 }
                                 return true;
