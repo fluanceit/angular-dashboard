@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "*** deploy.sh ***"
 github_user=`git remote -v | grep push | sed -e 's/^.*github.com\///g' -e 's/\/.*$//g'`
-if [ "$github_user" == "fluanceit" ]; then
+if [ "$github_user" -eq "fluanceit" ] || [ "$github_user" -eq "devfluance" ]; then
 	echo "*** Deploying docs ***"
     cd build_docs
     git init
