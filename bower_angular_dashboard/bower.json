@@ -1,6 +1,6 @@
 {
     "name": "bower-angular-dashboard",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "homepage": "https://github.com/fluanceit/bower-angular-dashboard",
     "description": "Distribution of dashboard interface for angularjs (1.x) applications.",
     "main": [
@@ -22,7 +22,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "jquery": "~2.1.4",
-        "Sortable": "~1.5.1",
+        "Sortable": "~1.6.0",
         "angular": "~1.5.5",
         "angular-legacy-sortable": "https://github.com/SortableJS/angular-legacy-sortablejs.git"
     }
